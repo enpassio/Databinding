@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DatabindingWithRecyclerView</string>
+    <string name="cont_desc_product_image">Product image</string>
 </resources>

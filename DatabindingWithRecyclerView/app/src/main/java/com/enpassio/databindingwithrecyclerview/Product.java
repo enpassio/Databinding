@@ -16,6 +16,18 @@ public class Product implements Parcelable {
         productImage = imageId;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public int getProductPrice() {
+        return productPrice;
+    }
+
+    public int getProductImage() {
+        return productImage;
+    }
+
     private Product(Parcel in) {
         productId = in.readInt();
         productName = in.readString();

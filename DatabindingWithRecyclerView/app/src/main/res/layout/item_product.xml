@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="product"
+            type="com.enpassio.databindingwithrecyclerview.Product"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_size_minimum"
+        android:layout_marginLeft="@dimen/margin_size_medium"
+        android:orientation="horizontal"
+        tools:ignore="RtlHardcoded">
+
+        <ImageView
+            android:id="@+id/product_photo"
+            android:layout_width="@dimen/list_item_image_size"
+            android:layout_height="@dimen/list_item_image_size"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_size_medium"
+            android:layout_marginTop="@dimen/margin_size_minimum"
+            android:layout_marginRight="@dimen/margin_size_minimum"
+            android:layout_marginBottom="@dimen/margin_size_minimum"
+            android:scaleType="centerInside"
+            tools:src="@drawable/paper"
+            android:src="@{product.productImage}"
+            android:contentDescription="@string/cont_desc_product_image"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_medium"
+                android:layout_marginTop="@dimen/margin_size_minimum"
+                android:layout_marginRight="@dimen/margin_size_medium"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/text_size_heading"
+                tools:text="Paper"
+                android:text="@{product.productName}"/>
+
+            <TextView
+                android:id="@+id/product_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_medium"
+                android:layout_marginRight="@dimen/margin_size_medium"
+                android:layout_marginBottom="@dimen/margin_size_medium"
+                android:textSize="@dimen/text_size_medium"
+                android:text="@{String.valueOf(product.productPrice)}"
+                tools:text="10$" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>
