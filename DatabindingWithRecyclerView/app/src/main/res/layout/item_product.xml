@@ -6,6 +6,9 @@
         <variable
             name="product"
             type="com.enpassio.databindingwithrecyclerview.Product"/>
+        <variable
+            name="productItemClick"
+            type="com.enpassio.databindingwithrecyclerview.ProductAdapter.ProductItemClickListener"/>
     </data>
 
     <LinearLayout
@@ -14,6 +17,7 @@
         android:layout_margin="@dimen/margin_size_minimum"
         android:layout_marginLeft="@dimen/margin_size_medium"
         android:orientation="horizontal"
+        android:onClick="@{() ->  productItemClick.onProductItemClicked(product)}"
         tools:ignore="RtlHardcoded">
 
         <ImageView

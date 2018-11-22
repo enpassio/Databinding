@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private List<Product> mProductList;
+    private ProductItemClickListener mListener;
 
-    ProductAdapter(List<Product> productList) {
+    ProductAdapter(List<Product> productList, ProductItemClickListener listener) {
         mProductList =productList;
+        mListener = listener;
     }
 
     @NonNull
@@ -25,6 +27,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         ItemProductBinding binding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()), R.layout.item_product,
                         parent, false);
+        binding.setProductItemClick(mListener);
         return new ProductViewHolder(binding);
     }
 
@@ -47,5 +50,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    public interface ProductItemClickListener {
+        void onProductItemClicked(Product product);
     }
 }
