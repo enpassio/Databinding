@@ -6,9 +6,12 @@
         <variable
             name="product"
             type="com.enpassio.databindingwithrecyclerview.Product"/>
+
         <variable
             name="productItemClick"
             type="com.enpassio.databindingwithrecyclerview.ProductAdapter.ProductItemClickListener"/>
+
+        <import type="com.enpassio.databindingwithrecyclerview.DatabindingUtils"/>
     </data>
 
     <LinearLayout
@@ -59,7 +62,7 @@
                 android:layout_marginRight="@dimen/margin_size_medium"
                 android:layout_marginBottom="@dimen/margin_size_medium"
                 android:textSize="@dimen/text_size_medium"
-                android:text="@{String.valueOf(product.productPrice)}"
+                android:text="@{DatabindingUtils.addCurrencySign(product.productPrice)}"
                 tools:text="10$" />
 
         </LinearLayout>

@@ -7,6 +7,8 @@
         <variable
             name="product"
             type="com.enpassio.databindingwithrecyclerview.Product"/>
+
+        <import type="com.enpassio.databindingwithrecyclerview.DatabindingUtils"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -18,7 +20,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="300dp"
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -85,7 +87,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_size_medium"
                     tools:text="3$"
-                    android:text="@{String.valueOf(product.productPrice)}"/>
+                    android:text="@{DatabindingUtils.addCurrencySign(product.productPrice)}"/>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
