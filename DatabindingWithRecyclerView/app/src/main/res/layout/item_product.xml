@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- We will be passing a Product object named 'product' and
+        we will call its fields to populate our layout -->
+        <variable
+            name="product"
+            type="com.enpassio.databindingwithrecyclerview.model.Product"/>
+
+        <!-- We will be passing a ProductItemClickListener object called
+         'productItemClick' and we will use this for managing list item clicks-->
+        <variable
+            name="productItemClick"
+            type="com.enpassio.databindingwithrecyclerview.ui.ProductAdapter.ProductItemClickListener"/>
+
+        <!-- We are importing this class here, so that we can use a helper method located in this class -->
+        <import type="com.enpassio.databindingwithrecyclerview.utils.DatabindingUtils"/>
+    </data>
+
+    <!-- We will be attaching the productItemClick to the parent layout
+     so that it will work whereever we click on the list item-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_size_minimum"
+        android:layout_marginLeft="@dimen/margin_size_medium"
+        android:orientation="horizontal"
+        android:onClick="@{() ->  productItemClick.onProductItemClicked(product)}"
+        tools:ignore="RtlHardcoded">
+
+        <!-- Image resource id cannot be directly assigned to default android:src.
+          Here we are using a custom binding adapter for android:src attribute.-->
+        <ImageView
+            android:id="@+id/product_photo"
+            android:layout_width="@dimen/list_item_image_size"
+            android:layout_height="@dimen/list_item_image_size"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_size_medium"
+            android:layout_marginTop="@dimen/margin_size_minimum"
+            android:layout_marginRight="@dimen/margin_size_minimum"
+            android:layout_marginBottom="@dimen/margin_size_minimum"
+            android:scaleType="centerInside"
+            tools:src="@drawable/paper"
+            android:src="@{product.productImage}"
+            android:contentDescription="@string/cont_desc_product_image"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- We call the productName field of the product object
+            and set it to product_name textView.-->
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_medium"
+                android:layout_marginTop="@dimen/margin_size_minimum"
+                android:layout_marginRight="@dimen/margin_size_medium"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/text_size_heading"
+                tools:text="Paper"
+                android:text="@{product.productName}"/>
+
+            <!-- We call the productPrice field of the product object
+            and with the help of a helper method from DatabindingUtils class
+            that we imported above, we add a currency sign to the price-->
+            <TextView
+                android:id="@+id/product_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_medium"
+                android:layout_marginRight="@dimen/margin_size_medium"
+                android:layout_marginBottom="@dimen/margin_size_medium"
+                android:textSize="@dimen/text_size_medium"
+                android:text="@{DatabindingUtils.addCurrencySign(product.productPrice)}"
+                tools:text="10$" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>
