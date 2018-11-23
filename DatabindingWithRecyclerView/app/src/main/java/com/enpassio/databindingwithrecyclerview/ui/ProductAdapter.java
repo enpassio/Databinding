@@ -1,9 +1,11 @@
-package com.enpassio.databindingwithrecyclerview;
+package com.enpassio.databindingwithrecyclerview.ui;
 
 import androidx.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.enpassio.databindingwithrecyclerview.model.Product;
+import com.enpassio.databindingwithrecyclerview.R;
 import com.enpassio.databindingwithrecyclerview.databinding.ItemProductBinding;
 
 import java.util.List;
@@ -13,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private List<Product> mProductList;
-    private ProductItemClickListener mListener;
+    private final List<Product> mProductList;
+    private final ProductItemClickListener mListener;
 
     ProductAdapter(List<Product> productList, ProductItemClickListener listener) {
         mProductList =productList;
@@ -27,18 +29,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         ItemProductBinding binding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()), R.layout.item_product,
                         parent, false);
+        //Pass an item click listener to each item layout.
         binding.setProductItemClick(mListener);
         return new ProductViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        //For each item, corresponding product object is passed to the binding
         holder.binding.setProduct(mProductList.get(position));
+        //This is to force bindings to execute right away
         holder.binding.executePendingBindings();
     }
 
     @Override
     public int getItemCount() {
+        //If list is null, return 0, otherwise return the size of the list
         return mProductList == null ? 0 : mProductList.size();
     }
 

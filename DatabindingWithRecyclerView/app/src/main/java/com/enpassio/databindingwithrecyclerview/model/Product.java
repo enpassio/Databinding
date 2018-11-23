@@ -1,21 +1,20 @@
-package com.enpassio.databindingwithrecyclerview;
+package com.enpassio.databindingwithrecyclerview.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Product implements Parcelable {
-    private int productId;
-    private String productName;
-    private int productPrice;
-    private int productImage;
+    private final String productName;
+    private final int productPrice;
+    private final int productImage;
 
-    Product(int id, String name, int price, int imageId){
-        productId = id;
+    public Product(String name, int price, int imageId){
         productName = name;
         productPrice = price;
         productImage = imageId;
     }
 
+    //Databinding need this getters to get the fields we declared in xml layout
     public String getProductName() {
         return productName;
     }
@@ -28,8 +27,9 @@ public class Product implements Parcelable {
         return productImage;
     }
 
+    /*Implementing Parcelable is needed for passing the Product object from
+    ProductListFragment to DetailsFragment. This is not related to Databinding. */
     private Product(Parcel in) {
-        productId = in.readInt();
         productName = in.readString();
         productPrice = in.readInt();
         productImage = in.readInt();
@@ -42,7 +42,6 @@ public class Product implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(productId);
         dest.writeString(productName);
         dest.writeInt(productPrice);
         dest.writeInt(productImage);

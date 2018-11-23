@@ -4,18 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <!-- We will be passing a Product object named 'product' and
+        we will call its fields to populate our layout -->
         <variable
             name="product"
-            type="com.enpassio.databindingwithrecyclerview.Product"/>
+            type="com.enpassio.databindingwithrecyclerview.model.Product"/>
 
-        <import type="com.enpassio.databindingwithrecyclerview.DatabindingUtils"/>
+        <!-- We are importing this class here, so that we can use a helper method located in this class -->
+        <import type="com.enpassio.databindingwithrecyclerview.utils.DatabindingUtils"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".MainActivity">
+        tools:context=".ui.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
@@ -34,6 +37,8 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:toolbarId="@+id/toolbar">
 
+                <!-- Image resource id cannot be directly assigned to default android:src.
+                Here we are using a custom binding adapter for android:src attribute.-->
                 <ImageView
                     android:id="@+id/product_image"
                     android:layout_width="match_parent"
@@ -70,6 +75,8 @@
                 android:layout_margin="@dimen/margin_size_medium"
                 android:orientation="vertical">
 
+                <!-- We call the productName field of the product object
+                and set it to product_name textView.-->
                 <TextView
                     android:id="@+id/product_name"
                     android:layout_width="wrap_content"
@@ -81,6 +88,9 @@
                     tools:text="Paper"
                     android:text="@{product.productName}"/>
 
+                <!-- We call the productPrice field of the product object
+                and with the help of a helper method from DatabindingUtils class
+                that we imported above, we add a currency sign to the price-->
                 <TextView
                     android:id="@+id/product_price"
                     android:layout_width="wrap_content"

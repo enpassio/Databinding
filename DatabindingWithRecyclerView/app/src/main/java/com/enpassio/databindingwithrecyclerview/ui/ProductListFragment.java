@@ -1,10 +1,13 @@
-package com.enpassio.databindingwithrecyclerview;
+package com.enpassio.databindingwithrecyclerview.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.enpassio.databindingwithrecyclerview.model.Product;
+import com.enpassio.databindingwithrecyclerview.utils.ProductDataSource;
+import com.enpassio.databindingwithrecyclerview.R;
 import com.enpassio.databindingwithrecyclerview.databinding.FragmentListBinding;
 
 import androidx.annotation.NonNull;
@@ -26,7 +29,7 @@ public class ProductListFragment extends Fragment implements ProductAdapter.Prod
         FragmentListBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_list, container, false);
 
-        //Set recycler view
+        //Set recycler view, with the hardcoded list that can be found in ProductDataSource.class
         ProductAdapter mAdapter = new ProductAdapter(ProductDataSource.getProductData(), this);
         binding.productsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         binding.productsRecyclerView.setAdapter(mAdapter);
@@ -36,6 +39,7 @@ public class ProductListFragment extends Fragment implements ProductAdapter.Prod
 
     @Override
     public void onProductItemClicked(Product product) {
+        //When a product item is clicked, pass the product object to the detailsFragment.
         DetailsFragment frag = new DetailsFragment();
         Bundle args = new Bundle();
         args.putParcelable(PRODUCT_KEY, product);
