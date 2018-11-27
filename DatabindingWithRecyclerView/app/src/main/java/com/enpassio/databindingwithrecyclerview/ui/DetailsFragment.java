@@ -1,6 +1,10 @@
 package com.enpassio.databindingwithrecyclerview.ui;
 
+
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,11 +14,7 @@ import com.enpassio.databindingwithrecyclerview.model.Product;
 import com.enpassio.databindingwithrecyclerview.R;
 import com.enpassio.databindingwithrecyclerview.databinding.FragmentDetailsBinding;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
+
 
 import static com.enpassio.databindingwithrecyclerview.ui.ProductListFragment.PRODUCT_KEY;
 
@@ -23,9 +23,8 @@ public class DetailsFragment extends Fragment {
     public DetailsFragment() {
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
         FragmentDetailsBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_details, container, false);
 

@@ -1,8 +1,8 @@
 package com.enpassio.databindingwithrecyclerview.utils;
 
+import android.databinding.BindingAdapter;
 import android.widget.ImageView;
 
-import androidx.databinding.BindingAdapter;
 
 public class BindingAdapters {
 

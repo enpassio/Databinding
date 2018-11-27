@@ -1,6 +1,8 @@
 package com.enpassio.databindingwithrecyclerview.ui;
 
-import androidx.databinding.DataBindingUtil;
+import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,9 +11,6 @@ import com.enpassio.databindingwithrecyclerview.R;
 import com.enpassio.databindingwithrecyclerview.databinding.ItemProductBinding;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
@@ -23,9 +22,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         mListener = listener;
     }
 
-    @NonNull
+
     @Override
-    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         ItemProductBinding binding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()), R.layout.item_product,
                         parent, false);
