@@ -6,4 +6,5 @@
     <dimen name="margin_size_minimum">4dp</dimen>
     <dimen name="list_item_image_size">64dp</dimen>
     <dimen name="image_dropdown_height">300dp</dimen>
+    <dimen name="margin_size_max">30dp</dimen>
 </resources>

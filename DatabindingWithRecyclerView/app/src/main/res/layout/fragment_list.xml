@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <android.support.design.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:context=".ui.MainActivity">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <androidx.appcompat.widget.Toolbar
+            <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
@@ -27,16 +27,16 @@
                 app:title="@string/app_name"
                 app:titleTextColor="@android:color/white"/>
 
-        </com.google.android.material.appbar.AppBarLayout>
+        </android.support.design.widget.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <android.support.v7.widget.RecyclerView
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/products_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 </layout>
