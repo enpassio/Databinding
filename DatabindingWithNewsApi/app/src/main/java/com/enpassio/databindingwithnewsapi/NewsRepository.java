@@ -1,5 +1,7 @@
 package com.enpassio.databindingwithnewsapi;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -8,9 +10,11 @@ import java.util.List;
 public class NewsRepository {
 
     private static NewsRepository sInstance;
+    private MutableLiveData<List<Article>> articles = new MutableLiveData<>();
     private static final String TAG = "NewsRepository";
 
     private NewsRepository() {
+        Log.d(TAG, "New instance created");
         new NewsAsyncTask().execute();
     }
 
@@ -23,7 +27,11 @@ public class NewsRepository {
         return sInstance;
     }
 
-    private static class NewsAsyncTask extends AsyncTask<Void, Void, List<Article>> {
+    public LiveData<List<Article>> getArticles() {
+        return articles;
+    }
+
+    private class NewsAsyncTask extends AsyncTask<Void, Void, List<Article>> {
 
         @Override
         protected List<Article> doInBackground(Void... voids) {
@@ -31,10 +39,9 @@ public class NewsRepository {
         }
 
         @Override
-        protected void onPostExecute(List<Article> articles) {
-            for (Article article : articles) {
-                Log.d(TAG, "article: " + article.toString());
-            }
+        protected void onPostExecute(List<Article> list) {
+            articles.setValue(list);
+            Log.d(TAG, "list size: " + list.size());
         }
     }
 
