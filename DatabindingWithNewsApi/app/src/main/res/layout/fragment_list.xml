@@ -34,7 +34,7 @@
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/products_recycler_view"
+                android:id="@+id/news_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
@@ -53,7 +53,8 @@
                     android:layout_height="@dimen/no_network_image_size"
                     android:layout_above="@id/tv_no_network"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/no_connection" />
+                    android:src="@drawable/no_connection"
+                    android:contentDescription="@string/cd_no_connection_image" />
 
                 <TextView
                     android:id="@+id/tv_no_network"

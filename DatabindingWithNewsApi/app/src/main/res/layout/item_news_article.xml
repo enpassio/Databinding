@@ -10,11 +10,10 @@
             type="com.enpassio.databindingwithnewsapi.Article" />
 
         <!-- We will be passing a ArticleItemClickListener object called
-         'articleItemClick' and we will use this for managing list item clicks
+         'articleItemClick' and we will use this for managing list item clicks -->
         <variable
-            name="productItemClick"
-            type=""/>
-        -->
+            name="articleItemClick"
+            type="com.enpassio.databindingwithnewsapi.NewsAdapter.ArticleClickListener" />
 
     </data>
 
@@ -31,7 +30,7 @@
         <!-- Image resource id cannot be directly assigned to default android:src.
           Here we are using a custom binding adapter for android:src attribute.-->
         <ImageView
-            android:id="@+id/product_photo"
+            android:id="@+id/thumbnail_image"
             android:layout_width="@dimen/list_item_image_size"
             android:layout_height="@dimen/list_item_image_size"
             android:layout_gravity="center"
@@ -40,7 +39,9 @@
             android:layout_marginRight="@dimen/margin_size_minimum"
             android:layout_marginBottom="@dimen/margin_size_minimum"
             android:scaleType="centerInside"
-            tools:src="@drawable/no_connection" />
+            tools:src="@drawable/no_connection"
+            android:src="@{article.imageUrl}"
+            android:contentDescription="@string/cd_article_image" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +59,8 @@
                 android:layout_marginRight="@dimen/margin_size_medium"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/text_size_heading"
-                tools:text="Article title" />
+                tools:text="Article title"
+                android:text="@{article.title}" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,8 +78,8 @@
                     android:layout_marginRight="@dimen/margin_size_medium"
                     android:layout_weight="3"
                     android:textSize="@dimen/text_size_medium"
-                    tools:text="Author name" />
-
+                    tools:text="Author name"
+                    android:text="@{article.author}" />
 
                 <!-- We call the publishingDate field of the article object
             and set it to article__publishing_date textView: android:text="@{article.publishingDate}"-->
@@ -90,20 +92,22 @@
                     android:layout_marginRight="@dimen/margin_size_medium"
                     android:layout_weight="2"
                     android:textSize="@dimen/text_size_small"
-                    tools:text="2018.12.24" />
+                    tools:text="2018.12.24"
+                    android:text="@{article.publishingDate}" />
             </LinearLayout>
 
             <!-- We call the author field of the article object
         and set it to article_author textView: android:text="@{article.author}"-->
             <TextView
-                android:id="@+id/article_description"
+                android:id="@+id/article_source"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_size_medium"
                 android:layout_marginRight="@dimen/margin_size_medium"
                 android:layout_marginBottom="@dimen/text_size_small"
                 android:textSize="@dimen/text_size_small"
-                tools:text="Article description" />
+                tools:text="Article source"
+                android:text="@{article.source}" />
 
         </LinearLayout>
     </LinearLayout>
