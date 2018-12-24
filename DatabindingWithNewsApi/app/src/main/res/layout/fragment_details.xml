@@ -10,6 +10,8 @@
             name="article"
             type="com.enpassio.databindingwithnewsapi.Article" />
 
+        <import type="com.enpassio.databindingwithnewsapi.BindingUtils" />
+
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -47,7 +49,8 @@
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     tools:src="@drawable/no_connection"
-                    android:src="@{article.imageUrl}" />
+                    android:src="@{article.imageUrl}"
+                    android:contentDescription="@string/cd_image_chosen_article" />
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -83,7 +86,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_size_medium"
-                        android:layout_weight="2"
+                        android:layout_weight="4"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/text_size_heading"
                         tools:text="Author name"
@@ -96,12 +99,25 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_size_medium"
-                        android:layout_weight="1"
-                        android:gravity="end"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical|end"
+                        android:text="@{BindingUtils.splitDateAndTime(article.publishingDate)[0]}"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/text_size_medium"
-                        tools:text="2018.12.24"
-                        android:text="@{article.publishingDate}" />
+                        tools:text="2018.12.24" />
+
+                    <TextView
+                        android:id="@+id/article_publishing_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_marginLeft="@dimen/margin_size_medium"
+                        android:layout_marginBottom="@dimen/margin_size_medium"
+                        tools:text="08:30"
+                        android:text="@{BindingUtils.splitDateAndTime(article.publishingDate)[1]}" />
 
                 </LinearLayout>
 

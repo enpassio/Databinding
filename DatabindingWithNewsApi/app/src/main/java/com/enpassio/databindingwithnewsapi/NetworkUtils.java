@@ -16,8 +16,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public final class NetworkUtils {
 
@@ -41,11 +45,8 @@ public final class NetworkUtils {
             Log.e(TAG, "Problem making the HTTP request.", e);
         }
 
-        // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
-        List<Article> articles = extractFeatureFromJson(jsonResponse);
-
-        // Return the list of {@link Earthquake}s
-        return articles;
+        // Return the list of {@link Article}s
+        return extractFeatureFromJson(jsonResponse);
     }
 
     /**
@@ -102,7 +103,7 @@ public final class NetworkUtils {
                 Log.e(TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(TAG, "Problem retrieving the news JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -163,7 +164,7 @@ public final class NetworkUtils {
             // For each article in the articlesArray, create an {@link Article} object
             for (int i = 0; i < articlesArray.length(); i++) {
 
-                // Get a single article at position i within the list of earthquakes
+                // Get a single article at position i within the list of articles
                 JSONObject currentArticle = articlesArray.getJSONObject(i);
 
                 //Retrieve the field that you need from this json object:
@@ -181,7 +182,7 @@ public final class NetworkUtils {
                 String imageUrl = currentArticle.getString(Constants.IMAGE_URL);
 
                 //Extract the value for the key "publishedAt"
-                String publishingTime = currentArticle.getString(Constants.PUBLISHING_TIME);
+                String publishingTime = formatDateTime(currentArticle.getString(Constants.PUBLISHING_TIME));
 
                 //Extract the value for the key "content"
                 String articleBody = currentArticle.getString(Constants.ARTICLE_BODY);
@@ -209,4 +210,22 @@ public final class NetworkUtils {
         // Return the list of articles
         return articles;
     }
+
+    private static String formatDateTime(String dateTime) {
+        TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        sourceFormat.setTimeZone(timeZone);
+        Date parsedTime = null;
+        try {
+            parsedTime = sourceFormat.parse(dateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        TimeZone tz = TimeZone.getDefault();
+        SimpleDateFormat destFormat = new SimpleDateFormat("LLL dd, yyyy'T'HH:mm");
+        destFormat.setTimeZone(tz);
+        return destFormat.format(parsedTime);
+    }
+
 }

@@ -15,6 +15,8 @@
             name="articleItemClick"
             type="com.enpassio.databindingwithnewsapi.NewsAdapter.ArticleClickListener" />
 
+        <import type="com.enpassio.databindingwithnewsapi.BindingUtils" />
+
     </data>
 
     <!-- We will be attaching the articleItemClick to the parent layout
@@ -76,7 +78,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|bottom"
                     android:layout_marginLeft="@dimen/margin_size_medium"
-                    android:layout_marginRight="@dimen/margin_size_medium"
                     android:layout_weight="3"
                     android:textSize="@dimen/text_size_medium"
                     tools:text="Author name"
@@ -94,7 +95,18 @@
                     android:layout_weight="2"
                     android:textSize="@dimen/text_size_small"
                     tools:text="2018.12.24"
-                    android:text="@{article.publishingDate}" />
+                    android:text="@{BindingUtils.splitDateAndTime(article.publishingDate)[0]}" />
+
+                <TextView
+                    android:id="@+id/article_publishing_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="end|bottom"
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_marginRight="@dimen/margin_size_medium"
+                    tools:text="08:30"
+                    android:text="@{BindingUtils.splitDateAndTime(article.publishingDate)[1]}" />
             </LinearLayout>
 
             <!-- We call the author field of the article object

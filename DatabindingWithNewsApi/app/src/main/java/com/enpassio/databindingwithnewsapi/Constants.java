@@ -1,5 +1,9 @@
 package com.enpassio.databindingwithnewsapi;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 final class Constants {
 
     private Constants() {
@@ -28,9 +32,16 @@ final class Constants {
 
     //Sample values used for building a url, which can be changed
     static final String BASE_URL = "https://newsapi.org/v2/";
-    static final String SAMPLE_QUERY = "android";
-    //TODO: change this for the date of last week or so, perhaps
-    static final String SAMPLE_DATE = "2018-12-01";
+    static final String SAMPLE_QUERY = "technology";
+    static final String SAMPLE_DATE = getTheDateOfLastWeek();
     static final String SAMPLE_PAGE_SIZE = "10";
     static final String ENGLISH = "en";
+
+    private static String getTheDateOfLastWeek() {
+        //Get today's date and then go back 7 days
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -7);
+        SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return newFormat.format(new Date(calendar.getTimeInMillis()));
+    }
 }
