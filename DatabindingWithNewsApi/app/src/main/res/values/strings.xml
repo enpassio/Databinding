@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">DatabindingWithNewsApi</string>
+    <string name="app_name">Databinding With News Api</string>
+    <string name="no_network_connection">No network connection.\nPlease, check your internet connection\nand try again.</string>
 </resources>
