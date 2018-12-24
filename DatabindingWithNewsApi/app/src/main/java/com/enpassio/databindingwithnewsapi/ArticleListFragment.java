@@ -41,7 +41,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        mViewModel.getArticleList().observe(getActivity(), articles -> {
+        mViewModel.getArticleList().observe(this, articles -> {
             if (!articles.isEmpty()) {
                 mAdapter.setArticleList(articles);
                 Log.d(TAG, "articles are received. list size: " + articles.size());
@@ -51,6 +51,10 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
 
     @Override
     public void onArticleClicked(Article chosenArticle) {
-        //TODO:
+        mViewModel.setChosenArticle(chosenArticle);
+        getFragmentManager().beginTransaction()
+                .replace(R.id.fragment_holder, new ArticleDetailsFragment())
+                .addToBackStack(null)
+                .commit();
     }
 }
