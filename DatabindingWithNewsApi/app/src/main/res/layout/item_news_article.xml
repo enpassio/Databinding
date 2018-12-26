@@ -7,15 +7,15 @@
         we will call its fields to populate our layout -->
         <variable
             name="article"
-            type="com.enpassio.databindingwithnewsapi.Article" />
+            type="com.enpassio.databindingwithnewsapi.model.Article" />
 
         <!-- We will be passing a ArticleItemClickListener object called
          'articleItemClick' and we will use this for managing list item clicks -->
         <variable
             name="articleItemClick"
-            type="com.enpassio.databindingwithnewsapi.NewsAdapter.ArticleClickListener" />
+            type="com.enpassio.databindingwithnewsapi.ui.NewsAdapter.ArticleClickListener" />
 
-        <import type="com.enpassio.databindingwithnewsapi.BindingUtils" />
+        <import type="com.enpassio.databindingwithnewsapi.utils.BindingUtils" />
 
     </data>
 

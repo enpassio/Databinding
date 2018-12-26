@@ -1,4 +1,4 @@
-package com.enpassio.databindingwithnewsapi;
+package com.enpassio.databindingwithnewsapi.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
@@ -12,7 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.enpassio.databindingwithnewsapi.R;
 import com.enpassio.databindingwithnewsapi.databinding.FragmentDetailsBinding;
+import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel;
 
 public class ArticleDetailsFragment extends Fragment {
 

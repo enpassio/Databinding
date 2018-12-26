@@ -1,4 +1,4 @@
-package com.enpassio.databindingwithnewsapi;
+package com.enpassio.databindingwithnewsapi.ui;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.enpassio.databindingwithnewsapi.R;
 import com.enpassio.databindingwithnewsapi.databinding.ItemNewsArticleBinding;
+import com.enpassio.databindingwithnewsapi.model.Article;
 
 import java.util.List;
 
@@ -16,11 +18,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     private List<Article> mArticleList;
     private final ArticleClickListener mListener;
 
-    public NewsAdapter(ArticleClickListener listener) {
+    NewsAdapter(ArticleClickListener listener) {
         mListener = listener;
     }
 
-    public void setArticleList(List<Article> articleList) {
+    void setArticleList(List<Article> articleList) {
         mArticleList = articleList;
         notifyDataSetChanged();
     }

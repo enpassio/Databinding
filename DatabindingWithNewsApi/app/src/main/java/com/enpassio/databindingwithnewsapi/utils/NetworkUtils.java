@@ -1,8 +1,10 @@
-package com.enpassio.databindingwithnewsapi;
+package com.enpassio.databindingwithnewsapi.utils;
 
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.enpassio.databindingwithnewsapi.model.Article;
 
 import org.json.JSONArray;
 import org.json.JSONException;

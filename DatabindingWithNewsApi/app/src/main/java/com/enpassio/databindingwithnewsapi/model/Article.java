@@ -1,4 +1,4 @@
-package com.enpassio.databindingwithnewsapi;
+package com.enpassio.databindingwithnewsapi.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

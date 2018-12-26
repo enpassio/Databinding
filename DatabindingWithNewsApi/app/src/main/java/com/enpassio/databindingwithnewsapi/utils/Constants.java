@@ -1,4 +1,6 @@
-package com.enpassio.databindingwithnewsapi;
+package com.enpassio.databindingwithnewsapi.utils;
+
+import com.enpassio.databindingwithnewsapi.BuildConfig;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

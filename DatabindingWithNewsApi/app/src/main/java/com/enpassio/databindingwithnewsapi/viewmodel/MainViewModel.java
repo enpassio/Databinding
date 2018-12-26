@@ -1,8 +1,11 @@
-package com.enpassio.databindingwithnewsapi;
+package com.enpassio.databindingwithnewsapi.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+
+import com.enpassio.databindingwithnewsapi.model.Article;
+import com.enpassio.databindingwithnewsapi.repository.NewsRepository;
 
 import java.util.List;
 

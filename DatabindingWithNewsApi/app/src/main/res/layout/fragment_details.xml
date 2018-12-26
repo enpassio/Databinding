@@ -8,9 +8,9 @@
         we will call its fields to populate our layout -->
         <variable
             name="article"
-            type="com.enpassio.databindingwithnewsapi.Article" />
+            type="com.enpassio.databindingwithnewsapi.model.Article" />
 
-        <import type="com.enpassio.databindingwithnewsapi.BindingUtils" />
+        <import type="com.enpassio.databindingwithnewsapi.utils.BindingUtils" />
 
     </data>
 

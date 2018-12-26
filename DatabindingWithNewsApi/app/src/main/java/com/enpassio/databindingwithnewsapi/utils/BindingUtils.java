@@ -1,8 +1,10 @@
-package com.enpassio.databindingwithnewsapi;
+package com.enpassio.databindingwithnewsapi.utils;
 
 import android.databinding.BindingAdapter;
 import android.text.TextUtils;
 import android.widget.ImageView;
+
+import com.enpassio.databindingwithnewsapi.R;
 
 public final class BindingUtils {
 
