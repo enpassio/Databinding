@@ -4,4 +4,5 @@
     <string name="cd_article_image">Image of the article</string>
     <string name="cd_no_connection_image">No connection image</string>
     <string name="cd_image_chosen_article">Image of the chosen article</string>
+    <string name="retry">Retry</string>
 </resources>
