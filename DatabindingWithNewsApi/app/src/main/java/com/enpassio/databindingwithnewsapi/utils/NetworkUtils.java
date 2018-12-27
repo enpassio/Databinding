@@ -57,11 +57,9 @@ public final class NetworkUtils {
 
     private static URL buildUrl() {
         Uri uri = Uri.parse(Constants.BASE_URL).buildUpon()
-                .appendPath(Constants.EVERYTHING_ENDPOINT)
-                .appendQueryParameter(Constants.QUERY_PARAM, Constants.SAMPLE_QUERY)
-                .appendQueryParameter(Constants.FROM_DATE_PARAM, Constants.SAMPLE_DATE)
-                .appendQueryParameter(Constants.LANGUAGE_PARAM, Constants.ENGLISH)
-                .appendQueryParameter(Constants.SORT_BY_PARAM, Constants.PUBLISHING_TIME)
+                .appendPath(Constants.ENDPOINT)
+                .appendQueryParameter(Constants.CATEGORY, Constants.SAMPLE_CATEGORY)
+                .appendQueryParameter(Constants.COUNTRY, Constants.SAMPLE_COUNTRY)
                 .appendQueryParameter(Constants.PAGE_SIZE_PARAM, Constants.SAMPLE_PAGE_SIZE)
                 .appendQueryParameter(Constants.NEWS_API_KEY, Constants.NEWS_API_VALUE)
                 .build();
