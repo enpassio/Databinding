@@ -19,4 +19,10 @@ public final class BindingUtils {
     public static String[] splitDateAndTime(String dateAndTime) {
         return TextUtils.isEmpty(dateAndTime) ? null : dateAndTime.split("T");
     }
+
+    public static String formatAuthor(String author) {
+        /*If author is null or contains the text null(which seems to be the case here),
+        return an empty string, otherwise add "By" to the author*/
+        return (author == null || author.equals("null")) ? "" : "By " + author;
+    }
 }

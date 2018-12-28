@@ -11,6 +11,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,8 +39,11 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_list, container, false);
 
-        //Set recycler view, with the hardcoded list that can be found in ProductDataSource.class
+        //Set adapter, divider and default animator to the recycler view
         mAdapter = new NewsAdapter(this);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(),
+                LinearLayoutManager.VERTICAL);
+        binding.newsRecyclerView.addItemDecoration(dividerItemDecoration);
         binding.newsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         binding.newsRecyclerView.setAdapter(mAdapter);
 

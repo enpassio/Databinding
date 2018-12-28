@@ -44,7 +44,8 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/news_recycler_view"
@@ -52,8 +53,7 @@
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
                 android:visibility="@{networkConnected &amp;&amp; !isLoading ? View.VISIBLE : View.GONE, default=gone}"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
             <ImageView
                 android:id="@+id/no_network_image"

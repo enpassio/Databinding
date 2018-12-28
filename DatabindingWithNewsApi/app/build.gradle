@@ -7,7 +7,7 @@ android {
     }
     defaultConfig {
         applicationId "com.enpassio.databindingwithnewsapi"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion rootProject.ext.compileSdkVersion
         versionCode 1
         versionName "1.0"
