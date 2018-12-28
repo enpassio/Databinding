@@ -23,6 +23,7 @@ final class Constants {
     static final String TITLE = "title";
     static final String DESCRIPTION = "description";
     static final String IMAGE_URL = "urlToImage";
+    static final String ARTICLE_URL = "url";
     static final String PUBLISHING_TIME = "publishedAt";
     static final String ARTICLE_BODY = "content";
 

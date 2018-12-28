@@ -178,7 +178,10 @@ public final class NetworkUtils {
                 // Extract the value for the key called "description"
                 String description = currentArticle.getString(Constants.DESCRIPTION);
 
-                // Extract the value for the image url"
+                // Extract the value for the article url
+                String articleUrl = currentArticle.getString(Constants.ARTICLE_URL);
+
+                // Extract the value for the image url
                 String imageUrl = currentArticle.getString(Constants.IMAGE_URL);
 
                 //Extract the value for the key "publishedAt"
@@ -194,7 +197,7 @@ public final class NetworkUtils {
                 String sourceName = sourceJSON.getString(Constants.SOURCE_NAME);
 
                 // Create a new {@link Article} object with
-                Article article = new Article(sourceName, author, title, description, imageUrl, publishingTime, articleBody);
+                Article article = new Article(sourceName, author, title, description, articleUrl, imageUrl, publishingTime, articleBody);
 
                 // Add the new {@link Article} to the list of articles.
                 articles.add(article);

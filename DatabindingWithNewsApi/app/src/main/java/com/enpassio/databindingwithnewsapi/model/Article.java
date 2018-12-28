@@ -9,15 +9,17 @@ public class Article implements Parcelable {
     private String author;
     private String title;
     private String description;
+    private String articleUrl;
     private String imageUrl;
     private String publishingDate;
     private String content;
 
-    public Article(String source, String author, String title, String description, String imageUrl, String publishingDate, String content) {
+    public Article(String source, String author, String title, String description, String articleUrl, String imageUrl, String publishingDate, String content) {
         this.source = source;
         this.author = author;
         this.title = title;
         this.description = description;
+        this.articleUrl = articleUrl;
         this.imageUrl = imageUrl;
         this.publishingDate = publishingDate;
         this.content = content;
@@ -39,6 +41,10 @@ public class Article implements Parcelable {
         return description;
     }
 
+    public String getArticleUrl() {
+        return articleUrl;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -56,6 +62,7 @@ public class Article implements Parcelable {
         author = in.readString();
         title = in.readString();
         description = in.readString();
+        articleUrl = in.readString();
         imageUrl = in.readString();
         publishingDate = in.readString();
         content = in.readString();
@@ -72,6 +79,7 @@ public class Article implements Parcelable {
         dest.writeString(author);
         dest.writeString(title);
         dest.writeString(description);
+        dest.writeString(articleUrl);
         dest.writeString(imageUrl);
         dest.writeString(publishingDate);
         dest.writeString(content);
@@ -97,6 +105,7 @@ public class Article implements Parcelable {
                 ", author='" + author + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", articleUrl='" + articleUrl + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", publishingDate='" + publishingDate + '\'' +
                 ", content='" + content + '\'' +

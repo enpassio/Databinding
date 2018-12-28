@@ -25,4 +25,17 @@ public final class BindingUtils {
         return an empty string, otherwise add "By" to the author*/
         return (author == null || author.equals("null")) ? "" : "By " + author;
     }
+
+    public static String hideChartCount(String content) {
+        /*Contents of articles in NewsApi are limited and they finish by
+        a word count like: "...[+1600 chars]". This method is for hiding
+        those last brackets*/
+
+        int lastIndex = content.lastIndexOf("[+");
+
+        /*If lastIndex is positive, then create a substring up to that point.
+        If lastName is not positive, that means those characters are not found,
+        then return the whole content*/
+        return lastIndex > 0 ? content.substring(0, lastIndex) : content;
+    }
 }

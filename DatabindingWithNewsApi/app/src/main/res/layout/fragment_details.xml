@@ -165,7 +165,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_medium"
-                    android:text="@{article.content}"
+                    android:text="@{BindingUtils.hideChartCount(article.content)}"
                     android:textSize="@dimen/text_size_medium"
                     android:textColor="@color/colorPrimaryDark"
                     app:layout_constraintEnd_toEndOf="parent"
