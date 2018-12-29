@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -7,104 +8,125 @@
         we will call its fields to populate our layout -->
         <variable
             name="article"
-            type="com.enpassio.databindingwithnewsapi.Article" />
+            type="com.enpassio.databindingwithnewsapi.model.Article" />
 
         <!-- We will be passing a ArticleItemClickListener object called
-         'articleItemClick' and we will use this for managing list item clicks
+         'articleItemClick' and we will use this for managing list item clicks -->
         <variable
-            name="productItemClick"
-            type=""/>
-        -->
+            name="articleItemClick"
+            type="com.enpassio.databindingwithnewsapi.ui.NewsAdapter.ArticleClickListener" />
+
+        <import type="com.enpassio.databindingwithnewsapi.utils.BindingUtils" />
 
     </data>
 
     <!-- We will be attaching the articleItemClick to the parent layout
      so that it will work wherever we click on the list item
      android:onClick="@{() ->  articleItemClick.onArticleItemClicked(article)}"-->
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_size_minimum"
-        android:orientation="horizontal"
-        tools:ignore="RtlHardcoded">
+        android:onClick="@{() ->  articleItemClick.onArticleClicked(article)}">
 
         <!-- Image resource id cannot be directly assigned to default android:src.
           Here we are using a custom binding adapter for android:src attribute.-->
         <ImageView
-            android:id="@+id/product_photo"
-            android:layout_width="@dimen/list_item_image_size"
-            android:layout_height="@dimen/list_item_image_size"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin_size_medium"
-            android:layout_marginTop="@dimen/margin_size_minimum"
-            android:layout_marginRight="@dimen/margin_size_minimum"
-            android:layout_marginBottom="@dimen/margin_size_minimum"
-            android:scaleType="centerInside"
+            android:id="@+id/thumbnail_image"
+            android:layout_width="@dimen/list_item_image_width"
+            android:layout_height="@dimen/list_item_image_height"
+            android:layout_margin="@dimen/margin_size_medium"
+            android:layout_marginBottom="@dimen/margin_size_small"
+            android:contentDescription="@string/cd_article_image"
+            android:scaleType="centerCrop"
+            android:src="@{article.imageUrl}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/no_connection" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <!-- We call the title field of the article object
+        and set it to article_title textView: android:text="@{article.title}"-->
+        <TextView
+            android:id="@+id/article_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- We call the title field of the article object
-            and set it to article_title textView: android:text="@{article.title}"-->
-            <TextView
-                android:id="@+id/article_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_size_medium"
-                android:layout_marginTop="@dimen/margin_size_minimum"
-                android:layout_marginRight="@dimen/margin_size_medium"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/text_size_heading"
-                tools:text="Article title" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <!-- We call the author field of the article object
-            and set it to article_author textView: android:text="@{article.author}"-->
-                <TextView
-                    android:id="@+id/article_author"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|bottom"
-                    android:layout_marginLeft="@dimen/margin_size_medium"
-                    android:layout_marginRight="@dimen/margin_size_medium"
-                    android:layout_weight="3"
-                    android:textSize="@dimen/text_size_medium"
-                    tools:text="Author name" />
+            android:layout_marginStart="@dimen/margin_size_medium"
+            android:layout_marginTop="@dimen/margin_size_medium"
+            android:layout_marginEnd="@dimen/margin_size_medium"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{article.title}"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="A 37-year-old woman has been arrested on suspicion of murder following the deaths of two children." />
 
 
-                <!-- We call the publishingDate field of the article object
-            and set it to article__publishing_date textView: android:text="@{article.publishingDate}"-->
-                <TextView
-                    android:id="@+id/article_publishing_date"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
-                    android:layout_marginLeft="@dimen/margin_size_medium"
-                    android:layout_marginRight="@dimen/margin_size_medium"
-                    android:layout_weight="2"
-                    android:textSize="@dimen/text_size_small"
-                    tools:text="2018.12.24" />
-            </LinearLayout>
+        <!-- We call the author field of the article object
+    and set it to article_author textView: android:text="@{article.author}"-->
+        <TextView
+            android:id="@+id/article_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_medium"
+            android:layout_marginTop="@dimen/margin_size_small"
+            android:layout_marginEnd="@dimen/margin_size_small"
+            android:text="@{BindingUtils.formatAuthor(article.author)}"
+            android:textSize="@dimen/text_size_small"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@+id/article_publishing_date"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail_image"
+            app:layout_constraintTop_toBottomOf="@+id/article_title"
+            tools:text="By KentOnline reporter" />
 
-            <!-- We call the author field of the article object
-        and set it to article_author textView: android:text="@{article.author}"-->
-            <TextView
-                android:id="@+id/article_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_size_medium"
-                android:layout_marginRight="@dimen/margin_size_medium"
-                android:layout_marginBottom="@dimen/text_size_small"
-                android:textSize="@dimen/text_size_small"
-                tools:text="Article description" />
+        <!-- We call the publishingDate field of the article object, we split it into date and time
+         using the helper method we import from BindingUtils class. And we put date and time
+        and into two seperate textboxes:
+        android:text="@{BindingUtils.splitDateAndTime(article.publishingDate)[0]}"-->
+        <TextView
+            android:id="@+id/article_publishing_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_size_medium"
+            android:text="@{BindingUtils.splitDateAndTime(article.publishingDate)[0]}"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBaseline_toBaselineOf="@+id/article_author"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="2018.12.24" />
 
-        </LinearLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/article_publishing_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_minimum"
+            android:layout_marginEnd="@dimen/margin_size_medium"
+            android:text="@{BindingUtils.splitDateAndTime(article.publishingDate)[1]}"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/article_publishing_date"
+            tools:text="08:30" />
+
+        <!-- We call the source field of the article object
+    and set it to article_source textView: android:text="@{article.source}"-->
+        <TextView
+            android:id="@+id/article_source"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_medium"
+            android:layout_marginEnd="@dimen/margin_size_small"
+            android:layout_marginBottom="@dimen/margin_size_small"
+            android:layout_marginTop="@dimen/margin_size_minimum"
+            android:text="@{article.source}"
+            android:textSize="@dimen/text_size_small"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toStartOf="@+id/article_publishing_time"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail_image"
+            app:layout_constraintTop_toBottomOf="@+id/article_author"
+            tools:text="Kentonline.co.uk" />
+
+    </android.support.constraint.ConstraintLayout>
 </layout>

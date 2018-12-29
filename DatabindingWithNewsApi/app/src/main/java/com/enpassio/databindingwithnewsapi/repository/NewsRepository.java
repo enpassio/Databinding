@@ -1,9 +1,12 @@
-package com.enpassio.databindingwithnewsapi;
+package com.enpassio.databindingwithnewsapi.repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.enpassio.databindingwithnewsapi.model.Article;
+import com.enpassio.databindingwithnewsapi.utils.NetworkUtils;
 
 import java.util.List;
 

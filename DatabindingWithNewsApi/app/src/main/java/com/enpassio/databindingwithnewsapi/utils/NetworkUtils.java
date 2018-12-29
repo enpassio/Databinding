@@ -1,8 +1,10 @@
-package com.enpassio.databindingwithnewsapi;
+package com.enpassio.databindingwithnewsapi.utils;
 
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.enpassio.databindingwithnewsapi.model.Article;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,8 +18,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public final class NetworkUtils {
 
@@ -41,11 +47,8 @@ public final class NetworkUtils {
             Log.e(TAG, "Problem making the HTTP request.", e);
         }
 
-        // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
-        List<Article> articles = extractFeatureFromJson(jsonResponse);
-
-        // Return the list of {@link Earthquake}s
-        return articles;
+        // Return the list of {@link Article}s
+        return extractFeatureFromJson(jsonResponse);
     }
 
     /**
@@ -54,11 +57,9 @@ public final class NetworkUtils {
 
     private static URL buildUrl() {
         Uri uri = Uri.parse(Constants.BASE_URL).buildUpon()
-                .appendPath(Constants.EVERYTHING_ENDPOINT)
-                .appendQueryParameter(Constants.QUERY_PARAM, Constants.SAMPLE_QUERY)
-                .appendQueryParameter(Constants.FROM_DATE_PARAM, Constants.SAMPLE_DATE)
-                .appendQueryParameter(Constants.LANGUAGE_PARAM, Constants.ENGLISH)
-                .appendQueryParameter(Constants.SORT_BY_PARAM, Constants.PUBLISHING_TIME)
+                .appendPath(Constants.ENDPOINT)
+                .appendQueryParameter(Constants.CATEGORY, Constants.SAMPLE_CATEGORY)
+                .appendQueryParameter(Constants.COUNTRY, Constants.SAMPLE_COUNTRY)
                 .appendQueryParameter(Constants.PAGE_SIZE_PARAM, Constants.SAMPLE_PAGE_SIZE)
                 .appendQueryParameter(Constants.NEWS_API_KEY, Constants.NEWS_API_VALUE)
                 .build();
@@ -102,7 +103,7 @@ public final class NetworkUtils {
                 Log.e(TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(TAG, "Problem retrieving the news JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -163,7 +164,7 @@ public final class NetworkUtils {
             // For each article in the articlesArray, create an {@link Article} object
             for (int i = 0; i < articlesArray.length(); i++) {
 
-                // Get a single article at position i within the list of earthquakes
+                // Get a single article at position i within the list of articles
                 JSONObject currentArticle = articlesArray.getJSONObject(i);
 
                 //Retrieve the field that you need from this json object:
@@ -177,11 +178,14 @@ public final class NetworkUtils {
                 // Extract the value for the key called "description"
                 String description = currentArticle.getString(Constants.DESCRIPTION);
 
-                // Extract the value for the image url"
+                // Extract the value for the article url
+                String articleUrl = currentArticle.getString(Constants.ARTICLE_URL);
+
+                // Extract the value for the image url
                 String imageUrl = currentArticle.getString(Constants.IMAGE_URL);
 
                 //Extract the value for the key "publishedAt"
-                String publishingTime = currentArticle.getString(Constants.PUBLISHING_TIME);
+                String publishingTime = formatDateTime(currentArticle.getString(Constants.PUBLISHING_TIME));
 
                 //Extract the value for the key "content"
                 String articleBody = currentArticle.getString(Constants.ARTICLE_BODY);
@@ -193,7 +197,7 @@ public final class NetworkUtils {
                 String sourceName = sourceJSON.getString(Constants.SOURCE_NAME);
 
                 // Create a new {@link Article} object with
-                Article article = new Article(sourceName, author, title, description, imageUrl, publishingTime, articleBody);
+                Article article = new Article(sourceName, author, title, description, articleUrl, imageUrl, publishingTime, articleBody);
 
                 // Add the new {@link Article} to the list of articles.
                 articles.add(article);
@@ -209,4 +213,22 @@ public final class NetworkUtils {
         // Return the list of articles
         return articles;
     }
+
+    private static String formatDateTime(String dateTime) {
+        TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        sourceFormat.setTimeZone(timeZone);
+        Date parsedTime = null;
+        try {
+            parsedTime = sourceFormat.parse(dateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        TimeZone tz = TimeZone.getDefault();
+        SimpleDateFormat destFormat = new SimpleDateFormat("LLL dd, yyyy'T'HH:mm");
+        destFormat.setTimeZone(tz);
+        return destFormat.format(parsedTime);
+    }
+
 }

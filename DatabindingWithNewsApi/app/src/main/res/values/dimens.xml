@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="no_network_image_size">100dp</dimen>
-    <dimen name="list_item_image_size">64dp</dimen>
-    <dimen name="image_dropdown_height">300dp</dimen>
+    <!-- Margin alternatives -->
     <dimen name="margin_size_minimum">4dp</dimen>
+    <dimen name="margin_size_small">8dp</dimen>
     <dimen name="margin_size_medium">16dp</dimen>
     <dimen name="margin_size_max">30dp</dimen>
-    <dimen name="text_size_medium">18sp</dimen>
-    <dimen name="progressbar_size">60dp</dimen>
-    <dimen name="text_size_heading">24sp</dimen>
+
+    <!-- Text size alternatives -->
     <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_heading">24sp</dimen>
+
+    <dimen name="no_network_image_size">100dp</dimen>
+    <dimen name="list_item_image_height">120dp</dimen>
+    <dimen name="list_item_image_width">100dp</dimen>
+    <dimen name="image_dropdown_height">300dp</dimen>
+    <dimen name="progressbar_size">60dp</dimen>
 </resources>
