@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.enpassio.databindingwithnewsapi.R;
-import com.enpassio.databindingwithnewsapi.databinding.FragmentListBinding;
+import com.enpassio.databindingwithnewsapi.databinding.NewsListBinding;
 import com.enpassio.databindingwithnewsapi.model.Article;
 import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel;
 
@@ -28,7 +28,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
     private MainViewModel mViewModel;
     private NewsAdapter mAdapter;
     private static final String TAG = "ArticleListFragment";
-    private FragmentListBinding binding;
+    private NewsListBinding binding;
 
     public ArticleListFragment() {
     }
@@ -37,15 +37,15 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_list, container, false);
+                inflater, R.layout.app_bar_main, container, false);
 
         //Set adapter, divider and default animator to the recycler view
         mAdapter = new NewsAdapter(this);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(),
                 LinearLayoutManager.VERTICAL);
-        binding.newsRecyclerView.addItemDecoration(dividerItemDecoration);
-        binding.newsRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        binding.newsRecyclerView.setAdapter(mAdapter);
+        binding.included.newsRecyclerView.addItemDecoration(dividerItemDecoration);
+        binding.included.newsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        binding.included.newsRecyclerView.setAdapter(mAdapter);
 
         return binding.getRoot();
     }
@@ -60,13 +60,13 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
         /*Check if there is network connection. If there is connection, subscribe to viewmodel,
          which in return will get the instance of the repository and starts fetching from the internet*/
         if (thereIsConnection()) {
-            binding.setIsLoading(true);
-            binding.setNetworkConnected(true);
+            binding.included.setIsLoading(true);
+            binding.included.setNetworkConnected(true);
             subscribeViewModel();
         } else {
             //If there is no network, show a snack bar for warning the user
-            binding.setIsLoading(false);
-            binding.setNetworkConnected(false);
+            binding.included.setIsLoading(false);
+            binding.included.setNetworkConnected(false);
             showSnack();
         }
     }
@@ -88,7 +88,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
         mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
         mViewModel.getArticleList().observe(this, articles -> {
             if (articles != null) {
-                binding.setIsLoading(false);
+                binding.included.setIsLoading(false);
                 if (!articles.isEmpty()) {
                     mAdapter.setArticleList(articles);
                     Log.d(TAG, "articles are received. list size: " + articles.size());
