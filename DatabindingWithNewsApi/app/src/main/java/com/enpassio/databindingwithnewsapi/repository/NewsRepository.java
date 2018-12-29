@@ -14,10 +14,10 @@ import java.util.List;
 public class NewsRepository {
 
     private static NewsRepository sInstance;
-    private MutableLiveData<List<Article>> articles = new MutableLiveData<>();
+    private final MutableLiveData<List<Article>> articles = new MutableLiveData<>();
     private static final String TAG = "NewsRepository";
-    private Context mContext;
-    private NetworkStateListener mListener;
+    private final Context mContext;
+    private final NetworkStateListener mListener;
 
     private NewsRepository(Context context, NetworkStateListener listener) {
         Log.d(TAG, "New instance created");

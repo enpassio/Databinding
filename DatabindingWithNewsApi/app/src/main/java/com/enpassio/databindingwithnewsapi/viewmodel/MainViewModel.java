@@ -14,8 +14,8 @@ import java.util.List;
 public class MainViewModel extends AndroidViewModel {
 
     private LiveData<List<Article>> mArticleList;
-    private MutableLiveData<Article> mChosenArticle = new MutableLiveData<>();
-    private NewsRepository mRepo;
+    private final MutableLiveData<Article> mChosenArticle = new MutableLiveData<>();
+    private final NewsRepository mRepo;
 
     public MainViewModel(@NonNull Application application, NewsRepository.NetworkStateListener listener) {
         super(application);

@@ -18,14 +18,14 @@ import android.view.ViewGroup;
 
 import com.enpassio.databindingwithnewsapi.R;
 import com.enpassio.databindingwithnewsapi.databinding.FragmentDetailsBinding;
+import com.enpassio.databindingwithnewsapi.utils.ReadMoreClickListener;
 import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class ArticleDetailsFragment extends Fragment {
+public class ArticleDetailsFragment extends Fragment implements ReadMoreClickListener {
 
     private FragmentDetailsBinding binding;
-    private String mArticleUrl;
 
     public ArticleDetailsFragment() {
     }
@@ -52,11 +52,10 @@ public class ArticleDetailsFragment extends Fragment {
             if (article != null) {
                 binding.setArticle(article);
                 binding.executePendingBindings();
-                mArticleUrl = article.getArticleUrl();
             }
         });
 
-        binding.detailsReadMore.setOnClickListener(v -> openWebSite());
+        binding.setReadMoreClick(this);
     }
 
     @Override
@@ -68,14 +67,21 @@ public class ArticleDetailsFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public void openWebSite() {
+    @Override
+    public void onReadMoreClicked(String url) {
+        openWebSite(url);
+    }
+
+    private void openWebSite(String articleUrl) {
         Uri webUri = null;
-        if (!TextUtils.isEmpty(mArticleUrl)) {
+        if (!TextUtils.isEmpty(articleUrl)) {
+            //Parse string to uri
             try {
-                webUri = Uri.parse(mArticleUrl);
+                webUri = Uri.parse(articleUrl);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
+            //Send an implicit intent to open the article in the browser
             Intent webIntent = new Intent(Intent.ACTION_VIEW);
             webIntent.setData(webUri);
             if (webIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
@@ -83,4 +89,5 @@ public class ArticleDetailsFragment extends Fragment {
             }
         }
     }
+
 }

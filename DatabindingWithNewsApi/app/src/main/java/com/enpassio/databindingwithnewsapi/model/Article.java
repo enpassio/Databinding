@@ -1,18 +1,15 @@
 package com.enpassio.databindingwithnewsapi.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+public class Article {
 
-public class Article implements Parcelable {
-
-    private String source;
-    private String author;
-    private String title;
-    private String description;
-    private String articleUrl;
-    private String imageUrl;
-    private String publishingDate;
-    private String content;
+    private final String source;
+    private final String author;
+    private final String title;
+    private final String description;
+    private final String articleUrl;
+    private final String imageUrl;
+    private final String publishingDate;
+    private final String content;
 
     public Article(String source, String author, String title, String description, String articleUrl, String imageUrl, String publishingDate, String content) {
         this.source = source;
@@ -56,47 +53,6 @@ public class Article implements Parcelable {
     public String getContent() {
         return content;
     }
-
-    protected Article(Parcel in) {
-        source = in.readString();
-        author = in.readString();
-        title = in.readString();
-        description = in.readString();
-        articleUrl = in.readString();
-        imageUrl = in.readString();
-        publishingDate = in.readString();
-        content = in.readString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(source);
-        dest.writeString(author);
-        dest.writeString(title);
-        dest.writeString(description);
-        dest.writeString(articleUrl);
-        dest.writeString(imageUrl);
-        dest.writeString(publishingDate);
-        dest.writeString(content);
-    }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Article> CREATOR = new Parcelable.Creator<Article>() {
-        @Override
-        public Article createFromParcel(Parcel in) {
-            return new Article(in);
-        }
-
-        @Override
-        public Article[] newArray(int size) {
-            return new Article[size];
-        }
-    };
 
     @Override
     public String toString() {

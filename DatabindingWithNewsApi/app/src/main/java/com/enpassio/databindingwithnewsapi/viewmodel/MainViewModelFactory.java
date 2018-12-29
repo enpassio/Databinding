@@ -14,15 +14,16 @@ public class MainViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     @NonNull
     private final Application mApplication;
-    private NewsRepository.NetworkStateListener mListener;
+    private final NewsRepository.NetworkStateListener mListener;
 
     public MainViewModelFactory(@NonNull Application application, NewsRepository.NetworkStateListener listener) {
         mApplication = application;
         mListener = listener;
     }
 
+    @NonNull
     @Override
-    public <T extends ViewModel> T create(Class<T> modelClass) {
+    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         //noinspection unchecked
         return (T) new MainViewModel(mApplication, mListener);
     }
