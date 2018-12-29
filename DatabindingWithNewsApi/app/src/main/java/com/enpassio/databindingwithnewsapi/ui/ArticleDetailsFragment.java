@@ -37,7 +37,7 @@ public class ArticleDetailsFragment extends Fragment {
                 inflater, R.layout.fragment_details, container, false);
 
         //These are for making up button work.
-        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
         setHasOptionsMenu(true);
 
         return binding.getRoot();
@@ -47,7 +47,7 @@ public class ArticleDetailsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        MainViewModel viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+        MainViewModel viewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
         viewModel.getChosenArticle().observe(this, article -> {
             if (article != null) {
                 binding.setArticle(article);
@@ -78,7 +78,7 @@ public class ArticleDetailsFragment extends Fragment {
             }
             Intent webIntent = new Intent(Intent.ACTION_VIEW);
             webIntent.setData(webUri);
-            if (webIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            if (webIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
                 startActivity(webIntent);
             }
         }

@@ -1,5 +1,8 @@
 package com.enpassio.databindingwithnewsapi.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -34,6 +37,14 @@ public final class NetworkUtils {
         throw new AssertionError();
     }
 
+    public static boolean thereIsConnection(Context context) {
+        // Get a reference to the ConnectivityManager to check state of network connectivity
+        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        // Get details on the currently active default data network
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        // If there is a network connection, return true, otherwise false
+        return networkInfo != null && networkInfo.isConnected();
+    }
 
     public static List<Article> fetchArticles() {
         // Create URL object
