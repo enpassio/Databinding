@@ -23,7 +23,6 @@ public class NewsRepository {
         Log.d(TAG, "New instance created");
         mContext = context;
         mListener = listener;
-        checkConnectionAndStartFetching();
     }
 
     public static NewsRepository getInstance(Context context, NetworkStateListener listener) {
@@ -36,6 +35,11 @@ public class NewsRepository {
     }
 
     public void checkConnectionAndStartFetching() {
+        //If data is already there, no need to go over this process again
+        if (articles.getValue() != null && !articles.getValue().isEmpty()) {
+            return;
+        }
+
         if (NetworkUtils.thereIsConnection(mContext)) {
             //Pass network state to fragment
             mListener.onNetworkStateChanged(true);
