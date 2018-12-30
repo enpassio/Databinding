@@ -30,6 +30,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
     private NewsListBinding binding;
 
     public ArticleListFragment() {
+        setRetainInstance(true);
     }
 
     @Nullable
@@ -52,20 +53,23 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //Set default states in binding implementation
-        binding.included.setIsLoading(true);
-        binding.included.setNetworkConnected(true);
 
         //Create a custom view model factory so that we can pass a listener to it
         MainViewModelFactory factory = new MainViewModelFactory(requireActivity().getApplication(), this);
         //Get the view model instance
         mViewModel = ViewModelProviders.of(requireActivity(), factory).get(MainViewModel.class);
+
+        binding.included.setViewmodel(mViewModel);
+
+        //Verify the connection and start loading from the api
+        mViewModel.checkConnectionAndStartLoading();
+
         //Claim the list from the view model and observe the results
         mViewModel.getArticleList().observe(this, articles -> {
             if (articles != null && !articles.isEmpty()) {
                 /*When articles are received, hide the loading indicator
                 and pass the articles to the adapter*/
-                binding.included.setIsLoading(false);
+                mViewModel.isLoading.set(false);
                 mAdapter.setArticleList(articles);
                 Log.d(TAG, "articles are received. list size: " + articles.size());
             }
@@ -78,7 +82,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
                 .make(binding.mainContent, R.string.no_network_connection, Snackbar.LENGTH_INDEFINITE)
                 /*If user will click "Retry", we'll check the connection again,
                 and fetch the news, if there is network this time. Otherwise, snack will be shown again.*/
-                .setAction(R.string.retry, view -> mViewModel.retryConnecting())
+                .setAction(R.string.retry, view -> mViewModel.checkConnectionAndStartLoading())
                 //Set the color of action button
                 .setActionTextColor(getResources().getColor(R.color.colorAccent));
         //Set the background color of the snack bar
@@ -103,11 +107,9 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
     public void onNetworkStateChanged(boolean isConnected) {
         /*If network is connected, set as "loading" until data arrives. If there
         is no connection, remove loading indicator and show no network image instead*/
-        binding.included.setIsLoading(isConnected);
-
+        mViewModel.isLoading.set(isConnected);
         /*Whether there is network or not, pass that information to binding implementation*/
-        binding.included.setNetworkConnected(isConnected);
-
+        mViewModel.networkConnected.set(isConnected);
         //If there is no network, show a snack bar to warn the user.
         if (!isConnected) {
             showSnack();

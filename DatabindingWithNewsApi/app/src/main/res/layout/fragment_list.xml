@@ -5,12 +5,8 @@
     <data>
 
         <variable
-            name="isLoading"
-            type="boolean" />
-
-        <variable
-            name="networkConnected"
-            type="boolean" />
+            name="viewmodel"
+            type="com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel" />
 
         <import type="android.view.View" />
     </data>
@@ -24,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
-            android:visibility="@{networkConnected &amp;&amp; !isLoading ? View.VISIBLE : View.GONE, default=gone}"
+            android:visibility="@{viewmodel.networkConnected &amp;&amp; !viewmodel.isLoading ? View.VISIBLE : View.GONE, default=gone}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
         <ImageView
@@ -35,14 +31,14 @@
             android:background="@color/background_white"
             android:contentDescription="@string/cd_no_connection_image"
             android:src="@drawable/no_connection"
-            android:visibility="@{networkConnected ? View.GONE : View.VISIBLE, default=gone}" />
+            android:visibility="@{viewmodel.networkConnected ? View.GONE : View.VISIBLE, default=gone}" />
 
         <ProgressBar
             android:id="@+id/pb_in_fragment_list"
             android:layout_width="@dimen/progressbar_size"
             android:layout_height="@dimen/progressbar_size"
             android:layout_gravity="center"
-            android:visibility="@{isLoading ? View.VISIBLE : View.GONE, default=visible}" />
+            android:visibility="@{viewmodel.isLoading ? View.VISIBLE : View.GONE, default=visible}" />
     </FrameLayout>
 
 </layout>
