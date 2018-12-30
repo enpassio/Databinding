@@ -12,6 +12,10 @@
 
         <import type="com.enpassio.databindingwithnewsapi.utils.BindingUtils" />
 
+        <variable
+            name="readMoreClick"
+            type="com.enpassio.databindingwithnewsapi.utils.ReadMoreClickListener" />
+
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -177,10 +181,13 @@
                     android:id="@+id/details_read_more"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:onClick="@{() ->  readMoreClick.onReadMoreClicked(article.articleUrl)}"
                     android:text="@string/read_more"
-                    android:textStyle="italic|bold"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size_medium"
+                    android:textStyle="italic|bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/article_content" />

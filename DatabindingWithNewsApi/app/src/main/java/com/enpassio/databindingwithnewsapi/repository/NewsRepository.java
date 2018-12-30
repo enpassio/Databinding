@@ -2,6 +2,7 @@ package com.enpassio.databindingwithnewsapi.repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,21 +14,39 @@ import java.util.List;
 public class NewsRepository {
 
     private static NewsRepository sInstance;
-    private MutableLiveData<List<Article>> articles = new MutableLiveData<>();
+    private final MutableLiveData<List<Article>> articles = new MutableLiveData<>();
     private static final String TAG = "NewsRepository";
+    private final Context mContext;
+    private final NetworkStateListener mListener;
 
-    private NewsRepository() {
+    private NewsRepository(Context context, NetworkStateListener listener) {
         Log.d(TAG, "New instance created");
-        new NewsAsyncTask().execute();
+        mContext = context;
+        mListener = listener;
+        checkConnectionAndStartFetching();
     }
 
-    public static NewsRepository getInstance() {
+    public static NewsRepository getInstance(Context context, NetworkStateListener listener) {
         if (sInstance == null) {
             synchronized (NewsRepository.class) {
-                sInstance = new NewsRepository();
+                sInstance = new NewsRepository(context, listener);
             }
         }
         return sInstance;
+    }
+
+    public void checkConnectionAndStartFetching() {
+        if (NetworkUtils.thereIsConnection(mContext)) {
+            //Pass network state to fragment
+            mListener.onNetworkStateChanged(true);
+            Log.d(TAG, "there is connection, start fetching");
+            //Start fetching from the News Api in a background thread
+            new NewsAsyncTask().execute();
+        } else {
+            Log.d(TAG, "there is no connection");
+            //Pass network state to fragment
+            mListener.onNetworkStateChanged(false);
+        }
     }
 
     public LiveData<List<Article>> getArticles() {
@@ -48,5 +67,7 @@ public class NewsRepository {
         }
     }
 
-
+    public interface NetworkStateListener {
+        void onNetworkStateChanged(boolean connected);
+    }
 }
