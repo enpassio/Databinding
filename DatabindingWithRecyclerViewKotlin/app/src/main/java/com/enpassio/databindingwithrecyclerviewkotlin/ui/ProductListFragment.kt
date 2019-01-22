@@ -16,6 +16,7 @@ import com.enpassio.databindingwithrecyclerviewkotlin.utils.ProductDataSource
  * Created by Greta Grigutė on 2018-12-23.
  */
 
+const val PRODUCT_KEY = "productKey"
 
 class ProductListFragment : Fragment(), ProductAdapter.ProductItemClickListener {
 
@@ -37,14 +38,10 @@ class ProductListFragment : Fragment(), ProductAdapter.ProductItemClickListener 
         val args = Bundle()
         args.putParcelable(PRODUCT_KEY, product)
         frag.arguments = args
-        fragmentManager!!.beginTransaction()
-                .replace(R.id.fragment_holder, frag)
-                .addToBackStack(null)
-                .commit()
+        fragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_holder, frag)
+                ?.addToBackStack(null)
+                ?.commit()
     }
 
-    companion object {
-
-        internal val PRODUCT_KEY = "productKey"
-    }
 }
