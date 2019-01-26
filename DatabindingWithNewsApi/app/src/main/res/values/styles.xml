@@ -1,11 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">roboto</item>
     </style>
 
     <style name="AppTheme.List" parent="Theme.AppCompat.Light.DarkActionBar" />
@@ -13,4 +14,25 @@
     <style name="AppTheme.AppBarOverlay" parent="AppTheme" />
 
     <style name="AppTheme.PopupOverlay" parent="AppTheme" />
+
+    <style name="Widget.Button.TextButton" parent="AppTheme">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:paddingStart">@dimen/margin_size_medium</item>
+        <item name="android:paddingEnd">@dimen/margin_size_medium</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="collapsed_title" parent="AppTheme">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="expanded_title" parent="AppTheme">
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
+
+
 </resources>

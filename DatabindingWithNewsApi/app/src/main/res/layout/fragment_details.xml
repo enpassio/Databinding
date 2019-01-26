@@ -37,6 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
+                app:collapsedTitleTextAppearance="@style/collapsed_title"
+                app:expandedTitleTextAppearance="@style/expanded_title"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:toolbarId="@+id/toolbar">
@@ -158,6 +160,7 @@
                     android:layout_marginTop="@dimen/margin_size_medium"
                     android:text="@{article.description}"
                     android:textSize="@dimen/text_size_medium"
+                    android:fontFamily="sans-serif-black"
                     android:textColor="@color/colorPrimaryDark"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -177,18 +180,15 @@
                     app:layout_constraintTop_toBottomOf="@+id/article_description"
                     tools:text="Long article about all important news.." />
 
-                <TextView
+                <android.support.design.button.MaterialButton
                     android:id="@+id/details_read_more"
-                    android:layout_width="0dp"
+                    style="@style/Widget.Button.TextButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:onClick="@{() ->  readMoreClick.onReadMoreClicked(article.articleUrl)}"
                     android:text="@string/read_more"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="italic|bold"
+                    app:backgroundTint="@color/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/article_content" />
 
