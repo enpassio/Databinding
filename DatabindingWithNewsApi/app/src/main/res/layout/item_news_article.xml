@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+    <data class="ItemBinding">
         <!-- We will be passing a Article object named 'article' and
         we will call its fields to populate our layout -->
         <variable
@@ -38,7 +38,7 @@
             android:layout_marginBottom="@dimen/margin_size_small"
             android:contentDescription="@string/cd_article_image"
             android:scaleType="centerCrop"
-            android:src="@{article.imageUrl}"
+            app:imageSrc="@{article.imageUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

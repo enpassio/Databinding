@@ -71,6 +71,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
                 and pass the articles to the adapter*/
                 mViewModel.isLoading.set(false);
                 mAdapter.setArticleList(articles);
+                binding.invalidateAll();
                 Log.d(TAG, "articles are received. list size: " + articles.size());
             }
         });

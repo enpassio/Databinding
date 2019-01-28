@@ -3,7 +3,6 @@ package com.enpassio.databindingwithnewsapi.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.net.Uri;
@@ -22,7 +21,7 @@ import static android.support.constraint.Constraints.TAG;
 public class MainViewModel extends AndroidViewModel {
 
     private LiveData<List<Article>> mArticleList;
-    private final MutableLiveData<Article> mChosenArticle = new MutableLiveData<>();
+    private Article mChosenArticle;
     private final NewsRepository mRepo;
     public final ObservableBoolean isLoading = new ObservableBoolean(true);
     public final ObservableBoolean networkConnected = new ObservableBoolean(true);
@@ -40,24 +39,27 @@ public class MainViewModel extends AndroidViewModel {
         return mArticleList;
     }
 
-    public LiveData<Article> getChosenArticle() {
+    public Article getChosenArticle() {
         return mChosenArticle;
     }
 
     public void setChosenArticle(Article chosenArticle) {
-        mChosenArticle.setValue(chosenArticle);
+        mChosenArticle = chosenArticle;
     }
 
     public void checkConnectionAndStartLoading() {
         mRepo.checkConnectionAndStartFetching();
     }
 
+    public boolean showList() {
+        return networkConnected.get() && !isLoading.get();
+    }
+
     public void openWebSite(View view) {
-        Article chosenArticle = mChosenArticle.getValue();
-        if (chosenArticle == null) {
+        if (mChosenArticle == null) {
             return;
         }
-        String articleUrl = chosenArticle.getArticleUrl();
+        String articleUrl = mChosenArticle.getArticleUrl();
         Uri webUri = null;
         if (!TextUtils.isEmpty(articleUrl)) {
             //Parse string to uri
