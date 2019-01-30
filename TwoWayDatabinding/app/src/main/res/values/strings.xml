@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Two Way Databinding</string>
+    <string name="wooden">Wooden</string>
+    <string name="electronic">Electronic</string>
+    <string name="plastic">Plastic</string>
+    <string name="plush">Plush</string>
+    <string name="new_toy">New</string>
+    <string name="second_hand">Second Hand</string>
+    <string name="categories">Categories:</string>
+    <string name="name">Name:</string>
+    <string name="suitable_for">Suitable for:</string>
+    <string name="state">State:</string>
+    <string name="toy_name">Toy Name</string>
+    <string name="cd_item_gender">Color corresponding to gender</string>
+    <string name="cd_state_symbol">Image corresponding to state of the toy, new or used</string>
+</resources>
