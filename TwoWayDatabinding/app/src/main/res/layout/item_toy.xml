@@ -6,7 +6,7 @@
     <data>
         <variable
             name="toy"
-            type="com.enpassio.twowaydatabinding.Toy"/>
+            type="com.enpassio.twowaydatabinding.data.ToyEntry"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
