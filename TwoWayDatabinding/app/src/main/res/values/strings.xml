@@ -13,4 +13,6 @@
     <string name="toy_name">Toy Name</string>
     <string name="cd_item_gender">Color corresponding to gender</string>
     <string name="cd_state_symbol">Image corresponding to state of the toy, new or used</string>
+    <string name="cd_empty_image">Crying baby icon, shown when there is no toy</string>
+    <string name="no_toys_message">No toys in your inventory yet. Press over the + button to add one.</string>
 </resources>

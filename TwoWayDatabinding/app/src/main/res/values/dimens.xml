@@ -2,4 +2,6 @@
 <resources>
     <dimen name="margin_standard">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="progress_bar_size">60dp</dimen>
+    <dimen name="text_size_large">22sp</dimen>
 </resources>
