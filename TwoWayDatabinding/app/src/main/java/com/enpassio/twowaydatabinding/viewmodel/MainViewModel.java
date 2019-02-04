@@ -19,12 +19,12 @@ public class MainViewModel extends ViewModel {
     public final ObservableBoolean isEmpty = new ObservableBoolean(false);
     private ToyEntry mChosenToy;
     private boolean isEdit;
-    public static final String WOODEN = "wooden";
-    public static final String ELECTRONIC = "electronic";
-    public static final String PLASTIC = "plastic";
-    public static final String PLUSH = "plush";
-    public static final String MUSICAL = "musical";
-    public static final String EDUCATIVE = "educative";
+    public static final String WOODEN = "Wooden";
+    public static final String ELECTRONIC = "Electronic";
+    public static final String PLASTIC = "Plastic";
+    public static final String PLUSH = "Plush";
+    public static final String MUSICAL = "Musical";
+    public static final String EDUCATIVE = "Educative";
 
     public MainViewModel(ToyRepository repository) {
         mRepo = repository;

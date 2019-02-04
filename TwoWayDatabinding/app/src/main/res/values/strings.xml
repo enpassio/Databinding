@@ -17,4 +17,6 @@
     <string name="no_toys_message">No toys in your inventory yet. Press over the + button to add one.</string>
     <string name="musical">Musical</string>
     <string name="educative">Educative</string>
+    <string name="undo">UNDO</string>
+    <string name="toy_is_deleted">Toy is deleted</string>
 </resources>

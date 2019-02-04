@@ -63,10 +63,6 @@ public class ToyEntry extends BaseObservable {
         return state;
     }
 
-    public void setToyId(int toyId) {
-        this.toyId = toyId;
-    }
-
     public void setToyName(String toyName) {
         this.toyName = toyName;
         notifyPropertyChanged(BR.toyName);

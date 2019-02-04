@@ -18,6 +18,8 @@ import com.enpassio.twowaydatabinding.databinding.AddToyBinding;
 import com.enpassio.twowaydatabinding.utils.InjectorUtils;
 import com.enpassio.twowaydatabinding.viewmodel.MainViewModel;
 
+import static com.enpassio.twowaydatabinding.ui.ToyListFragment.IS_EDIT;
+
 public class AddToyFragment extends Fragment {
 
     private AddToyBinding binding;
@@ -48,7 +50,7 @@ public class AddToyFragment extends Fragment {
         binding.setViewModel(viewModel);
 
         Bundle bundle = getArguments();
-        if(bundle != null && bundle.getBoolean("isEdit")){
+        if(bundle != null && bundle.getBoolean(IS_EDIT)){
             viewModel.setEdit(true);
         } else{
             viewModel.setEdit(false);
@@ -56,21 +58,22 @@ public class AddToyFragment extends Fragment {
 
         binding.fab.setOnClickListener( v -> {
             viewModel.saveToy();
-            FragmentManager fm = getFragmentManager();
-            if (fm != null) {
-                fm.popBackStack();
-            }
+            returnToListFragment();
         });
+    }
+
+    private void returnToListFragment() {
+        FragmentManager fm = getFragmentManager();
+        if (fm != null) {
+            fm.popBackStack();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //This is for making up button in the toolbar behave like back button
         if (item.getItemId() == android.R.id.home) {
-            FragmentManager fm = getFragmentManager();
-            if (fm != null) {
-                fm.popBackStack();
-            }
+            returnToListFragment();
         }
         return super.onOptionsItemSelected(item);
     }
