@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +45,16 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
         binding.recycler.setItemAnimator(new DefaultItemAnimator());
         binding.recycler.setAdapter(mAdapter);
 
+        binding.fab.setOnClickListener(v -> {
+            FragmentManager fm = getFragmentManager();
+            if (fm != null) {
+                fm.beginTransaction()
+                        .replace(R.id.main_container, new AddToyFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -61,6 +72,7 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
                 mViewModel.isEmpty.set(true);
             } else {
                 mViewModel.isEmpty.set(false);
+                //Log.d(TAG, "first toy: " + toyEntries.get(0).toString());
                 mAdapter.setToyList(toyEntries);
                 binding.invalidateAll();
             }
@@ -70,6 +82,18 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
     @Override
     public void onToyClicked(ToyEntry chosenToy) {
         mViewModel.setChosenToy(chosenToy);
-        //TODO: open AddToyFragment
+
+        Bundle args = new Bundle();
+        args.putBoolean("isEdit", true);
+        AddToyFragment frag = new AddToyFragment();
+        frag.setArguments(args);
+
+        FragmentManager fm = getFragmentManager();
+        if (fm != null) {
+            fm.beginTransaction()
+                    .replace(R.id.main_container, frag)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }

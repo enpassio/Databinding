@@ -5,4 +5,7 @@
     <color name="colorAccent">@color/color_girls</color>
     <color name="color_girls">#F05A72</color>
     <color name="color_boys">@color/colorPrimary</color>
+
+    <color name="light_blue">#c2ddf0</color>
+    <color name="skin_rose">#FEDFC4</color>
 </resources>

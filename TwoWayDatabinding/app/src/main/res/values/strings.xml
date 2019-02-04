@@ -5,7 +5,7 @@
     <string name="plastic">Plastic</string>
     <string name="plush">Plush</string>
     <string name="new_toy">New</string>
-    <string name="second_hand">Second Hand</string>
+    <string name="second_hand">Used</string>
     <string name="categories">Categories:</string>
     <string name="name">Name:</string>
     <string name="suitable_for">Suitable for:</string>
@@ -15,4 +15,6 @@
     <string name="cd_state_symbol">Image corresponding to state of the toy, new or used</string>
     <string name="cd_empty_image">Crying baby icon, shown when there is no toy</string>
     <string name="no_toys_message">No toys in your inventory yet. Press over the + button to add one.</string>
+    <string name="musical">Musical</string>
+    <string name="educative">Educative</string>
 </resources>

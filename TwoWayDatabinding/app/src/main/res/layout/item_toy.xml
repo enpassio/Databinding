@@ -7,11 +7,13 @@
         <variable
             name="toy"
             type="com.enpassio.twowaydatabinding.data.ToyEntry"/>
+        <import type="com.enpassio.twowaydatabinding.utils.BindingUtils"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small">
 
         <TextView
             android:id="@+id/item_toy_name"
@@ -22,7 +24,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Teddy Bear"
-            android:text="@{toy.toyName}"/>
+            android:text="@{toy.toyName}"
+            android:fontFamily="sans-serif-medium"/>
 
         <TextView
             android:id="@+id/item_categories"
@@ -36,9 +39,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_toy_name"
-            tools:text="Plush" />
+            tools:text="Plush"
+            android:text="@{BindingUtils.attachCategories(toy.categories)}"/>
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_gender_drawable"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -48,19 +52,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/item_toy_name"
             app:layout_constraintBottom_toBottomOf="@id/item_categories"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:genderDrawable="@{toy.gender}"
+            tools:background="@color/color_girls"/>
 
         <ImageView
             android:id="@+id/item_state_drawable"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintDimensionRatio="w,1:1"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/cd_state_symbol"
             app:layout_constraintBottom_toBottomOf="@+id/item_gender_drawable"
+            app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintEnd_toStartOf="@+id/item_gender_drawable"
             app:layout_constraintTop_toTopOf="@+id/item_gender_drawable"
-            app:srcCompat="@mipmap/ic_launcher_round"
-            android:contentDescription="@string/cd_state_symbol"/>
+            app:stateDrawable="@{toy.state}"
+            tools:srcCompat="@drawable/ic_gift" />
     </android.support.constraint.ConstraintLayout>
 
 </layout>
