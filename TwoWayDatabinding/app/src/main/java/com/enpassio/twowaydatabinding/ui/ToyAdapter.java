@@ -33,7 +33,7 @@ public class ToyAdapter extends RecyclerView.Adapter<ToyAdapter.ToyViewHolder>{
                 .inflate(LayoutInflater.from(parent.getContext()), R.layout.item_toy,
                         parent, false);
         //Pass an item click listener to each item layout.
-        //TODO: binding.setToyItemClick(mListener);
+        binding.setToyItemClick(mListener);
         return new ToyViewHolder(binding);
     }
 

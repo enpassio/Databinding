@@ -7,13 +7,19 @@
         <variable
             name="toy"
             type="com.enpassio.twowaydatabinding.data.ToyEntry"/>
+
+        <variable
+            name="toyItemClick"
+            type="com.enpassio.twowaydatabinding.ui.ToyAdapter.ToyClickListener"/>
+
         <import type="com.enpassio.twowaydatabinding.utils.BindingUtils"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_small">
+        android:layout_margin="@dimen/margin_small"
+        android:onClick="@{() ->  toyItemClick.onToyClicked(toy)}">
 
         <TextView
             android:id="@+id/item_toy_name"

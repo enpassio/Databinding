@@ -45,12 +45,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
                     android:text="@string/name"
                     app:layout_constraintBottom_toBottomOf="@+id/toyNameLayout"
                     app:layout_constraintEnd_toStartOf="@+id/guidelineET"
-                    app:layout_constraintTop_toTopOf="@+id/toyNameLayout" />
+                    app:layout_constraintTop_toTopOf="@+id/toyNameLayout"
+                    style="@style/info_text_style" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/toyNameLayout"
@@ -104,8 +103,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
                     android:text="@string/categories"
+                    style="@style/info_text_style"
                     app:layout_constraintBaseline_toBaselineOf="@+id/checkBox_wooden"
                     app:layout_constraintEnd_toStartOf="@+id/checkBox_wooden" />
 
@@ -212,8 +211,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
                     android:text="@string/suitable_for"
+                    style="@style/info_text_style"
                     app:layout_constraintBaseline_toBaselineOf="@+id/spinner_gender"
                     app:layout_constraintEnd_toStartOf="@id/guidelineSpin" />
 
@@ -260,8 +259,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:text="@string/state"
+                style="@style/info_text_style"
                 app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
                 app:layout_constraintEnd_toStartOf="@+id/guidelineRadio"
                 app:layout_constraintTop_toTopOf="@+id/radioGroup" />

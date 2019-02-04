@@ -17,4 +17,10 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
+    <style name="info_text_style">
+        <item name="android:layout_marginEnd">@dimen/margin_small</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>
