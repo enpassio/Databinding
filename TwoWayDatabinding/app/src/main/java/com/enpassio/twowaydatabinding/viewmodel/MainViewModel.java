@@ -3,7 +3,6 @@ package com.enpassio.twowaydatabinding.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
-import android.view.View;
 
 import com.enpassio.twowaydatabinding.ToyRepository;
 import com.enpassio.twowaydatabinding.data.ToyEntry;
@@ -32,7 +31,7 @@ public class MainViewModel extends ViewModel {
         loadToyList();
     }
 
-    public void loadToyList(){
+    private void loadToyList(){
         if(mToyList == null){
             mToyList = mRepo.getToyList();
         }
@@ -66,7 +65,7 @@ public class MainViewModel extends ViewModel {
         mChosenToy = toy;
     }
 
-    public void saveToy(View view){
+    public void saveToy(){
         if(!isEdit){
             insertToy(mChosenToy);
         } else {
@@ -77,7 +76,7 @@ public class MainViewModel extends ViewModel {
     public void setEdit(boolean edit) {
         isEdit = edit;
         if(!isEdit){
-            //Create an initial toy object
+            //Create an initial toy object with a non-null map
             Map<String, Boolean> categories = new HashMap<>();
             categories.put(WOODEN, false);
             categories.put(ELECTRONIC, false);

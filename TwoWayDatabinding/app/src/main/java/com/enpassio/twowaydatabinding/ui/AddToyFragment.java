@@ -53,6 +53,14 @@ public class AddToyFragment extends Fragment {
         } else{
             viewModel.setEdit(false);
         }
+
+        binding.fab.setOnClickListener( v -> {
+            viewModel.saveToy();
+            FragmentManager fm = getFragmentManager();
+            if (fm != null) {
+                fm.popBackStack();
+            }
+        });
     }
 
     @Override

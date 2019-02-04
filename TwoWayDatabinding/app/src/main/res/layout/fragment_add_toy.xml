@@ -67,7 +67,7 @@
                         android:id="@+id/toyNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapCharacters"
+                        android:inputType="textCapWords"
                         android:text="@={viewModel.chosenToy.toyName}" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -307,8 +307,7 @@
             app:maxImageSize="30dp"
             app:pressedTranslationZ="@dimen/fab_pressed_elevation"
             app:srcCompat="@drawable/ic_save"
-            app:useCompatPadding="true"
-            android:onClick="@{viewModel::saveToy}"/>
+            app:useCompatPadding="true"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>
