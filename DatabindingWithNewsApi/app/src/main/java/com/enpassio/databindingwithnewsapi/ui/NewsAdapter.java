@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.enpassio.databindingwithnewsapi.R;
-import com.enpassio.databindingwithnewsapi.databinding.ItemNewsArticleBinding;
+import com.enpassio.databindingwithnewsapi.databinding.ItemBinding;
 import com.enpassio.databindingwithnewsapi.model.Article;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemNewsArticleBinding binding = DataBindingUtil
+        ItemBinding binding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()), R.layout.item_news_article,
                         parent, false);
         //Pass an item click listener to each item layout.
@@ -54,9 +54,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     class NewsViewHolder extends RecyclerView.ViewHolder {
 
-        final ItemNewsArticleBinding binding;
+        final ItemBinding binding;
 
-        NewsViewHolder(ItemNewsArticleBinding binding) {
+        NewsViewHolder(ItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

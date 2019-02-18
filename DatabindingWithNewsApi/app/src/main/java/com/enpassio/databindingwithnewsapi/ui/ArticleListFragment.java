@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,9 +57,8 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
 
         //Create a custom view model factory so that we can pass a listener to it
         MainViewModelFactory factory = new MainViewModelFactory(requireActivity().getApplication(), this);
-        //Get the view model instance
+        //Get the view model instance and pass it to the binding implementation
         mViewModel = ViewModelProviders.of(requireActivity(), factory).get(MainViewModel.class);
-
         binding.included.setViewmodel(mViewModel);
 
         //Verify the connection and start loading from the api
@@ -71,6 +71,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
                 and pass the articles to the adapter*/
                 mViewModel.isLoading.set(false);
                 mAdapter.setArticleList(articles);
+                binding.invalidateAll();
                 Log.d(TAG, "articles are received. list size: " + articles.size());
             }
         });
@@ -97,10 +98,13 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
         need to pass the article in the bundle, since the details fragment will get the
         selected item from the same view model. */
         mViewModel.setChosenArticle(chosenArticle);
-        getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_holder, new ArticleDetailsFragment())
-                .addToBackStack(null)
-                .commit();
+        FragmentManager fm = getFragmentManager();
+        if (fm != null) {
+            fm.beginTransaction()
+                    .replace(R.id.fragment_holder, new ArticleDetailsFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
     @Override

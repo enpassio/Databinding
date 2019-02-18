@@ -8,8 +8,8 @@ import com.enpassio.databindingwithnewsapi.R;
 
 public final class BindingUtils {
 
-    @BindingAdapter("android:src")
-    public static void setImageUrl(ImageView view, String url) {
+    @BindingAdapter("imageSrc")
+    public static void loadImage(ImageView view, String url) {
         GlideApp.with(view.getContext())
                 .load(url)
                 .error(R.drawable.image_not_found)
@@ -26,7 +26,7 @@ public final class BindingUtils {
         return (author == null || author.equals("null")) ? "" : "By " + author;
     }
 
-    public static String hideChartCount(String content) {
+    public static String hideCharCount(String content) {
         /*Contents of articles in NewsApi are limited and they finish by
         a word count like: "...[+1600 chars]". This method is for hiding
         those last brackets*/
