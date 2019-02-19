@@ -6,9 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.enpassio.databindingwithrecyclerview.model.Product;
 import com.enpassio.databindingwithrecyclerview.R;
 import com.enpassio.databindingwithrecyclerview.databinding.ItemProductBinding;
+import com.enpassio.databindingwithrecyclerview.model.Product;
 
 import java.util.List;
 
@@ -17,14 +17,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private final List<Product> mProductList;
     private final ProductItemClickListener mListener;
 
-    ProductAdapter(List<Product> productList, ProductItemClickListener listener) {
+    ProductAdapter(@NonNull List<Product> productList, ProductItemClickListener listener) {
         mProductList =productList;
         mListener = listener;
     }
 
-
+    @NonNull
     @Override
-    public ProductViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemProductBinding binding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()), R.layout.item_product,
                         parent, false);
@@ -43,8 +43,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public int getItemCount() {
-        //If list is null, return 0, otherwise return the size of the list
-        return mProductList == null ? 0 : mProductList.size();
+        return mProductList.size();
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder{

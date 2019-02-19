@@ -1,19 +1,20 @@
 package com.enpassio.databindingwithrecyclerview.ui;
 
 
-
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.enpassio.databindingwithrecyclerview.model.Product;
-import com.enpassio.databindingwithrecyclerview.utils.ProductDataSource;
 import com.enpassio.databindingwithrecyclerview.R;
 import com.enpassio.databindingwithrecyclerview.databinding.FragmentListBinding;
+import com.enpassio.databindingwithrecyclerview.model.Product;
+import com.enpassio.databindingwithrecyclerview.utils.ProductDataSource;
 
 public class ProductListFragment extends Fragment implements ProductAdapter.ProductItemClickListener {
 
@@ -23,7 +24,7 @@ public class ProductListFragment extends Fragment implements ProductAdapter.Prod
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentListBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_list, container, false);
 
@@ -42,9 +43,12 @@ public class ProductListFragment extends Fragment implements ProductAdapter.Prod
         Bundle args = new Bundle();
         args.putParcelable(PRODUCT_KEY, product);
         frag.setArguments(args);
-        getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_holder, frag)
-                .addToBackStack(null)
-                .commit();
+        FragmentManager fm = getFragmentManager();
+        if(fm != null){
+            fm.beginTransaction()
+                    .replace(R.id.fragment_holder, frag)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }
