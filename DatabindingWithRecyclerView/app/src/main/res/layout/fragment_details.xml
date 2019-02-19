@@ -11,10 +11,11 @@
             type="com.enpassio.databindingwithrecyclerview.model.Product"/>
 
         <!-- We are importing this class here, so that we can use a helper method located in this class -->
-        <import type="com.enpassio.databindingwithrecyclerview.utils.DatabindingUtils"/>
+        <import type="com.enpassio.databindingwithrecyclerview.utils.BindingUtils"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -33,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorAccent"
+                app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:toolbarId="@+id/toolbar">
 
@@ -50,7 +51,7 @@
                    android:layout_margin="@dimen/margin_size_max"
                     app:layout_collapseMode="parallax"
                     tools:src="@drawable/paper"
-                    android:src="@{product.productImage}"/>
+                    app:imageResource="@{product.productImage}"/>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -89,7 +90,7 @@
                     android:text="@{product.productName}"/>
 
                 <!-- We call the productPrice field of the product object
-                and with the help of a helper method from DatabindingUtils class
+                and with the help of a helper method from BindingUtils class
                 that we imported above, we add a currency sign to the price-->
                 <TextView
                     android:id="@+id/product_price"
@@ -98,7 +99,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_size_medium"
                     tools:text="3$"
-                    android:text="@{DatabindingUtils.addCurrencySign(product.productPrice)}"/>
+                    android:text="@{BindingUtils.addCurrencySign(product.productPrice)}"/>
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

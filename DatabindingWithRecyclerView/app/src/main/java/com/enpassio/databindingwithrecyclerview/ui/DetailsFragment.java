@@ -3,18 +3,18 @@ package com.enpassio.databindingwithrecyclerview.ui;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.enpassio.databindingwithrecyclerview.model.Product;
 import com.enpassio.databindingwithrecyclerview.R;
 import com.enpassio.databindingwithrecyclerview.databinding.FragmentDetailsBinding;
-
-
+import com.enpassio.databindingwithrecyclerview.model.Product;
 
 import static com.enpassio.databindingwithrecyclerview.ui.ProductListFragment.PRODUCT_KEY;
 
@@ -24,12 +24,12 @@ public class DetailsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentDetailsBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_details, container, false);
 
         //These are for making up button work. Not related to databinding.
-        ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
         setHasOptionsMenu(true);
 
         Bundle bundle = getArguments();
@@ -46,8 +46,11 @@ public class DetailsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //This is for making up button in the toolbar behave like back button
-        if(item.getItemId() == android.R.id.home){
-            getFragmentManager().popBackStack();
+        if (item.getItemId() == android.R.id.home) {
+            FragmentManager fm = getFragmentManager();
+            if (fm != null) {
+                fm.popBackStack();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
