@@ -17,7 +17,7 @@
             type="com.enpassio.databindingwithrecyclerviewkotlin.ui.ProductAdapter.ProductItemClickListener"/>
 
         <!-- We are importing DatabindingUtils here, so that we can use a helper method located in it -->
-        <import type="com.enpassio.databindingwithrecyclerviewkotlin.utils.DatabindingUtils"/>
+        <import type="com.enpassio.databindingwithrecyclerviewkotlin.utils.BindingUtils"/>
     </data>
 
     <!-- We will be attaching the productItemClick to the parent layout
@@ -78,7 +78,7 @@
                 android:layout_marginRight="@dimen/margin_size_medium"
                 android:layout_marginBottom="@dimen/margin_size_medium"
                 android:textSize="@dimen/text_size_medium"
-                android:text="@{DatabindingUtils.addCurrencySign(product.productPrice)}"
+                android:text="@{BindingUtils.addCurrencySign(product.productPrice)}"
                 tools:text="10$" />
 
         </LinearLayout>
