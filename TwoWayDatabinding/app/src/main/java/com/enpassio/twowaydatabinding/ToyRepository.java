@@ -12,30 +12,30 @@ public class ToyRepository {
 
     private static ToyRepository sInstance;
     private final ToyDatabase mDatabase;
-    private final LiveData<List<ToyEntry>> toyList;
     private final AppExecutors mExecutors;
 
     private ToyRepository(ToyDatabase database, AppExecutors executors) {
         mDatabase = database;
         mExecutors = executors;
-        toyList = loadToys();
     }
 
     public static ToyRepository getInstance(ToyDatabase database, AppExecutors executors) {
         if (sInstance == null) {
             synchronized (ToyRepository.class) {
-                sInstance = new ToyRepository(database, executors);
+                if (sInstance == null) {
+                    sInstance = new ToyRepository(database, executors);
+                }
             }
         }
         return sInstance;
     }
 
-    private LiveData<List<ToyEntry>> loadToys(){
+    public LiveData<List<ToyEntry>> getToyList() {
         return mDatabase.toyDao().getAllToys();
     }
 
-    public LiveData<List<ToyEntry>> getToyList() {
-        return toyList;
+    public LiveData<ToyEntry> getChosenToy(int toyId){
+        return mDatabase.toyDao().getChosenToy(toyId);
     }
 
     public void insertToy(final ToyEntry toy){

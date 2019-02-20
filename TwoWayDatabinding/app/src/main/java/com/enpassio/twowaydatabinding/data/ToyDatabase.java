@@ -8,7 +8,7 @@ import android.content.Context;
 import android.util.Log;
 
 @Database(entities = {ToyEntry.class}, version =1, exportSchema = false)
-@TypeConverters(ListConverter.class)
+@TypeConverters(MapConverter.class)
 public abstract class ToyDatabase extends RoomDatabase {
 
     private static final String LOG_TAG = ToyDatabase.class.getSimpleName();
@@ -19,10 +19,12 @@ public abstract class ToyDatabase extends RoomDatabase {
     public static ToyDatabase getInstance(Context context) {
         if (sInstance == null) {
             synchronized (LOCK) {
-                Log.d(LOG_TAG, "Creating new database instance");
-                sInstance = Room.databaseBuilder(context.getApplicationContext(),
-                        ToyDatabase.class, ToyDatabase.DATABASE_NAME)
-                        .build();
+                if (sInstance == null) {
+                    sInstance = Room.databaseBuilder(context.getApplicationContext(),
+                            ToyDatabase.class, ToyDatabase.DATABASE_NAME)
+                            .build();
+                    Log.d(LOG_TAG, "Creating new database instance");
+                }
             }
         }
         Log.d(LOG_TAG, "Getting the database instance");

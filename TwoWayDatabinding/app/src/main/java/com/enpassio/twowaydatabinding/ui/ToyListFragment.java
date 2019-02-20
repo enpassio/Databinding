@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import com.enpassio.twowaydatabinding.R;
 import com.enpassio.twowaydatabinding.data.ToyEntry;
 import com.enpassio.twowaydatabinding.databinding.FragmentListBinding;
-import com.enpassio.twowaydatabinding.utils.InjectorUtils;
 import com.enpassio.twowaydatabinding.viewmodel.MainViewModel;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
     private static final String TAG = "ToyListFragment";
     private FragmentListBinding binding;
     private List<ToyEntry> mToyList;
-    public static final String IS_EDIT = "isEdit";
+    public static final String TOY_ID = "toyId";
 
     public ToyListFragment() {
         setRetainInstance(true);
@@ -67,7 +66,7 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         //Get the view model instance and pass it to the binding implementation
-        mViewModel = ViewModelProviders.of(getActivity(), InjectorUtils.provideMainListFactory(getActivity())).get(MainViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
         binding.setViewModel(mViewModel);
 
         //Claim list of toys from view model
@@ -113,12 +112,10 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
     }
 
     @Override
-    public void onToyClicked(ToyEntry chosenToy) {
-        //Set the chosen toy in view model
-        mViewModel.setChosenToy(chosenToy);
-
+    public void onToyClicked(int toyId) {
+        //Pass chosen toy id to the AddToyFragment
         Bundle args = new Bundle();
-        args.putBoolean(IS_EDIT, true);
+        args.putInt(TOY_ID, toyId);
         AddToyFragment frag = new AddToyFragment();
         frag.setArguments(args);
 
