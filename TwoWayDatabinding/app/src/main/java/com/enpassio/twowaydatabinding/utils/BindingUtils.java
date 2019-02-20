@@ -7,11 +7,13 @@ import android.widget.ImageView;
 
 import com.enpassio.twowaydatabinding.R;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 
 public final class BindingUtils {
 
-    @BindingAdapter("app:genderDrawable")
+    @BindingAdapter("genderDrawable")
     public static void getGenderDrawable(ImageView imageView, int position){
         switch(position){
             case 0: {
@@ -31,7 +33,7 @@ public final class BindingUtils {
         }
     }
 
-    @BindingAdapter("app:stateDrawable")
+    @BindingAdapter("stateDrawable")
     public static void getStateDrawable(ImageView imageView, int buttonId){
         switch(buttonId){
             case R.id.radioBtn_new: {
@@ -49,15 +51,26 @@ public final class BindingUtils {
         if(categories == null){
             return null;
         }
-        StringBuilder sb = new StringBuilder();
+
+        //Filter categories whose values are true
+        ArrayList<String> filteredList = new ArrayList<>();
         for (Map.Entry<String, Boolean> entry : categories.entrySet()) {
             if(entry.getValue()) {
-                sb.append(entry.getKey());
+                filteredList.add(entry.getKey());
+            }
+        }
+
+        //Append categories in the list with comma as separator
+        StringBuilder sb = new StringBuilder();
+        Iterator<String> iterator = filteredList.iterator();
+        while (iterator.hasNext()) {
+            String element = iterator.next();
+            sb.append(element);
+            if (iterator.hasNext()) {
                 sb.append(", ");
             }
         }
-        int length = sb.length();
-        sb.delete(length-2, length-1);
+
         return sb.toString();
     }
 }

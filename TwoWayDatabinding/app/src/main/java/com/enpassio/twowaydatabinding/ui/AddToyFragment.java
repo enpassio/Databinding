@@ -16,13 +16,15 @@ import android.view.ViewGroup;
 import com.enpassio.twowaydatabinding.R;
 import com.enpassio.twowaydatabinding.databinding.AddToyBinding;
 import com.enpassio.twowaydatabinding.utils.InjectorUtils;
-import com.enpassio.twowaydatabinding.viewmodel.MainViewModel;
+import com.enpassio.twowaydatabinding.viewmodel.AddToyViewModel;
+import com.enpassio.twowaydatabinding.viewmodel.AddToyViewModelFactory;
 
-import static com.enpassio.twowaydatabinding.ui.ToyListFragment.IS_EDIT;
+import static com.enpassio.twowaydatabinding.ui.ToyListFragment.TOY_ID;
 
 public class AddToyFragment extends Fragment {
 
     private AddToyBinding binding;
+    public static final int NEW_TOY = -1;
 
     public AddToyFragment() {
         setRetainInstance(true);
@@ -45,18 +47,27 @@ public class AddToyFragment extends Fragment {
 
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Get the view model instance and pass it to the binding implementation
-        MainViewModel viewModel = ViewModelProviders.of(getActivity(), InjectorUtils.provideMainListFactory(getActivity())).get(MainViewModel.class);
-        binding.setViewModel(viewModel);
+        int toyId = NEW_TOY;
 
         Bundle bundle = getArguments();
-        if(bundle != null && bundle.getBoolean(IS_EDIT)){
-            viewModel.setEdit(true);
-        } else{
-            viewModel.setEdit(false);
+        if (bundle != null && bundle.containsKey(TOY_ID)) {
+            toyId = bundle.getInt(TOY_ID);
         }
 
-        binding.fab.setOnClickListener( v -> {
+        //Get the view model instance and pass it to the binding implementation
+        AddToyViewModelFactory factory = new AddToyViewModelFactory(InjectorUtils.provideRepository(getContext()), toyId);
+        AddToyViewModel viewModel = ViewModelProviders.of(this, factory).get(AddToyViewModel.class);
+
+        binding.setViewModel(viewModel);
+
+        if(toyId >= 0) { //Edit case
+            viewModel.getChosenToy().observe(this, toyEntry -> {
+                viewModel.setToyBeingModified(toyEntry);
+                binding.invalidateAll();
+            });
+        }
+
+        binding.fab.setOnClickListener(v -> {
             viewModel.saveToy();
             returnToListFragment();
         });

@@ -62,6 +62,6 @@ public class ToyAdapter extends RecyclerView.Adapter<ToyAdapter.ToyViewHolder>{
     }
 
     public interface ToyClickListener {
-        void onToyClicked(ToyEntry chosenToy);
+        void onToyClicked(int toyID);
     }
 }

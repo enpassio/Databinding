@@ -6,20 +6,21 @@ import android.support.annotation.NonNull;
 
 import com.enpassio.twowaydatabinding.ToyRepository;
 
-public class MainViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+public class AddToyViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
-    @NonNull
-    private final ToyRepository mRepo;
+    private ToyRepository mRepo;
+    private int mToyId;
 
-    public MainViewModelFactory(ToyRepository toyRepository) {
-        mRepo = toyRepository;
+    public AddToyViewModelFactory(ToyRepository repo, int toyId) {
+        mRepo = repo;
+        mToyId = toyId;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         //noinspection unchecked
-        return (T) new MainViewModel(mRepo);
+        return (T) new AddToyViewModel(mRepo, mToyId);
     }
 }
 
