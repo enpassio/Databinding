@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="toy"
+            type="com.enpassion.twowaydatabindingkotlin.data.ToyEntry"/>
+
+        <variable
+            name="toyItemClick"
+            type="com.enpassion.twowaydatabindingkotlin.ui.ToyAdapter.ToyClickListener"/>
+
+        <import type="com.enpassion.twowaydatabindingkotlin.utils.BindingUtils"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small"
+        android:onClick="@{() ->  toyItemClick.onToyClicked(toy.toyId)}">
+
+        <TextView
+            android:id="@+id/item_toy_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Teddy Bear"
+            android:text="@{toy.toyName}"
+            android:fontFamily="sans-serif-medium"/>
+
+        <TextView
+            android:id="@+id/item_categories"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_toy_name"
+            tools:text="Plush"
+            android:text="@{BindingUtils.attachCategories(toy.categories)}"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/item_gender_drawable"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/cd_item_gender"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/item_toy_name"
+            app:layout_constraintBottom_toBottomOf="@id/item_categories"
+            app:genderDrawable="@{toy.gender}"
+            tools:background="@color/color_girls"/>
+
+        <ImageView
+            android:id="@+id/item_state_drawable"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/cd_state_symbol"
+            app:layout_constraintBottom_toBottomOf="@+id/item_gender_drawable"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toStartOf="@+id/item_gender_drawable"
+            app:layout_constraintTop_toTopOf="@+id/item_gender_drawable"
+            app:stateDrawable="@{toy.state}"
+            tools:srcCompat="@drawable/ic_gift" />
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
