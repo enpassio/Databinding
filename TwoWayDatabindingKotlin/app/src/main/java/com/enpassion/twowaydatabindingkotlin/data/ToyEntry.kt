@@ -4,7 +4,6 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.databinding.BaseObservable
 import android.databinding.Bindable
-import android.util.Log
 import com.enpassion.twowaydatabindingkotlin.BR
 
 @Entity(tableName = "toys")
@@ -21,7 +20,6 @@ data class ToyEntry(
         set(value) {
         _toyName = value
         notifyPropertyChanged(BR.toyName)
-        Log.d(TAG, "toy name set")
     }
 
     var categories : Map<String, Boolean>
@@ -29,7 +27,6 @@ data class ToyEntry(
         set(value) {
             _categories = value
             notifyPropertyChanged(BR.categories)
-            Log.d(TAG, "categories set")
         }
 
     var gender : Int
@@ -37,7 +34,6 @@ data class ToyEntry(
         set(value) {
             _gender = value
             notifyPropertyChanged(BR.gender)
-            Log.d(TAG, "gender set")
         }
 
     var state : Int
@@ -45,10 +41,6 @@ data class ToyEntry(
         set(value) {
             _state = value
             notifyPropertyChanged(BR.state)
-            Log.d(TAG, "state set")
         }
 
-    companion object {
-        private val TAG = "ToyEntry"
-    }
 }

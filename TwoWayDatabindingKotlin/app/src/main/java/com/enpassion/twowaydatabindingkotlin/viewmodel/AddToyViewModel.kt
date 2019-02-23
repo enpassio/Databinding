@@ -26,25 +26,27 @@ class AddToyViewModel(private val mRepo: ToyRepository, toyId: Int) : ViewModel(
         }
     }
 
-    private fun insertToy(toy: ToyEntry?) {
-        mRepo.insertToy(toy!!)
+    private fun insertToy(toy: ToyEntry) {
+        mRepo.insertToy(toy)
     }
 
-    private fun updateToy(toy: ToyEntry?) {
-        mRepo.updateToy(toy!!)
+    private fun updateToy(toy: ToyEntry) {
+        mRepo.updateToy(toy)
     }
 
     fun saveToy() {
         if (!mIsEdit) {
-            insertToy(toyBeingModified)
+            toyBeingModified?.let { insertToy(it) }
         } else {
-            updateToy(toyBeingModified)
+            toyBeingModified?.let { updateToy(it) }
         }
     }
 
     private fun initializeEmptyToy(): ToyEntry {
-        val categories = mutableMapOf(WOODEN to false, ELECTRONIC to false,
-        PLASTIC to false, PLUSH to false, MUSICAL to false, EDUCATIVE to false)
+        val categories = mutableMapOf(
+            WOODEN to false, ELECTRONIC to false,
+            PLASTIC to false, PLUSH to false, MUSICAL to false, EDUCATIVE to false
+        )
         return ToyEntry(_categories = categories)
     }
 

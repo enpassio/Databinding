@@ -30,42 +30,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Teddy Bear"
+            android:textSize="@dimen/text_size_large"
             android:text="@{toy.toyName}"
             android:fontFamily="sans-serif-medium"/>
 
         <TextView
-            android:id="@+id/item_categories"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_toy_name"
-            tools:text="Plush"
-            android:text="@{BindingUtils.attachCategories(toy.categories)}"/>
+                android:id="@+id/item_categories"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_toy_name"
+                tools:text="Plush"
+                android:text="@{BindingUtils.attachCategories(toy.categories)}" android:layout_marginTop="8dp"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_gender_drawable"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/margin_small"
             android:contentDescription="@string/cd_item_gender"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/item_toy_name"
             app:layout_constraintBottom_toBottomOf="@id/item_categories"
             app:genderDrawable="@{toy.gender}"
-            tools:background="@color/color_girls"/>
+            tools:background="@color/color_boys"/>
 
         <ImageView
             android:id="@+id/item_state_drawable"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/margin_standard"
             android:contentDescription="@string/cd_state_symbol"
             app:layout_constraintBottom_toBottomOf="@+id/item_gender_drawable"
             app:layout_constraintDimensionRatio="w,1:1"
