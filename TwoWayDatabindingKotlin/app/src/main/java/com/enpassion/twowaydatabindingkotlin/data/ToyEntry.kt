@@ -5,17 +5,18 @@ import android.arch.persistence.room.PrimaryKey
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
+import com.enpassion.twowaydatabindingkotlin.BR
 
 @Entity(tableName = "toys")
 data class ToyEntry(
-    @PrimaryKey(autoGenerate = true) val toyId: Int = 0,
-    private var _toyName: String,
-            private var _categories: Map<String, Boolean>,
-            private var _gender: Int = 0,
-            private var _state: Int = 0
+    private var _toyName: String? = null,
+    private var _categories: Map<String, Boolean>,
+    private var _gender: Int = 0,
+    private var _state: Int = 0,
+    @PrimaryKey(autoGenerate = true) val toyId: Int = 0
 ) : BaseObservable() {
 
-    var toyName : String
+    var toyName : String?
     @Bindable get() = _toyName
         set(value) {
         _toyName = value

@@ -6,8 +6,8 @@
     <data class="AddToyBinding">
 
         <variable
-            name="viewModel"
-            type="com.enpassion.twowaydatabindingkotlin.AddToyViewModel" />
+                name="viewModel"
+                type="com.enpassion.twowaydatabindingkotlin.viewmodel.AddToyViewModel" />
     </data>
 
     <ScrollView

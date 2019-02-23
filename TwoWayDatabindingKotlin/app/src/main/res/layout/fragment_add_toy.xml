@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.enpassion.twowaydatabindingkotlin.AddToyViewModel" />
+            type="com.enpassion.twowaydatabindingkotlin.viewmodel.AddToyViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
