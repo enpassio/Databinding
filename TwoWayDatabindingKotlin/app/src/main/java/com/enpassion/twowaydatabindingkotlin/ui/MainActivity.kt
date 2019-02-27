@@ -20,4 +20,15 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
     }
+
+    override fun onBackPressed() {
+        /*//If back is clicked when AddToyFragment is on the screen,
+        check whether there are unsaved changes*/
+       val currentFrag = supportFragmentManager.findFragmentById(R.id.main_container)
+        if(currentFrag is AddToyFragment){
+            currentFrag.onBackClicked()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

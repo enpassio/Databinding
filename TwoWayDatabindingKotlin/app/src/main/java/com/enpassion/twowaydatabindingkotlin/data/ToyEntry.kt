@@ -2,45 +2,24 @@ package com.enpassion.twowaydatabindingkotlin.data
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import android.databinding.BaseObservable
-import android.databinding.Bindable
-import com.enpassion.twowaydatabindingkotlin.BR
 
 @Entity(tableName = "toys")
 data class ToyEntry(
-    private var _toyName: String? = null,
-    private var _categories: Map<String, Boolean>,
-    private var _gender: Int = 0,
-    private var _state: Int = 0,
+    var toyName: String,
+    var categories: Map<String, Boolean>,
+    var gender: Int = 0,
+    var state: Int = 0,
     @PrimaryKey(autoGenerate = true) val toyId: Int = 0
-) : BaseObservable() {
+){
 
-    var toyName : String?
-    @Bindable get() = _toyName
-        set(value) {
-        _toyName = value
-        notifyPropertyChanged(BR.toyName)
+    /*This function is needed for a healthy comparison of two items,
+    particularly for detecting changes in the contents of the map.
+    Native copy method of the data class assign a map with same reference
+    to the copied item, so equals() method cannot detect changes in the content.*/
+    fun copy() : ToyEntry{
+        val newCategories = mutableMapOf<String, Boolean>()
+        newCategories.putAll(categories)
+        return ToyEntry(toyName, newCategories, gender, state, toyId)
     }
-
-    var categories : Map<String, Boolean>
-    @Bindable get() = _categories
-        set(value) {
-            _categories = value
-            notifyPropertyChanged(BR.categories)
-        }
-
-    var gender : Int
-    @Bindable get() = _gender
-        set(value) {
-            _gender = value
-            notifyPropertyChanged(BR.gender)
-        }
-
-    var state : Int
-    @Bindable get() = _state
-        set(value) {
-            _state = value
-            notifyPropertyChanged(BR.state)
-        }
-
 }
+
