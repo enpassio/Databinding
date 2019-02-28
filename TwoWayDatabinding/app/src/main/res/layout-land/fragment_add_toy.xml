@@ -26,8 +26,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_standard"
                 app:cardBackgroundColor="@color/skin_rose"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
                 app:contentPadding="@dimen/padding_standard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -84,8 +84,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_standard"
                 app:cardBackgroundColor="@color/light_blue"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
                 app:contentPadding="@dimen/padding_standard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -182,16 +182,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:barrierDirection="right"
-                        app:constraint_referenced_ids="checkBox_plastic,checkBox_wooden"
-                        tools:layout_editor_absoluteX="411dp" />
+                        app:constraint_referenced_ids="checkBox_plastic,checkBox_wooden" />
 
                     <android.support.constraint.Barrier
                         android:id="@+id/barrier2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:barrierDirection="right"
-                        app:constraint_referenced_ids="checkBox_electronic,checkBox_plush"
-                        tools:layout_editor_absoluteX="411dp" />
+                        app:constraint_referenced_ids="checkBox_electronic,checkBox_plush" />
 
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>
@@ -202,8 +200,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_standard"
                 app:cardBackgroundColor="@color/skin_rose"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
                 app:contentPadding="@dimen/padding_standard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -250,8 +248,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_standard"
                 app:cardBackgroundColor="@color/light_blue"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
                 app:contentPadding="@dimen/padding_standard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -315,9 +313,9 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_large"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardRadioGroup" />

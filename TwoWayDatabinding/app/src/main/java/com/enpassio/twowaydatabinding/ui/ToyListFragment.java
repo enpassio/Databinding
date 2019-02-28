@@ -9,6 +9,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -63,14 +64,17 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if(actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
 
         //Get the view model instance and pass it to the binding implementation
-        mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+        mViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
         binding.setViewModel(mViewModel);
 
         //Claim list of toys from view model
-        mViewModel.getToyList().observe(getActivity(), toyEntries -> {
+        mViewModel.getToyList().observe(this, toyEntries -> {
             mViewModel.isLoading.set(false);
             if (toyEntries == null || toyEntries.isEmpty()) {
                 mViewModel.isEmpty.set(true);
@@ -83,7 +87,7 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
         });
 
         //Attach an ItemTouchHelper for swipe-to-delete functionality
-        final CoordinatorLayout coordinator = getActivity().findViewById(R.id.main_coordinator);
+        final CoordinatorLayout coordinator = requireActivity().findViewById(R.id.main_coordinator);
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {

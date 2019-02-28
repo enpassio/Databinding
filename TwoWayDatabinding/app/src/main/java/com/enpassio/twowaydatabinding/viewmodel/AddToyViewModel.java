@@ -32,7 +32,7 @@ public class AddToyViewModel extends ViewModel {
             /*This is for adding a new toy. We initialize a ToyEntry with default or null values
             This is because two-way databinding in the AddToyFragment is designed to
             register changes automatically, but it will need a toy object to register those changes.*/
-            mToyBeingModified = initializeEmptyToy();
+            mToyBeingModified = getEmptyToy();
             mIsEdit = false;
         }
     }
@@ -45,8 +45,8 @@ public class AddToyViewModel extends ViewModel {
         return mToyBeingModified;
     }
 
-    public void setToyBeingModified(ToyEntry toyBeingModified) {
-        this.mToyBeingModified = toyBeingModified;
+    public void setToyBeingModified(ToyEntry toy) {
+        mToyBeingModified = toy.copy();
     }
 
     private void insertToy(final ToyEntry toy){
@@ -65,7 +65,7 @@ public class AddToyViewModel extends ViewModel {
         }
     }
 
-    private ToyEntry initializeEmptyToy() {
+    private ToyEntry getEmptyToy() {
         Map<String, Boolean> categories = new HashMap<>();
         categories.put(WOODEN, false);
         categories.put(ELECTRONIC, false);
@@ -73,6 +73,16 @@ public class AddToyViewModel extends ViewModel {
         categories.put(PLUSH, false);
         categories.put(MUSICAL, false);
         categories.put(EDUCATIVE, false);
-        return new ToyEntry(null, categories, 0, 0);
+        return new ToyEntry("", categories, 0, 0);
+    }
+
+    public boolean isChanged(){
+        boolean isChanged;
+        if(mIsEdit){
+            isChanged = !mToyBeingModified.equals(mChosenToy.getValue());
+        } else {
+            isChanged = !mToyBeingModified.equals(getEmptyToy());
+        }
+        return isChanged;
     }
 }
