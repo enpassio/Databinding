@@ -3,16 +3,13 @@ package com.enpassio.twowaydatabinding.data;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.util.Log;
+import android.support.annotation.Nullable;
 
-import com.enpassio.twowaydatabinding.BR;
-
+import java.util.HashMap;
 import java.util.Map;
 
 @Entity(tableName = "toys")
-public class ToyEntry extends BaseObservable {
+public class ToyEntry{
 
     private static final String TAG = "ToyEntry";
 
@@ -43,58 +40,63 @@ public class ToyEntry extends BaseObservable {
         return toyId;
     }
 
-    @Bindable
     public String getToyName() {
         return toyName;
     }
 
-    @Bindable
     public Map<String, Boolean> getCategories() {
         return categories;
     }
 
-    @Bindable
     public int getGender() {
         return gender;
     }
 
-    @Bindable
     public int getState() {
         return state;
     }
 
     public void setToyName(String toyName) {
         this.toyName = toyName;
-        notifyPropertyChanged(BR.toyName);
-        Log.d(TAG, "toy name set");
     }
 
     public void setCategories(Map<String, Boolean> categories) {
         this.categories = categories;
-        notifyPropertyChanged(BR.categories);
-        Log.d(TAG, "categories set");
     }
 
     public void setGender(int gender) {
         this.gender = gender;
-        notifyPropertyChanged(BR.gender);
-        Log.d(TAG, "gender set");
     }
 
     public void setState(int state) {
         this.state = state;
-        notifyPropertyChanged(BR.state);
-        Log.d(TAG, "state set");
+    }
+
+    public ToyEntry copy(){
+        Map<String, Boolean> newCategories = new HashMap<>(this.categories);
+        return new ToyEntry(toyId, toyName, newCategories, gender, state);
     }
 
     @Override
-    public String toString() {
-        return "ToyEntry{" +
-                "toyId=" + toyId +
-                ", toyName='" + toyName + '\'' +
-                ", categories=" + categories.size() +
-                ", gender=" + gender +
-                ", state=" + state +
-                '}';
+    public boolean equals(@Nullable Object obj) {
+
+        if(!(obj instanceof ToyEntry)) return false;
+
+        ToyEntry other = (ToyEntry) obj;
+
+        return other.getToyName().equals(toyName)
+            && other.getCategories().equals(categories)
+            && other.getGender() == gender
+            && other.getState() == state;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + (toyName == null ? 0 : toyName.hashCode());
+        hash = 31 * hash + (categories == null ? 0 : categories.hashCode());
+        hash = 31 * hash + gender;
+        hash = 31 * hash + state;
+        return hash;
     }
 }

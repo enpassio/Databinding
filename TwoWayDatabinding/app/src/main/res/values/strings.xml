@@ -19,4 +19,8 @@
     <string name="educative">Educative</string>
     <string name="undo">UNDO</string>
     <string name="toy_is_deleted">Toy is deleted</string>
+    <string name="toy_empty_warning">Toy name can\'t be empty</string>
+    <string name="unsaved_changes_warning_title">Discard changes?</string>
+    <string name="unsaved_changes_warning_message">Are you sure you want to discard the changes?</string>
+    <string name="yes">Yes</string>
 </resources>
