@@ -8,21 +8,20 @@
         we will call its fields to populate our layout -->
         <variable
             name="product"
-            type="com.enpassio.databindingwithrecyclerviewkotlin.model.Product"/>
+            type="com.enpassio.databindingwithrecyclerview.model.Product"/>
 
         <!-- We will be passing a ProductItemClickListener object called
          'productItemClick' and we will use this for managing list item clicks-->
         <variable
             name="productItemClick"
-            type="com.enpassio.databindingwithrecyclerviewkotlin.ui.ProductAdapter.ProductItemClickListener"/>
+            type="com.enpassio.databindingwithrecyclerview.ui.ProductAdapter.ProductItemClickListener"/>
 
-        <!-- We are importing DatabindingUtils here, so that we can use a helper method located in it -->
-        <import type="com.enpassio.databindingwithrecyclerviewkotlin.utils.BindingUtils"/>
-
+        <!-- We are importing this class here, so that we can use a helper method located in this class -->
+        <import type="com.enpassio.databindingwithrecyclerview.utils.BindingUtils"/>
     </data>
 
     <!-- We will be attaching the productItemClick to the parent layout
-     so that it will work wherever we click on the list item-->
+     so that it will work whereever we click on the list item-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,8 +32,7 @@
         tools:ignore="RtlHardcoded">
 
         <!-- Image resource id cannot be directly assigned to default android:src.
-                Here we are using a custom binding adapter and using app:imageResource - to be able
-                 to assign image resource correctly.-->
+          Here we are using a custom binding adapter for android:src attribute.-->
         <ImageView
             android:id="@+id/product_photo"
             android:layout_width="@dimen/list_item_image_size"
