@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_heading">24sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="margin_size_medium">16dp</dimen>
+    <dimen name="margin_size_minimum">4dp</dimen>
+    <dimen name="list_item_image_size">64dp</dimen>
+    <dimen name="image_dropdown_height">300dp</dimen>
+    <dimen name="margin_size_max">30dp</dimen>
+</resources>
