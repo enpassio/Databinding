@@ -9,7 +9,7 @@ import com.enpassio.databindingwithnewsapikotlin.utils.fetchArticles
 import com.enpassio.databindingwithnewsapikotlin.utils.thereIsConnection
 
 
-class NewsRepository private constructor(private val mContext: Context, private val mListener: NetworkStateListener) {
+class NewsRepository private constructor(private val mListener: NetworkStateListener) {
 
     /*We need a mutable live data here, so that we can modify it, but we
     prefer to pass an immutable live data to the UI layer*/
@@ -17,12 +17,12 @@ class NewsRepository private constructor(private val mContext: Context, private 
     val articles: LiveData<List<Article>>
         get() = _articles
 
-    fun checkConnectionAndStartFetching() {
+    fun checkConnectionAndStartFetching(context : Context) {
         //If data is already there, no need to go over this process again
         if (articles.value?.isNotEmpty() == true) {
             return
         }
-        if (thereIsConnection(mContext)) {
+        if (thereIsConnection(context)) {
             //Pass network state to fragment
             mListener.onNetworkStateChanged(true)
             Log.d(TAG, "there is connection, start fetching")
@@ -54,11 +54,11 @@ class NewsRepository private constructor(private val mContext: Context, private 
     companion object {
 
         @Volatile private var sInstance: NewsRepository? = null
-        private val TAG = "NewsRepository"
+        private const val TAG = "NewsRepository"
 
-        fun getInstance(context: Context, listener: NetworkStateListener): NewsRepository {
+        fun getInstance(listener: NetworkStateListener): NewsRepository {
             return sInstance ?: synchronized(NewsRepository::class.java) {
-                sInstance ?: NewsRepository(context, listener).also { sInstance = it }
+                sInstance ?: NewsRepository(listener).also { sInstance = it }
             }
         }
     }
