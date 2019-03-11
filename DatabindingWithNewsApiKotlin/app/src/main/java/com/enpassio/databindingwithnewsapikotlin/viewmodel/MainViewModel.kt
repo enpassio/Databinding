@@ -6,17 +6,16 @@ import android.arch.lifecycle.LiveData
 import android.content.Intent
 import android.databinding.ObservableBoolean
 import android.net.Uri
-import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import com.enpassio.databindingwithnewsapikotlin.data.Article
 import com.enpassio.databindingwithnewsapikotlin.data.NewsRepository
 
-
 class MainViewModel(application: Application, listener: NewsRepository.NetworkStateListener) :
     AndroidViewModel(application) {
 
-    private val mRepo: NewsRepository = NewsRepository.getInstance(application, listener)
+    private val mApplication = application
+    private val mRepo: NewsRepository = NewsRepository.getInstance(listener)
     val isLoading = ObservableBoolean(true)
     val networkConnected = ObservableBoolean(true)
 
@@ -29,7 +28,7 @@ class MainViewModel(application: Application, listener: NewsRepository.NetworkSt
     var chosenArticle: Article? = null
 
     fun checkConnectionAndStartLoading() {
-        mRepo.checkConnectionAndStartFetching()
+        mRepo.checkConnectionAndStartFetching(mApplication)
     }
 
     fun showList(): Boolean {
