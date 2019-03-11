@@ -8,7 +8,7 @@
         we will call its fields to populate our layout -->
         <variable
                 name="article"
-                type="com.enpassio.databindingwithnewsapikotlin.model.Article" />
+                type="com.enpassio.databindingwithnewsapikotlin.data.Article" />
 
         <!-- We will be passing a ArticleItemClickListener object called
          'articleItemClick' and we will use this for managing list item clicks -->
