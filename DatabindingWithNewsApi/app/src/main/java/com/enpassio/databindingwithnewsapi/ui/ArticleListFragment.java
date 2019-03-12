@@ -20,6 +20,7 @@ import com.enpassio.databindingwithnewsapi.R;
 import com.enpassio.databindingwithnewsapi.databinding.NewsListBinding;
 import com.enpassio.databindingwithnewsapi.model.Article;
 import com.enpassio.databindingwithnewsapi.repository.NewsRepository;
+import com.enpassio.databindingwithnewsapi.utils.UIState;
 import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel;
 import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModelFactory;
 
@@ -59,7 +60,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
         MainViewModelFactory factory = new MainViewModelFactory(requireActivity().getApplication(), this);
         //Get the view model instance and pass it to the binding implementation
         mViewModel = ViewModelProviders.of(requireActivity(), factory).get(MainViewModel.class);
-        binding.included.setViewmodel(mViewModel);
+        binding.included.setViewModel(mViewModel);
 
         //Verify the connection and start loading from the api
         mViewModel.checkConnectionAndStartLoading();
@@ -69,9 +70,8 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
             if (articles != null && !articles.isEmpty()) {
                 /*When articles are received, hide the loading indicator
                 and pass the articles to the adapter*/
-                mViewModel.isLoading.set(false);
+                mViewModel.uiState.set(UIState.SUCCESS);
                 mAdapter.setArticleList(articles);
-                binding.invalidateAll();
                 Log.d(TAG, "articles are received. list size: " + articles.size());
             }
         });
@@ -111,12 +111,12 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
     public void onNetworkStateChanged(boolean isConnected) {
         /*If network is connected, set as "loading" until data arrives. If there
         is no connection, remove loading indicator and show no network image instead*/
-        mViewModel.isLoading.set(isConnected);
-        /*Whether there is network or not, pass that information to binding implementation*/
-        mViewModel.networkConnected.set(isConnected);
         //If there is no network, show a snack bar to warn the user.
         if (!isConnected) {
+            mViewModel.uiState.set(UIState.NETWORK_ERROR);
             showSnack();
+        } else {
+            mViewModel.uiState.set(UIState.LOADING);
         }
     }
 }

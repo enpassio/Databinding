@@ -5,14 +5,17 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.content.Intent;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.bumptech.glide.request.ErrorRequestCoordinator;
 import com.enpassio.databindingwithnewsapi.model.Article;
 import com.enpassio.databindingwithnewsapi.repository.NewsRepository;
+import com.enpassio.databindingwithnewsapi.utils.UIState;
 
 import java.util.List;
 
@@ -23,8 +26,7 @@ public class MainViewModel extends AndroidViewModel {
     private LiveData<List<Article>> mArticleList;
     private Article mChosenArticle;
     private final NewsRepository mRepo;
-    public final ObservableBoolean isLoading = new ObservableBoolean(true);
-    public final ObservableBoolean networkConnected = new ObservableBoolean(true);
+    public final ObservableField<UIState> uiState = new ObservableField<>(UIState.LOADING);
 
     public MainViewModel(@NonNull Application application, NewsRepository.NetworkStateListener listener) {
         super(application);
@@ -51,10 +53,6 @@ public class MainViewModel extends AndroidViewModel {
         mRepo.checkConnectionAndStartFetching();
     }
 
-    public boolean showList() {
-        return networkConnected.get() && !isLoading.get();
-    }
-
     public void openWebSite(View view) {
         if (mChosenArticle == null) {
             return;
@@ -77,5 +75,4 @@ public class MainViewModel extends AndroidViewModel {
             }
         }
     }
-
 }
