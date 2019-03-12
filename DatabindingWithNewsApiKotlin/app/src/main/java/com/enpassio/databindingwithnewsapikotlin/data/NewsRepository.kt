@@ -2,14 +2,12 @@ package com.enpassio.databindingwithnewsapikotlin.data
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
 import com.enpassio.databindingwithnewsapikotlin.utils.fetchArticles
-import com.enpassio.databindingwithnewsapikotlin.utils.thereIsConnection
 
 
-class NewsRepository private constructor(private val mListener: NetworkStateListener) {
+class NewsRepository private constructor() {
 
     /*We need a mutable live data here, so that we can modify it, but we
     prefer to pass an immutable live data to the UI layer*/
@@ -17,22 +15,13 @@ class NewsRepository private constructor(private val mListener: NetworkStateList
     val articles: LiveData<List<Article>>
         get() = _articles
 
-    fun checkConnectionAndStartFetching(context : Context) {
+    fun startFetching() {
         //If data is already there, no need to go over this process again
         if (articles.value?.isNotEmpty() == true) {
             return
         }
-        if (thereIsConnection(context)) {
-            //Pass network state to fragment
-            mListener.onNetworkStateChanged(true)
-            Log.d(TAG, "there is connection, start fetching")
-            //Start fetching from the News Api in a background thread
-            NewsAsyncTask().execute()
-        } else {
-            Log.d(TAG, "there is no connection")
-            //Pass network state to fragment
-            mListener.onNetworkStateChanged(false)
-        }
+        //Start fetching from the News Api in a background thread
+        NewsAsyncTask().execute()
     }
 
     private inner class NewsAsyncTask : AsyncTask<Void, Void, List<Article>>() {
@@ -41,24 +30,21 @@ class NewsRepository private constructor(private val mListener: NetworkStateList
             return fetchArticles()
         }
 
-        override fun onPostExecute(list: List<Article>) {
+        override fun onPostExecute(list: List<Article>?) {
             _articles.value = list
-            Log.d(TAG, "list size: " + list.size)
+            Log.d(TAG, "list size: " + list?.size)
         }
-    }
-
-    interface NetworkStateListener {
-        fun onNetworkStateChanged(connected: Boolean)
     }
 
     companion object {
 
-        @Volatile private var sInstance: NewsRepository? = null
+        @Volatile
+        private var sInstance: NewsRepository? = null
         private const val TAG = "NewsRepository"
 
-        fun getInstance(listener: NetworkStateListener): NewsRepository {
+        fun getInstance(): NewsRepository {
             return sInstance ?: synchronized(NewsRepository::class.java) {
-                sInstance ?: NewsRepository(listener).also { sInstance = it }
+                sInstance ?: NewsRepository().also { sInstance = it }
             }
         }
     }

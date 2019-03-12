@@ -61,7 +61,7 @@ private fun buildUrl(): String {
  * Here we use an extension function provided by kotlin to make an http request.
  * Note that this function is good only for small requests.
  */
-private fun makeHttpRequest(url: String): String {
+private fun makeHttpRequest(url: String): String? {
     return URL(url).readText()
 }
 
