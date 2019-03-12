@@ -11,14 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.enpassio.databindingwithnewsapikotlin.R
 import com.enpassio.databindingwithnewsapikotlin.data.Article
-import com.enpassio.databindingwithnewsapikotlin.data.NewsRepository
+import com.enpassio.databindingwithnewsapikotlin.utils.thereIsConnection
 import com.enpassio.databindingwithnewsapikotlin.viewmodel.MainViewModel
-import com.enpassio.databindingwithnewsapikotlin.viewmodel.MainViewModelFactory
 
 
-class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener, NewsRepository.NetworkStateListener {
+class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
 
-    private lateinit var mViewModel: MainViewModel
+    private val mViewModel: MainViewModel by lazy {
+        ViewModelProviders.of(requireActivity()).get(MainViewModel::class.java)
+    }
     private lateinit var mAdapter: NewsAdapter
     private lateinit var binding: NewsListBinding
 
@@ -47,14 +48,10 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener, NewsRe
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //Create a custom view model factory so that we can pass a listener to it
-        val factory = MainViewModelFactory(requireActivity().getApplication(), this)
         //Get the view model instance and pass it to the binding implementation
-        mViewModel = ViewModelProviders.of(requireActivity(), factory).get(MainViewModel::class.java)
         binding.included.viewmodel = mViewModel
 
-        //Verify the connection and start loading from the api
-        mViewModel.checkConnectionAndStartLoading()
+        checkConnectionAndStartLoading()
 
         //Claim the list from the view model and observe the results
         mViewModel.articleList?.observe(this, Observer { articles ->
@@ -67,7 +64,20 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener, NewsRe
                 Log.d(TAG, "articles are received. list size: " + articles.size)
             }
         })
+    }
 
+    /*If there is internet connection, start fetching data from the internet,
+     otherwise show a snack for warning user*/
+    private fun checkConnectionAndStartLoading() {
+        if (thereIsConnection(requireContext())) {
+            mViewModel.isLoading.set(true)
+            mViewModel.networkConnected.set(true)
+            mViewModel.startFetching()
+        } else {
+            showSnack()
+            mViewModel.networkConnected.set(false)
+            mViewModel.isLoading.set(false)
+        }
     }
 
     private fun showSnack() {
@@ -76,7 +86,7 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener, NewsRe
             .make(binding.mainContent, R.string.no_network_connection, Snackbar.LENGTH_INDEFINITE)
             /*If user will click "Retry", we'll check the connection again,
                 and fetch the news, if there is network this time. Otherwise, snack will be shown again.*/
-            .setAction(R.string.retry) { mViewModel.checkConnectionAndStartLoading() }
+            .setAction(R.string.retry) { checkConnectionAndStartLoading() }
             //Set the color of action button
             .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
         //Set the background color of the snack bar
@@ -96,19 +106,6 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener, NewsRe
                     .addToBackStack(null)
                     .commit()
             }
-
-    }
-
-    override fun onNetworkStateChanged(isConnected: Boolean) {
-        /*If network is connected, set as "loading" until data arrives. If there
-        is no connection, remove loading indicator and show no network image instead*/
-        mViewModel.isLoading.set(isConnected)
-        /*Whether there is network or not, pass that information to binding implementation*/
-        mViewModel.networkConnected.set(isConnected)
-        //If there is no network, show a snack bar to warn the user.
-        if (!isConnected) {
-            showSnack()
-        }
     }
 
     companion object {

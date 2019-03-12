@@ -10,11 +10,10 @@ import android.view.View
 import com.enpassio.databindingwithnewsapikotlin.data.Article
 import com.enpassio.databindingwithnewsapikotlin.data.NewsRepository
 
-class MainViewModel(application: Application, listener: NewsRepository.NetworkStateListener) :
+class MainViewModel(application: Application) :
     AndroidViewModel(application) {
 
-    private val mApplication = application
-    private val mRepo: NewsRepository = NewsRepository.getInstance(listener)
+    private val mRepo: NewsRepository = NewsRepository.getInstance()
     val isLoading = ObservableBoolean(true)
     val networkConnected = ObservableBoolean(true)
 
@@ -26,8 +25,8 @@ class MainViewModel(application: Application, listener: NewsRepository.NetworkSt
     //Chosen article will be set later when an item is selected
     var chosenArticle: Article? = null
 
-    fun checkConnectionAndStartLoading() {
-        mRepo.checkConnectionAndStartFetching(mApplication)
+    fun startFetching(){
+        mRepo.startFetching()
     }
 
     fun showList(): Boolean {
