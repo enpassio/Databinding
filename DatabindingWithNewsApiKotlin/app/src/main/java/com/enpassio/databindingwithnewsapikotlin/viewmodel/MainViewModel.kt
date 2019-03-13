@@ -9,13 +9,17 @@ import android.util.Log
 import android.view.View
 import com.enpassio.databindingwithnewsapikotlin.data.Article
 import com.enpassio.databindingwithnewsapikotlin.data.NewsRepository
+import com.enpassio.databindingwithnewsapikotlin.utils.UIState
 
 class MainViewModel(application: Application) :
     AndroidViewModel(application) {
 
     private val mRepo: NewsRepository = NewsRepository.getInstance()
-    val isLoading = ObservableBoolean(true)
-    val networkConnected = ObservableBoolean(true)
+
+    /*UI state keeps track of the data loading state: LOADING, NETWORK_ERROR or SUCCESS
+    This information is kept in an observable field inside view model, so that
+    changes are automatically reflected in UI. */
+    val uiState = ObservableField<UIState>(UIState.LOADING)
 
     /*If article list is not null, return it, otherwise claim the
     data from the repository and assign it to articleList*/
@@ -27,10 +31,6 @@ class MainViewModel(application: Application) :
 
     fun startFetching(){
         mRepo.startFetching()
-    }
-
-    fun showList(): Boolean {
-        return networkConnected.get() && !isLoading.get()
     }
 
     fun openWebSite(view: View) {
