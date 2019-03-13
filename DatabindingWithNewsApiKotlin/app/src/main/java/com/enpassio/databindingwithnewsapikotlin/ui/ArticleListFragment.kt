@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import com.enpassio.databindingwithnewsapikotlin.R
 import com.enpassio.databindingwithnewsapikotlin.data.Article
 import com.enpassio.databindingwithnewsapikotlin.databinding.NewsListBinding
+import com.enpassio.databindingwithnewsapikotlin.utils.UIState
 import com.enpassio.databindingwithnewsapikotlin.utils.thereIsConnection
 import com.enpassio.databindingwithnewsapikotlin.viewmodel.MainViewModel
 
@@ -56,18 +57,17 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
         super.onActivityCreated(savedInstanceState)
 
         //Get the view model instance and pass it to the binding implementation
-        binding.included.viewmodel = mViewModel
+        binding.included.viewModel = mViewModel
 
         checkConnectionAndStartLoading()
 
         //Claim the list from the view model and observe the results
         mViewModel.articleList?.observe(this, Observer { articles ->
             if (!articles.isNullOrEmpty()) {
-                /*When articles are received, hide the loading indicator
-                and pass the articles to the adapter*/
-                mViewModel.isLoading.set(false)
+                /*When articles are received, pass the articles to the adapter
+                And change uiState to SUCCESS. This will hide the loading indicator and show the list.*/
+                mViewModel.uiState.set(UIState.SUCCESS)
                 mAdapter.articleList = articles
-                binding.invalidateAll()
                 Log.d(TAG, "articles are received. list size: " + articles.size)
             }
         })
@@ -77,13 +77,15 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
      otherwise show a snack for warning user*/
     private fun checkConnectionAndStartLoading() {
         if (thereIsConnection(requireContext())) {
-            mViewModel.isLoading.set(true)
-            mViewModel.networkConnected.set(true)
+            /*If there is connection, start fetching and change uiState
+            to LOADING. This will show a loading indicator*/
+            mViewModel.uiState.set(UIState.LOADING)
             mViewModel.startFetching()
         } else {
+            /*If there is no connection, set uiState to NETWORK_ERROR
+            This will show an error message*/
+            mViewModel.uiState.set(UIState.NETWORK_ERROR)
             showSnack()
-            mViewModel.networkConnected.set(false)
-            mViewModel.isLoading.set(false)
         }
     }
 
