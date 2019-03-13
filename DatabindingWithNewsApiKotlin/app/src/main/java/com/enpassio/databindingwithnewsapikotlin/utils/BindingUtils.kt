@@ -2,7 +2,7 @@
 package com.enpassio.databindingwithnewsapikotlin.utils
 
 import android.databinding.BindingAdapter
-import android.text.TextUtils
+import android.view.View
 import android.widget.ImageView
 import com.enpassio.databindingwithnewsapikotlin.R
 
@@ -13,6 +13,11 @@ fun loadImage(view: ImageView, url: String) {
         .load(url)
         .error(R.drawable.image_not_found)
         .into(view)
+}
+
+@BindingAdapter("visible")
+fun setVisible(view: View, visible: Boolean){
+    view.visibility = if(visible) View.VISIBLE else View.GONE
 }
 
 fun splitDateAndTime(dateAndTime: String?): List<String>? {
