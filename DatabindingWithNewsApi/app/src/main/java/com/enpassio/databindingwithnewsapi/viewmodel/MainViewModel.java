@@ -4,7 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.content.Intent;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -12,7 +11,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.bumptech.glide.request.ErrorRequestCoordinator;
 import com.enpassio.databindingwithnewsapi.model.Article;
 import com.enpassio.databindingwithnewsapi.repository.NewsRepository;
 import com.enpassio.databindingwithnewsapi.utils.UIState;
@@ -28,10 +26,10 @@ public class MainViewModel extends AndroidViewModel {
     private final NewsRepository mRepo;
     public final ObservableField<UIState> uiState = new ObservableField<>(UIState.LOADING);
 
-    public MainViewModel(@NonNull Application application, NewsRepository.NetworkStateListener listener) {
+    public MainViewModel(@NonNull Application application) {
         super(application);
         //Passing the application context to the repository (not activity context!)
-        mRepo = NewsRepository.getInstance(this.getApplication(), listener);
+        mRepo = NewsRepository.getInstance(this.getApplication());
     }
 
     public LiveData<List<Article>> getArticleList() {
@@ -47,6 +45,10 @@ public class MainViewModel extends AndroidViewModel {
 
     public void setChosenArticle(Article chosenArticle) {
         mChosenArticle = chosenArticle;
+    }
+
+    public LiveData<Boolean> getConnectionStatus(){
+        return mRepo.getConnectionStatus();
     }
 
     public void checkConnectionAndStartLoading() {

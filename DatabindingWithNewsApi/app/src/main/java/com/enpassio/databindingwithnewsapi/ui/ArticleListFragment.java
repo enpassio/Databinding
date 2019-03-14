@@ -19,12 +19,10 @@ import android.view.ViewGroup;
 import com.enpassio.databindingwithnewsapi.R;
 import com.enpassio.databindingwithnewsapi.databinding.NewsListBinding;
 import com.enpassio.databindingwithnewsapi.model.Article;
-import com.enpassio.databindingwithnewsapi.repository.NewsRepository;
 import com.enpassio.databindingwithnewsapi.utils.UIState;
 import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel;
-import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModelFactory;
 
-public class ArticleListFragment extends Fragment implements NewsAdapter.ArticleClickListener, NewsRepository.NetworkStateListener {
+public class ArticleListFragment extends Fragment implements NewsAdapter.ArticleClickListener{
 
     private MainViewModel mViewModel;
     private NewsAdapter mAdapter;
@@ -56,14 +54,24 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //Create a custom view model factory so that we can pass a listener to it
-        MainViewModelFactory factory = new MainViewModelFactory(requireActivity().getApplication(), this);
         //Get the view model instance and pass it to the binding implementation
-        mViewModel = ViewModelProviders.of(requireActivity(), factory).get(MainViewModel.class);
+        mViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
         binding.included.setViewModel(mViewModel);
 
         //Verify the connection and start loading from the api
         mViewModel.checkConnectionAndStartLoading();
+
+        mViewModel.getConnectionStatus().observe(this, isConnected -> {
+            /*If network is connected, set as "loading" until data arrives. If there
+            is no connection, remove loading indicator and show no network image instead*/
+            //If there is no network, show a snack bar to warn the user.
+            if (!isConnected) {
+                mViewModel.uiState.set(UIState.NETWORK_ERROR);
+                showSnack();
+            } else {
+                mViewModel.uiState.set(UIState.LOADING);
+            }
+        });
 
         //Claim the list from the view model and observe the results
         mViewModel.getArticleList().observe(this, articles -> {
@@ -104,19 +112,6 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
                     .replace(R.id.fragment_holder, new ArticleDetailsFragment())
                     .addToBackStack(null)
                     .commit();
-        }
-    }
-
-    @Override
-    public void onNetworkStateChanged(boolean isConnected) {
-        /*If network is connected, set as "loading" until data arrives. If there
-        is no connection, remove loading indicator and show no network image instead*/
-        //If there is no network, show a snack bar to warn the user.
-        if (!isConnected) {
-            mViewModel.uiState.set(UIState.NETWORK_ERROR);
-            showSnack();
-        } else {
-            mViewModel.uiState.set(UIState.LOADING);
         }
     }
 }
