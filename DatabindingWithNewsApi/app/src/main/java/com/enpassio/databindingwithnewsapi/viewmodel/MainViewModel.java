@@ -4,7 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.content.Intent;
-import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.enpassio.databindingwithnewsapi.model.Article;
 import com.enpassio.databindingwithnewsapi.repository.NewsRepository;
+import com.enpassio.databindingwithnewsapi.utils.UIState;
 
 import java.util.List;
 
@@ -23,13 +24,12 @@ public class MainViewModel extends AndroidViewModel {
     private LiveData<List<Article>> mArticleList;
     private Article mChosenArticle;
     private final NewsRepository mRepo;
-    public final ObservableBoolean isLoading = new ObservableBoolean(true);
-    public final ObservableBoolean networkConnected = new ObservableBoolean(true);
+    public final ObservableField<UIState> uiState = new ObservableField<>(UIState.LOADING);
 
-    public MainViewModel(@NonNull Application application, NewsRepository.NetworkStateListener listener) {
+    public MainViewModel(@NonNull Application application) {
         super(application);
         //Passing the application context to the repository (not activity context!)
-        mRepo = NewsRepository.getInstance(this.getApplication(), listener);
+        mRepo = NewsRepository.getInstance(this.getApplication());
     }
 
     public LiveData<List<Article>> getArticleList() {
@@ -47,12 +47,12 @@ public class MainViewModel extends AndroidViewModel {
         mChosenArticle = chosenArticle;
     }
 
-    public void checkConnectionAndStartLoading() {
-        mRepo.checkConnectionAndStartFetching();
+    public LiveData<Boolean> getConnectionStatus(){
+        return mRepo.getConnectionStatus();
     }
 
-    public boolean showList() {
-        return networkConnected.get() && !isLoading.get();
+    public void checkConnectionAndStartLoading() {
+        mRepo.checkConnectionAndStartFetching();
     }
 
     public void openWebSite(View view) {
@@ -77,5 +77,4 @@ public class MainViewModel extends AndroidViewModel {
             }
         }
     }
-
 }
