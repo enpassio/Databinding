@@ -35,7 +35,6 @@
                 Here we are using a custom binding adapter and using app:imageResource - to be able
                  to assign image resource correctly.-->
         <ImageView
-            android:id="@+id/product_photo"
             android:layout_width="@dimen/list_item_image_size"
             android:layout_height="@dimen/list_item_image_size"
             android:layout_gravity="center"
@@ -56,7 +55,6 @@
             <!-- We call the productName field of the product object
             and set it to product_name textView.-->
             <TextView
-                android:id="@+id/product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_size_medium"
@@ -71,7 +69,6 @@
             and with the help of a helper method from DatabindingUtils
             that we imported above, we add a currency sign to the price-->
             <TextView
-                android:id="@+id/product_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_size_medium"

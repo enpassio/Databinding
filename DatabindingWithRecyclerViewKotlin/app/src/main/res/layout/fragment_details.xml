@@ -30,7 +30,6 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <android.support.design.widget.CollapsingToolbarLayout
-                    android:id="@+id/toolbar_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
@@ -42,7 +41,6 @@
                 Here we are using a custom binding adapter and using app:imageResource - to be able
                  to assign image resource correctly.-->
                 <ImageView
-                        android:id="@+id/product_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/colorAccent"
@@ -66,7 +64,6 @@
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
-                android:id="@+id/nested_scroll_view_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -80,7 +77,6 @@
                 <!-- We call the productName field of the product object
                 and set it to product_name textView.-->
                 <TextView
-                        android:id="@+id/product_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_size_medium"
@@ -94,7 +90,6 @@
                 and with the help of a helper method from DatabindingUtils
                 that we imported above, we add a currency sign to the price-->
                 <TextView
-                        android:id="@+id/product_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"
