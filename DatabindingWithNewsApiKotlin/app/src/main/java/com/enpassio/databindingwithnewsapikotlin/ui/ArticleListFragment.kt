@@ -17,7 +17,9 @@ import com.enpassio.databindingwithnewsapikotlin.viewmodel.MainViewModel
 
 class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
 
-    private lateinit var mViewModel: MainViewModel
+    private val mViewModel: MainViewModel by lazy {
+        ViewModelProviders.of(requireActivity()).get(MainViewModel::class.java)
+    }
 
     private lateinit var mAdapter: NewsAdapter
     private lateinit var binding: NewsListBinding
@@ -29,8 +31,7 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.app_bar_main, container, false
-        )
+            inflater, R.layout.app_bar_main, container, false)
 
         //Set adapter, divider and default animator to the recycler view
         mAdapter = NewsAdapter(this)
@@ -47,8 +48,7 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        mViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel::class.java)
+        
         //Get the view model instance and pass it to the binding implementation
         binding.included.viewModel = mViewModel
 
