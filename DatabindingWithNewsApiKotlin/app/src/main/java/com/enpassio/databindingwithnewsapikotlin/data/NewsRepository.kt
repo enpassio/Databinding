@@ -7,12 +7,12 @@ import android.util.Log
 import com.enpassio.databindingwithnewsapikotlin.utils.fetchArticles
 
 
-class NewsRepository private constructor() {
+object NewsRepository{
 
     /*We need a mutable live data here, so that we can modify it, but we
     prefer to pass an immutable live data to the UI layer*/
-    private val _articles = MutableLiveData<List<Article>>()
-    val articles: LiveData<List<Article>>
+    private val _articles = MutableLiveData<List<Article>?>()
+    val articles: LiveData<List<Article>?>
         get() = _articles
 
     fun startFetching() {
@@ -24,7 +24,7 @@ class NewsRepository private constructor() {
         NewsAsyncTask().execute()
     }
 
-    private inner class NewsAsyncTask : AsyncTask<Void, Void, List<Article>>() {
+    private class NewsAsyncTask : AsyncTask<Void, Void, List<Article>>() {
 
         override fun doInBackground(vararg voids: Void): List<Article>? {
             return fetchArticles()
@@ -36,16 +36,5 @@ class NewsRepository private constructor() {
         }
     }
 
-    companion object {
-
-        @Volatile
-        private var sInstance: NewsRepository? = null
-        private const val TAG = "NewsRepository"
-
-        fun getInstance(): NewsRepository {
-            return sInstance ?: synchronized(NewsRepository::class.java) {
-                sInstance ?: NewsRepository().also { sInstance = it }
-            }
-        }
-    }
+    private const val TAG = "NewsRepository"
 }
