@@ -58,21 +58,6 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
         mViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
         binding.included.setViewModel(mViewModel);
 
-        //Verify the connection and start loading from the api
-        mViewModel.checkConnectionAndStartLoading();
-
-        mViewModel.getConnectionStatus().observe(this, isConnected -> {
-            /*If network is connected, set as "loading" until data arrives. If there
-            is no connection, remove loading indicator and show no network image instead*/
-            //If there is no network, show a snack bar to warn the user.
-            if (!isConnected) {
-                mViewModel.uiState.set(UIState.NETWORK_ERROR);
-                showSnack();
-            } else {
-                mViewModel.uiState.set(UIState.LOADING);
-            }
-        });
-
         //Claim the list from the view model and observe the results
         mViewModel.getArticleList().observe(this, articles -> {
             if (articles != null && !articles.isEmpty()) {
@@ -81,6 +66,12 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
                 mViewModel.uiState.set(UIState.SUCCESS);
                 mAdapter.setArticleList(articles);
                 Log.d(TAG, "articles are received. list size: " + articles.size());
+            }
+        });
+
+        mViewModel.shouldShowSnack().observe(this, shouldShow -> {
+            if (shouldShow) {
+                showSnack();
             }
         });
     }
