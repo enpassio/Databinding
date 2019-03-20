@@ -26,8 +26,11 @@ class ProductListFragment : Fragment(), ProductAdapter.ProductItemClickListener 
 
         //Set recycler view, with the hardcoded list that can be found in ProductDataSource.class
         val mAdapter = ProductAdapter(ProductDataSource.productData, this)
-        binding.productsRecyclerView.itemAnimator = DefaultItemAnimator()
-        binding.productsRecyclerView.adapter = mAdapter
+
+        with(binding.productsRecyclerView){
+            itemAnimator = DefaultItemAnimator()
+            adapter = mAdapter
+        }
 
         return binding.root
     }
@@ -38,10 +41,12 @@ class ProductListFragment : Fragment(), ProductAdapter.ProductItemClickListener 
         val args = Bundle()
         args.putParcelable(PRODUCT_KEY, product)
         frag.arguments = args
-        fragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_holder, frag)
-                ?.addToBackStack(null)
-                ?.commit()
+        fragmentManager?.run {
+            beginTransaction()
+                .replace(R.id.fragment_holder, frag)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
 }
