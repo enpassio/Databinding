@@ -26,10 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_size_minimum"
-        android:layout_marginLeft="@dimen/margin_size_medium"
         android:orientation="horizontal"
-        android:onClick="@{() ->  productItemClick.onProductItemClicked(product)}"
-        tools:ignore="RtlHardcoded">
+        android:onClick="@{() ->  productItemClick.onProductItemClicked(product)}">
 
         <!-- Image resource id cannot be directly assigned to default android:src.
                 Here we are using a custom binding adapter and using app:imageResource - to be able
@@ -38,9 +36,9 @@
             android:layout_width="@dimen/list_item_image_size"
             android:layout_height="@dimen/list_item_image_size"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin_size_medium"
+            android:layout_marginStart="@dimen/margin_size_medium"
             android:layout_marginTop="@dimen/margin_size_minimum"
-            android:layout_marginRight="@dimen/margin_size_minimum"
+            android:layout_marginEnd="@dimen/margin_size_minimum"
             android:layout_marginBottom="@dimen/margin_size_minimum"
             android:scaleType="centerInside"
             tools:src="@drawable/paper"
@@ -57,9 +55,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_size_medium"
+                android:layout_marginStart="@dimen/margin_size_medium"
                 android:layout_marginTop="@dimen/margin_size_minimum"
-                android:layout_marginRight="@dimen/margin_size_medium"
+                android:layout_marginEnd="@dimen/margin_size_medium"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/text_size_heading"
                 tools:text="Paper"
@@ -71,8 +69,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_size_medium"
-                android:layout_marginRight="@dimen/margin_size_medium"
+                android:layout_marginStart="@dimen/margin_size_medium"
+                android:layout_marginEnd="@dimen/margin_size_medium"
                 android:layout_marginBottom="@dimen/margin_size_medium"
                 android:textSize="@dimen/text_size_medium"
                 android:text="@{BindingUtils.addCurrencySign(product.productPrice)}"
