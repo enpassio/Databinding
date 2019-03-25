@@ -1,4 +1,4 @@
-package com.enpassio.databindingwithnewsapi.repository;
+package com.enpassio.databindingwithnewsapi.data;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;

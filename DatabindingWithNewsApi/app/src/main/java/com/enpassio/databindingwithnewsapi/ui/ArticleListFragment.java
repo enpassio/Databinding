@@ -19,8 +19,7 @@ import android.view.ViewGroup;
 import com.enpassio.databindingwithnewsapi.R;
 import com.enpassio.databindingwithnewsapi.databinding.NewsListBinding;
 import com.enpassio.databindingwithnewsapi.model.Article;
-import com.enpassio.databindingwithnewsapi.utils.UIState;
-import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel;
+import com.enpassio.databindingwithnewsapi.model.UIState;
 
 public class ArticleListFragment extends Fragment implements NewsAdapter.ArticleClickListener{
 

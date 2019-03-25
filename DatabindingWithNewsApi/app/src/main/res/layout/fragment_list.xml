@@ -5,9 +5,9 @@
     <data>
         <variable
             name="viewModel"
-            type="com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel" />
+            type="com.enpassio.databindingwithnewsapi.ui.MainViewModel" />
 
-        <import type="com.enpassio.databindingwithnewsapi.utils.UIState" />
+        <import type="com.enpassio.databindingwithnewsapi.model.UIState" />
     </data>
 
     <FrameLayout

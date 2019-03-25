@@ -8,7 +8,7 @@
         we will call its fields to populate our layout -->
         <variable
             name="viewModel"
-            type="com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel" />
+            type="com.enpassio.databindingwithnewsapi.ui.MainViewModel" />
 
         <import type="com.enpassio.databindingwithnewsapi.utils.BindingUtils" />
 

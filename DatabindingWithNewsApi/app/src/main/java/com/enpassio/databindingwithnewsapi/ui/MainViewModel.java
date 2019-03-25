@@ -1,4 +1,4 @@
-package com.enpassio.databindingwithnewsapi.viewmodel;
+package com.enpassio.databindingwithnewsapi.ui;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -7,10 +7,10 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
+import com.enpassio.databindingwithnewsapi.data.NewsRepository;
 import com.enpassio.databindingwithnewsapi.model.Article;
-import com.enpassio.databindingwithnewsapi.repository.NewsRepository;
+import com.enpassio.databindingwithnewsapi.model.UIState;
 import com.enpassio.databindingwithnewsapi.utils.NetworkUtils;
-import com.enpassio.databindingwithnewsapi.utils.UIState;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class MainViewModel extends AndroidViewModel {
         showSnack.setValue(false);
     }
 
-    public LiveData<List<Article>> getArticleList() {
+    LiveData<List<Article>> getArticleList() {
         if (mArticleList == null) {
             mArticleList = mRepo.getArticles();
             checkConnectionAndStartLoading();
@@ -41,17 +41,17 @@ public class MainViewModel extends AndroidViewModel {
         return mChosenArticle;
     }
 
-    public void setChosenArticle(Article chosenArticle) {
+    void setChosenArticle(Article chosenArticle) {
         mChosenArticle = chosenArticle;
     }
 
-    public LiveData<Boolean> shouldShowSnack() {
+    LiveData<Boolean> shouldShowSnack() {
         return showSnack;
     }
 
     /*If there is internet connection, start fetching data from the internet,
    otherwise show a snack for warning user*/
-    public void checkConnectionAndStartLoading() {
+    void checkConnectionAndStartLoading() {
         if (NetworkUtils.thereIsConnection(getApplication())) {
             /*If there is connection, start fetching and change uiState
             to LOADING. This will show a loading indicator*/

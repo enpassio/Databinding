@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 
 import com.enpassio.databindingwithnewsapi.R;
 import com.enpassio.databindingwithnewsapi.databinding.FragmentDetailsBinding;
-import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel;
 
 import static android.support.constraint.Constraints.TAG;
 
