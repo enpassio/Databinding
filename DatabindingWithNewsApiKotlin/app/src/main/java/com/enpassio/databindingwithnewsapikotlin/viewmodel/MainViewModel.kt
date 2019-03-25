@@ -13,9 +13,9 @@ class MainViewModel(application: Application) :
     AndroidViewModel(application) {
 
     /*UI state keeps track of the data loading state: LOADING, NETWORK_ERROR or SUCCESS
-    This information is kept in an observable field inside view model, so that
+    This information is kept in a livedata inside view model, so that
     changes are automatically reflected in UI. */
-    val uiState = ObservableField<UIState>(UIState.LOADING)
+    val uiState : MutableLiveData<UIState>  = MutableLiveData()
 
     /*If article list is not null, return it, otherwise claim the
    data from the repository, assign it to articleList and start fetching*/
@@ -34,6 +34,7 @@ class MainViewModel(application: Application) :
         get() = _showSnack
 
     init {
+        uiState.value = UIState.LOADING
         _showSnack.value = false
     }
 
@@ -43,7 +44,7 @@ class MainViewModel(application: Application) :
         if (thereIsConnection(getApplication())) {
             /*If there is connection, start fetching and change uiState
             to LOADING. This will show a loading indicator*/
-            uiState.set(UIState.LOADING)
+            uiState.value = UIState.LOADING
             NewsRepository.startFetching()
             _showSnack.value = false
         } else {
@@ -52,7 +53,7 @@ class MainViewModel(application: Application) :
             /*Unless there is some previously fetched data to show,
             set uiState to NETWORK_ERROR This will show an error message*/
             if(articleList?.value.isNullOrEmpty()){
-                uiState.set(UIState.NETWORK_ERROR)
+                uiState.value = UIState.NETWORK_ERROR
             }
         }
     }
