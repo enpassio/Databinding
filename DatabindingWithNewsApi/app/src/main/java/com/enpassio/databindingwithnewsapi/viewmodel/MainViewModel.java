@@ -4,13 +4,8 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Intent;
 import android.databinding.ObservableField;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 
 import com.enpassio.databindingwithnewsapi.model.Article;
 import com.enpassio.databindingwithnewsapi.repository.NewsRepository;
@@ -18,8 +13,6 @@ import com.enpassio.databindingwithnewsapi.utils.NetworkUtils;
 import com.enpassio.databindingwithnewsapi.utils.UIState;
 
 import java.util.List;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class MainViewModel extends AndroidViewModel {
 
@@ -72,28 +65,6 @@ public class MainViewModel extends AndroidViewModel {
             set uiState to NETWORK_ERROR This will show an error message*/
             if(mArticleList.getValue() == null || mArticleList.getValue().isEmpty()){
                 uiState.set(UIState.NETWORK_ERROR);
-            }
-        }
-    }
-    public void openWebSite(View view) {
-        if (mChosenArticle == null) {
-            return;
-        }
-        String articleUrl = mChosenArticle.getArticleUrl();
-        Uri webUri = null;
-        if (!TextUtils.isEmpty(articleUrl)) {
-            //Parse string to uri
-            try {
-                webUri = Uri.parse(articleUrl);
-            } catch (Exception e) {
-                Log.e(TAG, e.toString());
-            }
-            //Send an implicit intent to open the article in the browser
-            Intent webIntent = new Intent(Intent.ACTION_VIEW);
-            webIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            webIntent.setData(webUri);
-            if (webIntent.resolveActivity(view.getContext().getPackageManager()) != null) {
-                view.getContext().startActivity(webIntent);
             }
         }
     }
