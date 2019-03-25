@@ -4,7 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import com.enpassio.databindingwithnewsapi.data.NewsRepository;
@@ -20,12 +19,13 @@ public class MainViewModel extends AndroidViewModel {
     private Article mChosenArticle;
     private final NewsRepository mRepo;
     private MutableLiveData<Boolean> showSnack = new MutableLiveData<>();
-    public final ObservableField<UIState> uiState = new ObservableField<>(UIState.LOADING);
+    public final MutableLiveData<UIState> uiState = new MutableLiveData<>();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
         //Passing the application context to the repository (not activity context!)
         mRepo = NewsRepository.getInstance();
+        uiState.setValue(UIState.LOADING);
         showSnack.setValue(false);
     }
 
@@ -55,7 +55,7 @@ public class MainViewModel extends AndroidViewModel {
         if (NetworkUtils.thereIsConnection(getApplication())) {
             /*If there is connection, start fetching and change uiState
             to LOADING. This will show a loading indicator*/
-            uiState.set(UIState.LOADING);
+            uiState.setValue(UIState.LOADING);
             mRepo.startFetching();
             showSnack.setValue(false);
         } else {
@@ -64,7 +64,7 @@ public class MainViewModel extends AndroidViewModel {
             /*Unless there is some previously fetched data to show,
             set uiState to NETWORK_ERROR This will show an error message*/
             if(mArticleList.getValue() == null || mArticleList.getValue().isEmpty()){
-                uiState.set(UIState.NETWORK_ERROR);
+                uiState.setValue(UIState.NETWORK_ERROR);
             }
         }
     }
