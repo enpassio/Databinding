@@ -16,10 +16,6 @@ object NewsRepository{
         get() = _articles
 
     fun startFetching() {
-        //If data is already there, no need to go over this process again
-        if (articles.value?.isNotEmpty() == true) {
-            return
-        }
         //Start fetching from the News Api in a background thread
         NewsAsyncTask().execute()
     }
@@ -31,8 +27,10 @@ object NewsRepository{
         }
 
         override fun onPostExecute(list: List<Article>?) {
-            _articles.value = list
-            Log.d(TAG, "list size: " + list?.size)
+            if(list?.isNotEmpty() == true){
+                _articles.value = list
+                Log.d(TAG, "list size: " + list.size)
+            }
         }
     }
 
