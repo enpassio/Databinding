@@ -1,8 +1,11 @@
 package com.enpassio.databindingwithnewsapikotlin.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -13,6 +16,9 @@ import com.enpassio.databindingwithnewsapikotlin.viewmodel.MainViewModel
 
 class ArticleDetailsFragment : Fragment() {
 
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProviders.of(requireActivity()).get(MainViewModel::class.java)
+    }
     private lateinit var binding: FragmentDetailsBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -22,13 +28,14 @@ class ArticleDetailsFragment : Fragment() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
         setHasOptionsMenu(true)
 
+        binding.detailsReadMore.setOnClickListener { openWebSite() }
+
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //Get an instance of view model and pass it to the binding implementation
-        val viewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel::class.java)
         binding.viewModel = viewModel
     }
 
@@ -38,5 +45,32 @@ class ArticleDetailsFragment : Fragment() {
             fragmentManager?.popBackStack()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun openWebSite() {
+        val articleUrl = viewModel.chosenArticle?.articleUrl
+        if (!articleUrl.isNullOrEmpty()) {
+            //Parse string to uri
+            var webUri: Uri? = null
+            try {
+                webUri = Uri.parse(articleUrl)
+            } catch (e: Exception) {
+                Log.e(TAG, e.toString())
+            }
+
+            //Send an implicit intent to open the article in the browser
+            val webIntent = Intent(Intent.ACTION_VIEW)
+            with(webIntent) {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                data = webUri
+                resolveActivity(requireActivity().packageManager)?.let {
+                    requireActivity().startActivity(this)
+                }
+            }
+        }
+    }
+
+    companion object {
+        const val TAG = "ArticleDetailsFragment"
     }
 }
