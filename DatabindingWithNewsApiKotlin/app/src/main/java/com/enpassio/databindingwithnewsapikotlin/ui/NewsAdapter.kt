@@ -3,7 +3,7 @@ package com.enpassio.databindingwithnewsapikotlin.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.enpassio.databindingwithnewsapikotlin.R
-import com.enpassio.databindingwithnewsapikotlin.data.Article
+import com.enpassio.databindingwithnewsapikotlin.model.Article
 
 
 class NewsAdapter (private val mListener: ArticleClickListener) :

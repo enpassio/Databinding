@@ -1,4 +1,4 @@
-package com.enpassio.databindingwithnewsapikotlin.data
+package com.enpassio.databindingwithnewsapikotlin.model
 
 data class Article(
     val source: String,

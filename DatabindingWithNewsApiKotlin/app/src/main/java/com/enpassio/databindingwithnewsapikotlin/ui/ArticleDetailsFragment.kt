@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.enpassio.databindingwithnewsapikotlin.R
-import com.enpassio.databindingwithnewsapikotlin.viewmodel.MainViewModel
 
 
 class ArticleDetailsFragment : Fragment() {
