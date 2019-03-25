@@ -1,12 +1,12 @@
-package com.enpassio.databindingwithnewsapikotlin.viewmodel
+package com.enpassio.databindingwithnewsapikotlin.ui
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import com.enpassio.databindingwithnewsapikotlin.data.Article
 import com.enpassio.databindingwithnewsapikotlin.data.NewsRepository
-import com.enpassio.databindingwithnewsapikotlin.utils.UIState
+import com.enpassio.databindingwithnewsapikotlin.model.Article
+import com.enpassio.databindingwithnewsapikotlin.model.UIState
 import com.enpassio.databindingwithnewsapikotlin.utils.thereIsConnection
 
 class MainViewModel(application: Application) :

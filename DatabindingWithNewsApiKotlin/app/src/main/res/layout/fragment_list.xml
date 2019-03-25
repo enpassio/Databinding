@@ -5,9 +5,9 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.enpassio.databindingwithnewsapikotlin.viewmodel.MainViewModel" />
+                type="com.enpassio.databindingwithnewsapikotlin.ui.MainViewModel" />
 
-        <import type="com.enpassio.databindingwithnewsapikotlin.utils.UIState"/>
+        <import type="com.enpassio.databindingwithnewsapikotlin.model.UIState"/>
     </data>
 
     <FrameLayout
