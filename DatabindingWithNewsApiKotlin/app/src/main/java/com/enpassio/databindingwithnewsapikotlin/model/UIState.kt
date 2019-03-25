@@ -1,4 +1,4 @@
-package com.enpassio.databindingwithnewsapikotlin.utils
+package com.enpassio.databindingwithnewsapikotlin.model
 
 //This enum class is for facilitating the switch between UI state
 enum class UIState{

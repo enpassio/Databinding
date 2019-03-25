@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.util.Log
-import com.enpassio.databindingwithnewsapikotlin.data.Article
+import com.enpassio.databindingwithnewsapikotlin.model.Article
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException

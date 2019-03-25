@@ -4,9 +4,9 @@ import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.enpassio.databindingwithnewsapikotlin.data.Article
 import com.enpassio.databindingwithnewsapikotlin.R
 import com.enpassio.databindingwithnewsapikotlin.databinding.ItemBinding
+import com.enpassio.databindingwithnewsapikotlin.model.Article
 
 
 class NewsAdapter (private val mListener: ArticleClickListener) :

@@ -16,10 +16,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.enpassio.databindingwithnewsapikotlin.R
-import com.enpassio.databindingwithnewsapikotlin.data.Article
 import com.enpassio.databindingwithnewsapikotlin.databinding.NewsListBinding
-import com.enpassio.databindingwithnewsapikotlin.utils.UIState
-import com.enpassio.databindingwithnewsapikotlin.viewmodel.MainViewModel
+import com.enpassio.databindingwithnewsapikotlin.model.Article
+import com.enpassio.databindingwithnewsapikotlin.model.UIState
 
 
 class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
