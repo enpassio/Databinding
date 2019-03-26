@@ -19,7 +19,7 @@ public class MainViewModel extends AndroidViewModel {
     private Article mChosenArticle;
     private final NewsRepository mRepo;
     private MutableLiveData<Boolean> showSnack = new MutableLiveData<>();
-    public final MutableLiveData<UIState> uiState = new MutableLiveData<>();
+    private final MutableLiveData<UIState> uiState = new MutableLiveData<>();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -43,6 +43,14 @@ public class MainViewModel extends AndroidViewModel {
 
     void setChosenArticle(Article chosenArticle) {
         mChosenArticle = chosenArticle;
+    }
+
+    public LiveData<UIState> getUiState() {
+        return uiState;
+    }
+
+    public void setUiState(UIState newState){
+        uiState.setValue(newState);
     }
 
     LiveData<Boolean> shouldShowSnack() {

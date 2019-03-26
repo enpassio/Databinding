@@ -55,7 +55,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
 
         //Get the view model instance and pass it to the binding implementation
         mViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
-        binding.included.setViewModel(mViewModel);
+        binding.included.setUiState(mViewModel.getUiState());
         binding.setLifecycleOwner(this.getViewLifecycleOwner());
 
         //Claim the list from the view model and observe the results
@@ -63,7 +63,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
             if (articles != null && !articles.isEmpty()) {
                 /*When articles are received, hide the loading indicator
                 and pass the articles to the adapter*/
-                mViewModel.uiState.setValue(UIState.SUCCESS);
+                mViewModel.setUiState(UIState.SUCCESS);
                 mAdapter.setArticleList(articles);
                 Log.d(TAG, "articles are received. list size: " + articles.size());
             }
