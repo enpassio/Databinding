@@ -55,7 +55,7 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
         super.onActivityCreated(savedInstanceState)
         
         //Get the view model instance and pass it to the binding implementation
-        binding.included.viewModel = mViewModel
+        binding.included.uiState = mViewModel.uiState
 
         binding.lifecycleOwner = this.viewLifecycleOwner
 
@@ -64,7 +64,7 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
             if (!articles.isNullOrEmpty()) {
                 /*When articles are received, pass the articles to the adapter
                 And change uiState to SUCCESS. This will hide the loading indicator and show the list.*/
-                mViewModel.uiState.value = UIState.SUCCESS
+                mViewModel.setUiState(UIState.SUCCESS)
                 mAdapter.articleList = articles
                 Log.d(TAG, "articles are received. list size: " + articles.size)
             }
