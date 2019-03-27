@@ -16,10 +16,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.enpassio.databindingwithnewsapikotlin.R
-import com.enpassio.databindingwithnewsapikotlin.data.Article
 import com.enpassio.databindingwithnewsapikotlin.databinding.NewsListBinding
-import com.enpassio.databindingwithnewsapikotlin.utils.UIState
-import com.enpassio.databindingwithnewsapikotlin.viewmodel.MainViewModel
+import com.enpassio.databindingwithnewsapikotlin.model.Article
+import com.enpassio.databindingwithnewsapikotlin.model.UIState
 
 
 class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
@@ -30,7 +29,6 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
 
     private lateinit var mAdapter: NewsAdapter
     private lateinit var binding: NewsListBinding
-    private lateinit var snackbar: Snackbar
 
     init {
         retainInstance = true
@@ -57,14 +55,16 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
         super.onActivityCreated(savedInstanceState)
         
         //Get the view model instance and pass it to the binding implementation
-        binding.included.viewModel = mViewModel
+        binding.included.uiState = mViewModel.uiState
+
+        binding.lifecycleOwner = this.viewLifecycleOwner
 
         //Claim the list from the view model and observe the results
-        mViewModel.articleList.observe(this, Observer { articles ->
+        mViewModel.articleList?.observe(this, Observer { articles ->
             if (!articles.isNullOrEmpty()) {
                 /*When articles are received, pass the articles to the adapter
                 And change uiState to SUCCESS. This will hide the loading indicator and show the list.*/
-                mViewModel.uiState.set(UIState.SUCCESS)
+                mViewModel.setUiState(UIState.SUCCESS)
                 mAdapter.articleList = articles
                 Log.d(TAG, "articles are received. list size: " + articles.size)
             }
@@ -79,7 +79,7 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
 
     private fun showSnack() {
         //Show a snack bar for warning about the network connection and prompt user to try again with a button
-        snackbar = Snackbar
+        val snackbar = Snackbar
             .make(binding.mainContent, R.string.no_network_connection, Snackbar.LENGTH_INDEFINITE)
             /*If user will click "Retry", we'll check the connection again,
                 and fetch the news, if there is network this time. Otherwise, snack will be shown again.*/

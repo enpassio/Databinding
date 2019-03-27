@@ -3,11 +3,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.enpassio.databindingwithnewsapikotlin.model.UIState"/>
+        <import type="android.arch.lifecycle.LiveData"/>
         <variable
-                name="viewModel"
-                type="com.enpassio.databindingwithnewsapikotlin.viewmodel.MainViewModel" />
-
-        <import type="com.enpassio.databindingwithnewsapikotlin.utils.UIState"/>
+                name="uiState"
+                type="LiveData&lt;UIState>" />
     </data>
 
     <FrameLayout
@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
-                app:visible="@{viewModel.uiState == UIState.SUCCESS}"
+                app:visible="@{uiState == UIState.SUCCESS}"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
         <ImageView
@@ -29,13 +29,13 @@
                 android:background="@color/background_white"
                 android:contentDescription="@string/cd_no_connection_image"
                 android:src="@drawable/no_connection"
-                app:visible="@{viewModel.uiState == UIState.NETWORK_ERROR}" />
+                app:visible="@{uiState == UIState.NETWORK_ERROR}" />
 
         <ProgressBar
                 android:layout_width="@dimen/progressbar_size"
                 android:layout_height="@dimen/progressbar_size"
                 android:layout_gravity="center"
-                app:visible="@{viewModel.uiState == UIState.LOADING}" />
+                app:visible="@{uiState == UIState.LOADING}" />
     </FrameLayout>
 
 </layout>
