@@ -1,4 +1,4 @@
-package com.enpassio.databindingwithnewsapi.utils;
+package com.enpassio.databindingwithnewsapi.model;
 
 //This enum class is for facilitating the switch between UI state
 public enum UIState{

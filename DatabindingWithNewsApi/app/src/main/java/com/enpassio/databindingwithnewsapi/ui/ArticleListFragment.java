@@ -19,8 +19,7 @@ import android.view.ViewGroup;
 import com.enpassio.databindingwithnewsapi.R;
 import com.enpassio.databindingwithnewsapi.databinding.NewsListBinding;
 import com.enpassio.databindingwithnewsapi.model.Article;
-import com.enpassio.databindingwithnewsapi.utils.UIState;
-import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel;
+import com.enpassio.databindingwithnewsapi.model.UIState;
 
 public class ArticleListFragment extends Fragment implements NewsAdapter.ArticleClickListener{
 
@@ -56,31 +55,23 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
 
         //Get the view model instance and pass it to the binding implementation
         mViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
-        binding.included.setViewModel(mViewModel);
-
-        //Verify the connection and start loading from the api
-        mViewModel.checkConnectionAndStartLoading();
-
-        mViewModel.getConnectionStatus().observe(this, isConnected -> {
-            /*If network is connected, set as "loading" until data arrives. If there
-            is no connection, remove loading indicator and show no network image instead*/
-            //If there is no network, show a snack bar to warn the user.
-            if (!isConnected) {
-                mViewModel.uiState.set(UIState.NETWORK_ERROR);
-                showSnack();
-            } else {
-                mViewModel.uiState.set(UIState.LOADING);
-            }
-        });
+        binding.included.setUiState(mViewModel.getUiState());
+        binding.setLifecycleOwner(this.getViewLifecycleOwner());
 
         //Claim the list from the view model and observe the results
         mViewModel.getArticleList().observe(this, articles -> {
             if (articles != null && !articles.isEmpty()) {
                 /*When articles are received, hide the loading indicator
                 and pass the articles to the adapter*/
-                mViewModel.uiState.set(UIState.SUCCESS);
+                mViewModel.setUiState(UIState.SUCCESS);
                 mAdapter.setArticleList(articles);
                 Log.d(TAG, "articles are received. list size: " + articles.size());
+            }
+        });
+
+        mViewModel.shouldShowSnack().observe(this, shouldShow -> {
+            if (shouldShow) {
+                showSnack();
             }
         });
     }
