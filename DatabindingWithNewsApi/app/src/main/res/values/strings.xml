@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Databinding With News Api</string>
+    <string name="no_network_connection">No network connection.\nPlease, check your internet connection\nand try again.</string>
+    <string name="cd_article_image">Image of the article</string>
+    <string name="cd_no_connection_image">No connection image</string>
+    <string name="cd_image_chosen_article">Image of the chosen article</string>
+    <string name="retry">Retry</string>
+    <string name="read_more"><u>Read more</u></string>
+</resources>

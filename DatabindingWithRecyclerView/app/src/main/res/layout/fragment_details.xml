@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- We will be passing a Product object named 'product' and
+        we will call its fields to populate our layout -->
+        <variable
+            name="product"
+            type="com.enpassio.databindingwithrecyclerview.model.Product"/>
+
+        <!-- We are importing this class here, so that we can use a helper method located in this class -->
+        <import type="com.enpassio.databindingwithrecyclerview.utils.BindingUtils"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.MainActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/image_dropdown_height"
+            android:fitsSystemWindows="true"
+            android:background="@color/colorAccent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:toolbarId="@+id/toolbar">
+
+                <!-- Image resource id cannot be directly assigned to default android:src.
+                Here we are using a custom binding adapter for android:src attribute.-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorAccent"
+                    android:contentDescription="@string/cont_desc_product_image"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerInside"
+                    android:layout_margin="@dimen/margin_size_max"
+                    app:layout_collapseMode="parallax"
+                    tools:src="@drawable/paper"
+                    app:imageResource="@{product.productImage}"/>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="?attr/homeAsUpIndicator"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_size_medium"
+                android:orientation="vertical">
+
+                <!-- We call the productName field of the product object
+                and set it to product_name textView.-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_medium"
+                    android:layout_marginBottom="@dimen/margin_size_medium"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_size_heading"
+                    tools:text="Paper"
+                    android:text="@{product.productName}"/>
+
+                <!-- We call the productPrice field of the product object
+                and with the help of a helper method from BindingUtils class
+                that we imported above, we add a currency sign to the price-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    tools:text="3$"
+                    android:text="@{BindingUtils.addCurrencySign(product.productPrice)}"/>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
