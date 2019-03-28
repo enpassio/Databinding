@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.enpassio.databindingwithnewsapikotlin.model.UIState"/>
+        <import type="android.arch.lifecycle.LiveData"/>
+        <variable
+                name="uiState"
+                type="LiveData&lt;UIState>" />
+    </data>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/news_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                app:visible="@{uiState == UIState.SUCCESS}"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <ImageView
+                android:layout_width="@dimen/no_network_image_size"
+                android:layout_height="@dimen/no_network_image_size"
+                android:layout_gravity="center"
+                android:background="@color/background_white"
+                android:contentDescription="@string/cd_no_connection_image"
+                android:src="@drawable/no_connection"
+                app:visible="@{uiState == UIState.NETWORK_ERROR}" />
+
+        <ProgressBar
+                android:layout_width="@dimen/progressbar_size"
+                android:layout_height="@dimen/progressbar_size"
+                android:layout_gravity="center"
+                app:visible="@{uiState == UIState.LOADING}" />
+    </FrameLayout>
+
+</layout>
