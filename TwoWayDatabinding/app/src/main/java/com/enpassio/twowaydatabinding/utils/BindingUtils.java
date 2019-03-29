@@ -3,6 +3,7 @@ package com.enpassio.twowaydatabinding.utils;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.enpassio.twowaydatabinding.R;
@@ -72,5 +73,14 @@ public final class BindingUtils {
         }
 
         return sb.toString();
+    }
+
+    @BindingAdapter("visible")
+    public static void setVisible(View view, boolean visible){
+        if(visible){
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
 }

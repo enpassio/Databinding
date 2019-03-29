@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import com.enpassio.twowaydatabinding.R;
 import com.enpassio.twowaydatabinding.data.ToyEntry;
 import com.enpassio.twowaydatabinding.databinding.FragmentListBinding;
+import com.enpassio.twowaydatabinding.utils.UIState;
 import com.enpassio.twowaydatabinding.viewmodel.MainViewModel;
 
 import java.util.List;
@@ -71,18 +72,16 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
 
         //Get the view model instance and pass it to the binding implementation
         mViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
-        binding.setViewModel(mViewModel);
+        binding.setUiState(mViewModel.uiState);
 
         //Claim list of toys from view model
         mViewModel.getToyList().observe(this, toyEntries -> {
-            mViewModel.isLoading.set(false);
             if (toyEntries == null || toyEntries.isEmpty()) {
-                mViewModel.isEmpty.set(true);
+                mViewModel.uiState.set(UIState.EMPTY);
             } else {
-                mViewModel.isEmpty.set(false);
+                mViewModel.uiState.set(UIState.HAS_DATA);
                 mAdapter.setToyList(toyEntries);
                 mToyList = toyEntries;
-                binding.invalidateAll();
             }
         });
 
