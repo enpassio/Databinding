@@ -2,6 +2,7 @@ package com.enpassio.databindingwithnewsapi.utils;
 
 import android.databinding.BindingAdapter;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.enpassio.databindingwithnewsapi.R;
@@ -14,6 +15,15 @@ public final class BindingUtils {
                 .load(url)
                 .error(R.drawable.image_not_found)
                 .into(view);
+    }
+
+    @BindingAdapter("visible")
+    public static void setVisible(View view, boolean visible){
+        if(visible){
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
 
     public static String[] splitDateAndTime(String dateAndTime) {

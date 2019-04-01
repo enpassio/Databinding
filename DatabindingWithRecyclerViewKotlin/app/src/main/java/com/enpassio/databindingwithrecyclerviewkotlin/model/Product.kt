@@ -10,6 +10,6 @@ import kotlinx.android.parcel.Parcelize
 data class Product(
         // Databinding need getters to get the fields we declared in xml layout.
         // Kotlin data class creates those for us.
-        val productName: String?,
+        val productName: String,
         val productPrice: Int,
         val productImage: Int) : Parcelable

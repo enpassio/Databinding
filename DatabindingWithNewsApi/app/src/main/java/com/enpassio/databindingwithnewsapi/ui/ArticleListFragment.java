@@ -19,11 +19,9 @@ import android.view.ViewGroup;
 import com.enpassio.databindingwithnewsapi.R;
 import com.enpassio.databindingwithnewsapi.databinding.NewsListBinding;
 import com.enpassio.databindingwithnewsapi.model.Article;
-import com.enpassio.databindingwithnewsapi.repository.NewsRepository;
-import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModel;
-import com.enpassio.databindingwithnewsapi.viewmodel.MainViewModelFactory;
+import com.enpassio.databindingwithnewsapi.model.UIState;
 
-public class ArticleListFragment extends Fragment implements NewsAdapter.ArticleClickListener, NewsRepository.NetworkStateListener {
+public class ArticleListFragment extends Fragment implements NewsAdapter.ArticleClickListener{
 
     private MainViewModel mViewModel;
     private NewsAdapter mAdapter;
@@ -55,24 +53,25 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //Create a custom view model factory so that we can pass a listener to it
-        MainViewModelFactory factory = new MainViewModelFactory(requireActivity().getApplication(), this);
         //Get the view model instance and pass it to the binding implementation
-        mViewModel = ViewModelProviders.of(requireActivity(), factory).get(MainViewModel.class);
-        binding.included.setViewmodel(mViewModel);
-
-        //Verify the connection and start loading from the api
-        mViewModel.checkConnectionAndStartLoading();
+        mViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
+        binding.included.setUiState(mViewModel.getUiState());
+        binding.setLifecycleOwner(this.getViewLifecycleOwner());
 
         //Claim the list from the view model and observe the results
         mViewModel.getArticleList().observe(this, articles -> {
             if (articles != null && !articles.isEmpty()) {
                 /*When articles are received, hide the loading indicator
                 and pass the articles to the adapter*/
-                mViewModel.isLoading.set(false);
+                mViewModel.setUiState(UIState.SUCCESS);
                 mAdapter.setArticleList(articles);
-                binding.invalidateAll();
                 Log.d(TAG, "articles are received. list size: " + articles.size());
+            }
+        });
+
+        mViewModel.shouldShowSnack().observe(this, shouldShow -> {
+            if (shouldShow) {
+                showSnack();
             }
         });
     }
@@ -104,19 +103,6 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.Article
                     .replace(R.id.fragment_holder, new ArticleDetailsFragment())
                     .addToBackStack(null)
                     .commit();
-        }
-    }
-
-    @Override
-    public void onNetworkStateChanged(boolean isConnected) {
-        /*If network is connected, set as "loading" until data arrives. If there
-        is no connection, remove loading indicator and show no network image instead*/
-        mViewModel.isLoading.set(isConnected);
-        /*Whether there is network or not, pass that information to binding implementation*/
-        mViewModel.networkConnected.set(isConnected);
-        //If there is no network, show a snack bar to warn the user.
-        if (!isConnected) {
-            showSnack();
         }
     }
 }

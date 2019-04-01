@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- We will be passing an Article object named 'article' and
+        we will call its fields to populate our layout -->
+        <variable
+                name="viewModel"
+                type="com.enpassio.databindingwithnewsapikotlin.ui.MainViewModel" />
+
+        <import type="com.enpassio.databindingwithnewsapikotlin.utils.BindingUtils" />
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            tools:context=".ui.MainActivity">
+
+        <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_dropdown_height"
+                android:background="@color/colorPrimary"
+                android:fitsSystemWindows="true"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:collapsedTitleTextAppearance="@style/collapsed_title"
+                    app:expandedTitleTextAppearance="@style/expanded_title"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                    app:toolbarId="@+id/toolbar">
+
+                <!-- Image resource id cannot be directly assigned to default android:src.
+                Here we are using a custom binding adapter for android:src attribute: android:src="@{article.imageUrl}"-->
+                <ImageView
+                        android:id="@+id/article_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/cd_image_chosen_article"
+                        android:fitsSystemWindows="true"
+                        android:scaleType="centerCrop"
+                        app:imageSrc="@{viewModel.chosenArticle.imageUrl}"
+                        app:layout_collapseMode="parallax"
+                        tools:src="@drawable/no_connection" />
+
+                <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@android:color/transparent"
+                        app:layout_collapseMode="pin"
+                        app:navigationIcon="?attr/homeAsUpIndicator"
+                        app:popupTheme="@style/AppTheme.PopupOverlay" />
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+                android:id="@+id/nested_scroll_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:fitsSystemWindows="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_size_medium">
+
+                <TextView
+                        android:id="@+id/details_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_heading"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="@{viewModel.chosenArticle.title}"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        tools:text="A 37-year-old woman has been arrested on suspicion of murder following the deaths of two children." />
+
+                <!-- We call the author field of the article object
+                    and set it to article_author textView: android:text="@{article.title}"-->
+                <TextView
+                        android:id="@+id/article_author"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_size_medium"
+                        android:layout_marginTop="@dimen/margin_size_medium"
+                        android:text="@{BindingUtils.formatAuthor(viewModel.chosenArticle.author)}"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textStyle="italic"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:layout_constraintEnd_toStartOf="@+id/article_publishing_date"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/details_title"
+                        tools:text="Author name" />
+
+                <!-- We call the publishingDate field of the article object
+          and set it to article__publishing_date textView: android:text="@{article.publishingDate}"-->
+                <TextView
+                        android:id="@+id/article_publishing_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_small"
+                        android:layout_marginEnd="@dimen/margin_size_small"
+                        android:text="@{BindingUtils.splitDateAndTime(viewModel.chosenArticle.publishingDate)[0]}"
+                        android:textSize="@dimen/text_size_small"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:layout_constraintEnd_toStartOf="@+id/article_publishing_time"
+                        app:layout_constraintTop_toBottomOf="@+id/article_source"
+                        tools:text="Dec 27, 2018" />
+
+                <TextView
+                        android:id="@+id/article_publishing_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@{BindingUtils.splitDateAndTime(viewModel.chosenArticle.publishingDate)[1]}"
+                        android:textSize="@dimen/text_size_small"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/article_publishing_date"
+                        tools:text="08:30" />
+
+
+                <!-- We call the source field of the article object
+                and set it to article_source textView: android:text="@{article.source}"-->
+                <TextView
+                        android:id="@+id/article_source"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_small"
+                        android:text="@{viewModel.chosenArticle.source}"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_size_medium"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/article_author"
+                        tools:text="Article source" />
+
+                <!-- We call the content field of the article object
+                and set it to article_content textView: android:text="@{article.content}"-->
+                <TextView
+                        android:id="@+id/article_description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_medium"
+                        android:text="@{viewModel.chosenArticle.description}"
+                        android:textSize="@dimen/text_size_medium"
+                        android:fontFamily="sans-serif-black"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/article_publishing_time"
+                        tools:text="Article description" />
+
+                <TextView
+                        android:id="@+id/article_content"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_size_medium"
+                        android:text="@{BindingUtils.hideCharCount(viewModel.chosenArticle.content)}"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/article_description"
+                        tools:text="Long article about all important news.." />
+
+                <android.support.design.button.MaterialButton
+                        android:id="@+id/details_read_more"
+                        style="@style/Widget.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/read_more"
+                        app:backgroundTint="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/article_content" />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
