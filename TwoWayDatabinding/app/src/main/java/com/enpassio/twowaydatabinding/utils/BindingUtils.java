@@ -1,8 +1,6 @@
 package com.enpassio.twowaydatabinding.utils;
 
 import android.databinding.BindingAdapter;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -14,35 +12,42 @@ import java.util.Map;
 
 public final class BindingUtils {
 
+    private static final int UNISEX = 0;
+    private static final int GIRL = 1;
+    private static final int BOY = 2;
+
     @BindingAdapter("genderDrawable")
     public static void getGenderDrawable(ImageView imageView, int position){
+        int resourceId;
         switch(position){
-            case 0: {
-                imageView.setImageResource(R.drawable.ic_rainbow);
+            case UNISEX: {
+                resourceId = R.drawable.ic_rainbow;
                 break;
             }
-            case 1: {
-                imageView.setImageDrawable(new ColorDrawable(
-                        ContextCompat.getColor(imageView.getContext(), R.color.color_girls)));
+            case GIRL: {
+                resourceId = R.drawable.ic_girl;
                 break;
             }
-            case 2: {
-                imageView.setImageDrawable(new ColorDrawable(
-                        ContextCompat.getColor(imageView.getContext(), R.color.color_boys)));
+            case BOY: {
+                resourceId = R.drawable.ic_boy;
                 break;
+            }
+            default:{
+                resourceId = R.drawable.ic_rainbow;
             }
         }
+        imageView.setImageResource(resourceId);
     }
 
     @BindingAdapter("stateDrawable")
     public static void getStateDrawable(ImageView imageView, int buttonId){
         switch(buttonId){
-            case R.id.radioBtn_new: {
-                imageView.setImageResource(R.drawable.ic_gift);
+            case R.id.radioBtn_bought: {
+                imageView.setImageResource(R.drawable.ic_money);
                 break;
             }
-            case R.id.radioBtn_used: {
-                imageView.setImageResource(R.drawable.ic_recycle);
+            case R.id.radioBtn_received: {
+                imageView.setImageResource(R.drawable.ic_gift);
                 break;
             }
         }

@@ -40,7 +40,9 @@
             android:id="@+id/item_categories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
             android:text="@{BindingUtils.attachCategories(toy.categories)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/item_state_drawable"
@@ -48,24 +50,26 @@
             app:layout_constraintTop_toBottomOf="@+id/item_toy_name"
             tools:text="Plush" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/item_gender_drawable"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/gender_image_width"
+            android:layout_height="@dimen/gender_image_height"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginBottom="8dp"
             android:contentDescription="@string/cd_item_gender"
-            app:layout_constraintDimensionRatio="w,1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/item_toy_name"
-            app:layout_constraintBottom_toBottomOf="@id/item_categories"
             app:genderDrawable="@{toy.gender}"
-            tools:background="@color/color_girls"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_boy" />
 
         <ImageView
             android:id="@+id/item_state_drawable"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/margin_standard"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:padding="@dimen/padding_small"
             android:contentDescription="@string/cd_state_symbol"
             app:layout_constraintBottom_toBottomOf="@+id/item_gender_drawable"
             app:layout_constraintDimensionRatio="w,1:1"
