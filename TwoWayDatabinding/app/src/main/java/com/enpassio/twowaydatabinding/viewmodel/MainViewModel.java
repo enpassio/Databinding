@@ -6,10 +6,10 @@ import android.arch.lifecycle.LiveData;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
-import com.enpassio.twowaydatabinding.ToyRepository;
-import com.enpassio.twowaydatabinding.data.ToyEntry;
+import com.enpassio.twowaydatabinding.data.ToyRepository;
+import com.enpassio.twowaydatabinding.data.model.ToyEntry;
+import com.enpassio.twowaydatabinding.data.model.UIState;
 import com.enpassio.twowaydatabinding.utils.InjectorUtils;
-import com.enpassio.twowaydatabinding.utils.UIState;
 
 import java.util.List;
 

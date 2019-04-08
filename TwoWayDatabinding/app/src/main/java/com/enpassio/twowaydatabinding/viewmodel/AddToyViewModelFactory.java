@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import com.enpassio.twowaydatabinding.ToyRepository;
+import com.enpassio.twowaydatabinding.data.ToyRepository;
 
 public class AddToyViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 

@@ -1,4 +1,4 @@
-package com.enpassio.twowaydatabinding.utils;
+package com.enpassio.twowaydatabinding.data.model;
 
 //This enum class is for facilitating the switch between UI state
 public enum UIState{

@@ -4,7 +4,7 @@
 
     <data>
         <import type="android.databinding.ObservableField"/>
-        <import type="com.enpassio.twowaydatabinding.utils.UIState"/>
+        <import type="com.enpassio.twowaydatabinding.data.model.UIState"/>
         <variable
             name="uiState"
             type="ObservableField&lt;UIState>" />

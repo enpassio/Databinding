@@ -1,4 +1,4 @@
-package com.enpassio.twowaydatabinding.data;
+package com.enpassio.twowaydatabinding.data.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
@@ -17,23 +17,23 @@ public class ToyEntry{
     private int toyId;
     private String toyName;
     private Map<String, Boolean> categories;
-    private int gender;
-    private int state;
+    private Gender gender;
+    private ProcurementType procurementType;
 
-    public ToyEntry(int toyId, String toyName, Map<String, Boolean> categories, int gender, int state) {
+    public ToyEntry(int toyId, String toyName, Map<String, Boolean> categories, Gender gender, ProcurementType procurementType) {
         this.toyId = toyId;
         this.toyName = toyName;
         this.categories = categories;
         this.gender = gender;
-        this.state = state;
+        this.procurementType = procurementType;
     }
 
     @Ignore
-    public ToyEntry(String toyName, Map<String, Boolean> categories, int gender, int state) {
+    public ToyEntry(String toyName, Map<String, Boolean> categories, Gender gender, ProcurementType procurementType) {
         this.toyName = toyName;
         this.categories = categories;
         this.gender = gender;
-        this.state = state;
+        this.procurementType = procurementType;
     }
 
     public int getToyId() {
@@ -48,14 +48,6 @@ public class ToyEntry{
         return categories;
     }
 
-    public int getGender() {
-        return gender;
-    }
-
-    public int getState() {
-        return state;
-    }
-
     public void setToyName(String toyName) {
         this.toyName = toyName;
     }
@@ -64,17 +56,25 @@ public class ToyEntry{
         this.categories = categories;
     }
 
-    public void setGender(int gender) {
-        this.gender = gender;
+    public ProcurementType getProcurementType() {
+        return procurementType;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setProcurementType(ProcurementType procurementType) {
+        this.procurementType = procurementType;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public ToyEntry copy(){
         Map<String, Boolean> newCategories = new HashMap<>(this.categories);
-        return new ToyEntry(toyId, toyName, newCategories, gender, state);
+        return new ToyEntry(toyId, toyName, newCategories, gender, procurementType);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class ToyEntry{
         return other.getToyName().equals(toyName)
             && other.getCategories().equals(categories)
             && other.getGender() == gender
-            && other.getState() == state;
+            && other.getProcurementType() == procurementType;
     }
 
     @Override
@@ -95,8 +95,8 @@ public class ToyEntry{
         int hash = 7;
         hash = 31 * hash + (toyName == null ? 0 : toyName.hashCode());
         hash = 31 * hash + (categories == null ? 0 : categories.hashCode());
-        hash = 31 * hash + gender;
-        hash = 31 * hash + state;
+        hash = 31 * hash + (gender == null ? 0 : gender.hashCode());
+        hash = 31 * hash + (procurementType == null ? 0 : procurementType.hashCode());
         return hash;
     }
 }

@@ -21,9 +21,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.enpassio.twowaydatabinding.R;
-import com.enpassio.twowaydatabinding.data.ToyEntry;
+import com.enpassio.twowaydatabinding.data.model.ToyEntry;
+import com.enpassio.twowaydatabinding.data.model.UIState;
 import com.enpassio.twowaydatabinding.databinding.FragmentListBinding;
-import com.enpassio.twowaydatabinding.utils.UIState;
 import com.enpassio.twowaydatabinding.viewmodel.MainViewModel;
 
 import java.util.List;

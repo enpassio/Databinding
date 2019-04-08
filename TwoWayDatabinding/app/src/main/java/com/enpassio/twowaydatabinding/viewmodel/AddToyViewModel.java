@@ -3,8 +3,9 @@ package com.enpassio.twowaydatabinding.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.enpassio.twowaydatabinding.ToyRepository;
-import com.enpassio.twowaydatabinding.data.ToyEntry;
+import com.enpassio.twowaydatabinding.data.ToyRepository;
+import com.enpassio.twowaydatabinding.data.model.Gender;
+import com.enpassio.twowaydatabinding.data.model.ToyEntry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +74,7 @@ public class AddToyViewModel extends ViewModel {
         categories.put(PLUSH, false);
         categories.put(MUSICAL, false);
         categories.put(EDUCATIVE, false);
-        return new ToyEntry("", categories, 0, 0);
+        return new ToyEntry("", categories, Gender.UNISEX, null);
     }
 
     public boolean isChanged(){

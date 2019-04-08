@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.enpassio.twowaydatabinding.R;
-import com.enpassio.twowaydatabinding.data.ToyEntry;
+import com.enpassio.twowaydatabinding.data.model.ToyEntry;
 import com.enpassio.twowaydatabinding.databinding.ItemToyBinding;
 
 import java.util.List;

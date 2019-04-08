@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.enpassio.twowaydatabinding.R;
-import com.enpassio.twowaydatabinding.data.ToyEntry;
+import com.enpassio.twowaydatabinding.data.model.ToyEntry;
 import com.enpassio.twowaydatabinding.databinding.AddToyBinding;
 import com.enpassio.twowaydatabinding.utils.InjectorUtils;
 import com.enpassio.twowaydatabinding.viewmodel.AddToyViewModel;
