@@ -19,6 +19,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.enpassion.twowaydatabindingkotlin.R
 import com.enpassion.twowaydatabindingkotlin.data.ToyEntry
+import com.enpassion.twowaydatabindingkotlin.data.UIState
 import com.enpassion.twowaydatabindingkotlin.databinding.FragmentListBinding
 import com.enpassion.twowaydatabindingkotlin.viewmodel.MainViewModel
 
@@ -63,15 +64,14 @@ class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
         (requireActivity() as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
         //Get the view model instance and pass it to the binding implementation
-        binding.viewModel = mViewModel
+        binding.uiState = mViewModel.uiState
 
         //Claim list of toys from view model
         mViewModel.toyList?.observe(this, Observer { toyEntries ->
-            mViewModel.isLoading.set(false)
             if (toyEntries.isNullOrEmpty()) {
-                mViewModel.isEmpty.set(true)
+                mViewModel.uiState.set(UIState.EMPTY);
             } else {
-                mViewModel.isEmpty.set(false)
+                mViewModel.uiState.set(UIState.HAS_DATA);
                 mAdapter.toyList = toyEntries
                 mToyList = toyEntries
                 binding.invalidateAll()
@@ -121,9 +121,11 @@ class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
     }
 
     private fun openAddToyFrag(frag: AddToyFragment) {
-        fragmentManager?.beginTransaction()
-            ?.replace(R.id.main_container, frag)
-            ?.addToBackStack(null)
-            ?.commit()
+        fragmentManager?.run {
+            beginTransaction()
+                .replace(R.id.main_container, frag)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 }

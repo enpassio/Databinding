@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.databinding.ObservableField"/>
+        <import type="com.enpassion.twowaydatabindingkotlin.data.UIState"/>
         <variable
-            name="viewModel"
-            type="com.enpassion.twowaydatabindingkotlin.viewmodel.MainViewModel"/>
-
-        <import type="android.view.View" />
+                name="uiState"
+                type="ObservableField&lt;UIState>"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -22,14 +22,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE, default=visible}" />
+            app:visible="@{uiState == UIState.LOADING}" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_standard"
-            android:visibility="@{viewModel.shouldShowList ? View.VISIBLE : View.GONE, default=gone}"
+            app:visible="@{uiState == UIState.HAS_DATA}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="@{viewModel.isEmpty ? View.VISIBLE : View.GONE, default=gone }" />
+            app:visible="@{uiState == UIState.EMPTY}"  />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

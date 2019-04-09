@@ -4,8 +4,10 @@ package com.enpassion.twowaydatabindingkotlin.utils
 import android.databinding.BindingAdapter
 import android.graphics.drawable.ColorDrawable
 import android.support.v4.content.ContextCompat
+import android.view.View
 import android.widget.ImageView
 import com.enpassion.twowaydatabindingkotlin.R
+
 
 @BindingAdapter("genderDrawable")
 fun getGenderDrawable(imageView: ImageView, position: Int) {
@@ -30,4 +32,9 @@ fun attachCategories(categories: Map<String, Boolean>): String? {
     return categories.filter { it.value }
         .keys
         .joinToString(separator = ", ")
+}
+
+@BindingAdapter("visible")
+fun setVisible(view: View, visible: Boolean) {
+    view.visibility = if(visible) View.VISIBLE else View.GONE
 }
