@@ -275,20 +275,20 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <RadioButton
-                        android:id="@+id/radioBtn_new"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_small"
-                        android:layout_marginEnd="@dimen/margin_small"
-                        android:text="@string/new_toy" />
+                            android:id="@+id/radioBtn_bought"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_small"
+                            android:layout_marginEnd="@dimen/margin_small"
+                            android:text="@string/bought"/>
 
                     <RadioButton
-                        android:id="@+id/radioBtn_used"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_small"
-                        android:layout_marginEnd="@dimen/margin_standard"
-                        android:text="@string/second_hand" />
+                            android:id="@+id/radioBtn_received"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_small"
+                            android:layout_marginEnd="@dimen/margin_standard"
+                            android:text="@string/received"/>
 
                 </RadioGroup>
 
