@@ -75,7 +75,7 @@
                 app:layout_constraintDimensionRatio="w,1:1"
                 app:layout_constraintEnd_toStartOf="@+id/item_gender_drawable"
                 app:layout_constraintTop_toTopOf="@+id/item_gender_drawable"
-                app:stateDrawable="@{toy.state}"
+                app:stateDrawable="@{toy.procurementType}"
                 tools:srcCompat="@drawable/ic_gift" />
     </android.support.constraint.ConstraintLayout>
 

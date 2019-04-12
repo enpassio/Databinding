@@ -11,3 +11,22 @@ enum class UIState {
     //When there is no data in the inventory, empty image will be shown
     EMPTY
 }
+
+enum class Gender {
+    //For toys that are suitable for both sex
+    UNISEX,
+
+    //For toys that are mostly loved by girls
+    GIRL,
+
+    //For toys that are mostly loved by boys
+    BOY
+}
+
+enum class ProcurementType {
+    //For toys that are bought for money
+    BOUGHT,
+
+    //For toys that are received from someone else
+    RECEIVED
+}

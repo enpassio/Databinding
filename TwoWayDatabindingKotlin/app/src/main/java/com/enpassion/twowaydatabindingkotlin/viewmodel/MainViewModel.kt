@@ -4,8 +4,8 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.databinding.ObservableField
-import com.enpassion.twowaydatabindingkotlin.ToyRepository
 import com.enpassion.twowaydatabindingkotlin.data.ToyEntry
+import com.enpassion.twowaydatabindingkotlin.data.ToyRepository
 import com.enpassion.twowaydatabindingkotlin.data.UIState
 import com.enpassion.twowaydatabindingkotlin.utils.provideRepository
 

@@ -2,8 +2,8 @@ package com.enpassion.twowaydatabindingkotlin.viewmodel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import com.enpassion.twowaydatabindingkotlin.ToyRepository
 import com.enpassion.twowaydatabindingkotlin.data.ToyEntry
+import com.enpassion.twowaydatabindingkotlin.data.ToyRepository
 
 
 class AddToyViewModel(private val mRepo: ToyRepository, toyId: Int) : ViewModel() {

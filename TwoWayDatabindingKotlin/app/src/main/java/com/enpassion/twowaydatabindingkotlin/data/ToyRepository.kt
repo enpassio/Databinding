@@ -1,8 +1,6 @@
-package com.enpassion.twowaydatabindingkotlin
+package com.enpassion.twowaydatabindingkotlin.data
 
 import android.arch.lifecycle.LiveData
-import com.enpassion.twowaydatabindingkotlin.data.ToyDatabase
-import com.enpassion.twowaydatabindingkotlin.data.ToyEntry
 import com.enpassion.twowaydatabindingkotlin.utils.AppExecutors
 
 
@@ -33,7 +31,11 @@ class ToyRepository private constructor(private val mDatabase: ToyDatabase, priv
 
         fun getInstance(database: ToyDatabase, executors: AppExecutors): ToyRepository {
             return sInstance ?: synchronized(this) {
-                sInstance ?: ToyRepository(database, executors).also { sInstance = it }
+                sInstance
+                    ?: ToyRepository(
+                        database,
+                        executors
+                    ).also { sInstance = it }
             }
         }
     }
