@@ -44,7 +44,7 @@ class ToyAdapter(private val mListener: ToyClickListener) :
     inner class ToyViewHolder(val binding: ItemToyBinding) : RecyclerView.ViewHolder(binding.root)
 
     interface ToyClickListener {
-        fun onToyClicked(toyId: Int)
+        fun onToyClicked(chosenToy: ToyEntry)
     }
 
 }

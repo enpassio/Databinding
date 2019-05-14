@@ -1,8 +1,8 @@
 package com.enpassion.twowaydatabindingkotlin.utils
 
 import android.content.Context
-import com.enpassion.twowaydatabindingkotlin.ToyRepository
 import com.enpassion.twowaydatabindingkotlin.data.ToyDatabase
+import com.enpassion.twowaydatabindingkotlin.data.ToyRepository
 
 
 fun provideRepository(context: Context): ToyRepository {

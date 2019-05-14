@@ -26,6 +26,9 @@ android {
     dataBinding{
         enabled = true
     }
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
@@ -55,6 +58,4 @@ dependencies {
     //Gson converter
     implementation 'com.google.code.gson:gson:2.8.5'
 
-    //Circular image view
-    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }
