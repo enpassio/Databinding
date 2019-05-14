@@ -35,7 +35,7 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
     private static final String TAG = "ToyListFragment";
     private FragmentListBinding binding;
     private List<ToyEntry> mToyList;
-    public static final String TOY_ID = "toyId";
+    public static final String CHOSEN_TOY = "chosenToy";
 
     public ToyListFragment() {
         setRetainInstance(true);
@@ -115,10 +115,10 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
     }
 
     @Override
-    public void onToyClicked(int toyId) {
+    public void onToyClicked(ToyEntry chosenToy) {
         //Pass chosen toy id to the AddToyFragment
         Bundle args = new Bundle();
-        args.putInt(TOY_ID, toyId);
+        args.putParcelable(CHOSEN_TOY, chosenToy);
         AddToyFragment frag = new AddToyFragment();
         frag.setArguments(args);
 

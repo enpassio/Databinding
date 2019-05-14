@@ -1,6 +1,5 @@
 package com.enpassio.twowaydatabinding.ui;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -25,7 +24,7 @@ import com.enpassio.twowaydatabinding.utils.InjectorUtils;
 import com.enpassio.twowaydatabinding.viewmodel.AddToyViewModel;
 import com.enpassio.twowaydatabinding.viewmodel.AddToyViewModelFactory;
 
-import static com.enpassio.twowaydatabinding.ui.ToyListFragment.TOY_ID;
+import static com.enpassio.twowaydatabinding.ui.ToyListFragment.CHOSEN_TOY;
 
 public class AddToyFragment extends Fragment {
 
@@ -53,38 +52,29 @@ public class AddToyFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if(actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        int toyId = NEW_TOY;
+        ToyEntry chosenToy = null;
 
         Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey(TOY_ID)) {
-            toyId = bundle.getInt(TOY_ID);
+        if (bundle != null && bundle.containsKey(CHOSEN_TOY)) {
+            chosenToy = bundle.getParcelable(CHOSEN_TOY);
         }
 
         //Get the view model instance and pass it to the binding implementation
-        AddToyViewModelFactory factory = new AddToyViewModelFactory(InjectorUtils.provideRepository(getContext()), toyId);
+        AddToyViewModelFactory factory = new AddToyViewModelFactory(InjectorUtils.provideRepository(getContext()), chosenToy);
         mViewModel = ViewModelProviders.of(this, factory).get(AddToyViewModel.class);
 
         binding.setViewModel(mViewModel);
-
-        if(toyId >= 0) { //Edit case
-            LiveData<ToyEntry> chosenToy = mViewModel.getChosenToy();
-            chosenToy.observe(this, toyEntry -> {
-                mViewModel.setToyBeingModified(toyEntry);
-                binding.invalidateAll();
-                chosenToy.removeObservers(this);
-            });
-        }
 
         binding.fab.setOnClickListener(v -> saveToy());
     }
 
     private void saveToy() {
         // Verify that toy name is not empty
-        if(TextUtils.isEmpty(mViewModel.getToyBeingModified().getToyName())){
+        if (TextUtils.isEmpty(mViewModel.getToyBeingModified().getToyName())) {
             Toast.makeText(requireContext(), R.string.toy_empty_warning, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -94,15 +84,15 @@ public class AddToyFragment extends Fragment {
 
     /*This can be triggered either by up or both buttons. In both cases,
     we first need to check whether there are unsaved changes and warn the user if necessary*/
-    public void onBackClicked(){
-        if(mViewModel.isChanged()){
+    public void onBackClicked() {
+        if (mViewModel.isChanged()) {
             openAlertDialog();
         } else {
             returnToListFragment();
         }
     }
 
-    private void openAlertDialog(){
+    private void openAlertDialog() {
         new AlertDialog.Builder(requireContext())
                 .setTitle(getString(R.string.unsaved_changes_warning_title))
                 .setMessage(getString(R.string.unsaved_changes_warning_message))

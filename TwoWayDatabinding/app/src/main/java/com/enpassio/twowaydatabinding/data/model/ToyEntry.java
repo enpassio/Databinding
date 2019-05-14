@@ -3,13 +3,15 @@ package com.enpassio.twowaydatabinding.data.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Entity(tableName = "toys")
-public class ToyEntry{
+public class ToyEntry implements Parcelable {
 
     private static final String TAG = "ToyEntry";
 
@@ -99,4 +101,37 @@ public class ToyEntry{
         hash = 31 * hash + (procurementType == null ? 0 : procurementType.hashCode());
         return hash;
     }
+
+    protected ToyEntry(Parcel in) {
+        toyId = in.readInt();
+        toyName = in.readString();
+        gender = (Gender) in.readValue(Gender.class.getClassLoader());
+        procurementType = (ProcurementType) in.readValue(ProcurementType.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(toyId);
+        dest.writeString(toyName);
+        dest.writeValue(gender);
+        dest.writeValue(procurementType);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<ToyEntry> CREATOR = new Parcelable.Creator<ToyEntry>() {
+        @Override
+        public ToyEntry createFromParcel(Parcel in) {
+            return new ToyEntry(in);
+        }
+
+        @Override
+        public ToyEntry[] newArray(int size) {
+            return new ToyEntry[size];
+        }
+    };
 }
