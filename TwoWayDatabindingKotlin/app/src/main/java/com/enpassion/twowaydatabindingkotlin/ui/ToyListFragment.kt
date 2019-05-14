@@ -23,7 +23,7 @@ import com.enpassion.twowaydatabindingkotlin.data.UIState
 import com.enpassion.twowaydatabindingkotlin.databinding.FragmentListBinding
 import com.enpassion.twowaydatabindingkotlin.viewmodel.MainViewModel
 
-const val TOY_ID = "toyId"
+const val CHOSEN_TOY = "chosenToy"
 
 class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
 
@@ -109,10 +109,10 @@ class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
         }).attachToRecyclerView(binding.recycler)
     }
 
-    override fun onToyClicked(toyId: Int) {
+    override fun onToyClicked(chosenToy: ToyEntry) {
         //Pass chosen toy id to the AddToyFragment
         val args = Bundle()
-        args.putInt(TOY_ID, toyId)
+        args.putParcelable(CHOSEN_TOY, chosenToy)
         val frag = AddToyFragment()
         frag.arguments = args
 
