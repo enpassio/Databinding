@@ -1,10 +1,10 @@
 package com.enpassio.twowaydatabinding.viewmodel;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.enpassio.twowaydatabinding.ToyRepository;
-import com.enpassio.twowaydatabinding.data.ToyEntry;
+import com.enpassio.twowaydatabinding.data.ToyRepository;
+import com.enpassio.twowaydatabinding.data.model.Gender;
+import com.enpassio.twowaydatabinding.data.model.ToyEntry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Map;
 public class AddToyViewModel extends ViewModel {
 
     private ToyRepository mRepo;
-    private LiveData<ToyEntry> mChosenToy;
+    private ToyEntry mChosenToy;
     private ToyEntry mToyBeingModified;
     private boolean mIsEdit;
     public static final String WOODEN = "Wooden";
@@ -22,11 +22,12 @@ public class AddToyViewModel extends ViewModel {
     public static final String MUSICAL = "Musical";
     public static final String EDUCATIVE = "Educative";
 
-    public AddToyViewModel(ToyRepository repo, int toyId) {
+    public AddToyViewModel(ToyRepository repo, ToyEntry chosenToy) {
         mRepo = repo;
-        if(toyId >= 0){
+        if(chosenToy != null){
             //This is edit case
-            mChosenToy = mRepo.getChosenToy(toyId);
+            mToyBeingModified = chosenToy.copy();
+            mChosenToy = chosenToy;
             mIsEdit = true;
         } else {
             /*This is for adding a new toy. We initialize a ToyEntry with default or null values
@@ -37,16 +38,8 @@ public class AddToyViewModel extends ViewModel {
         }
     }
 
-    public LiveData<ToyEntry> getChosenToy() {
-        return mChosenToy;
-    }
-
     public ToyEntry getToyBeingModified() {
         return mToyBeingModified;
-    }
-
-    public void setToyBeingModified(ToyEntry toy) {
-        mToyBeingModified = toy.copy();
     }
 
     private void insertToy(final ToyEntry toy){
@@ -73,13 +66,13 @@ public class AddToyViewModel extends ViewModel {
         categories.put(PLUSH, false);
         categories.put(MUSICAL, false);
         categories.put(EDUCATIVE, false);
-        return new ToyEntry("", categories, 0, 0);
+        return new ToyEntry("", categories, Gender.UNISEX, null);
     }
 
     public boolean isChanged(){
         boolean isChanged;
         if(mIsEdit){
-            isChanged = !mToyBeingModified.equals(mChosenToy.getValue());
+            isChanged = !mToyBeingModified.equals(mChosenToy);
         } else {
             isChanged = !mToyBeingModified.equals(getEmptyToy());
         }

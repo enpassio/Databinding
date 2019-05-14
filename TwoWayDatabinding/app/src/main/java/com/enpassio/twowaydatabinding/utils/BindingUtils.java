@@ -1,51 +1,16 @@
 package com.enpassio.twowaydatabinding.utils;
 
-import android.databinding.BindingAdapter;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v4.content.ContextCompat;
-import android.widget.ImageView;
+import android.databinding.InverseMethod;
 
 import com.enpassio.twowaydatabinding.R;
+import com.enpassio.twowaydatabinding.data.model.Gender;
+import com.enpassio.twowaydatabinding.data.model.ProcurementType;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
 public final class BindingUtils {
-
-    @BindingAdapter("genderDrawable")
-    public static void getGenderDrawable(ImageView imageView, int position){
-        switch(position){
-            case 0: {
-                imageView.setImageResource(R.drawable.ic_rainbow);
-                break;
-            }
-            case 1: {
-                imageView.setImageDrawable(new ColorDrawable(
-                        ContextCompat.getColor(imageView.getContext(), R.color.color_girls)));
-                break;
-            }
-            case 2: {
-                imageView.setImageDrawable(new ColorDrawable(
-                        ContextCompat.getColor(imageView.getContext(), R.color.color_boys)));
-                break;
-            }
-        }
-    }
-
-    @BindingAdapter("stateDrawable")
-    public static void getStateDrawable(ImageView imageView, int buttonId){
-        switch(buttonId){
-            case R.id.radioBtn_new: {
-                imageView.setImageResource(R.drawable.ic_gift);
-                break;
-            }
-            case R.id.radioBtn_used: {
-                imageView.setImageResource(R.drawable.ic_recycle);
-                break;
-            }
-        }
-    }
 
     public static String attachCategories(Map<String,Boolean> categories){
         if(categories == null){
@@ -72,5 +37,49 @@ public final class BindingUtils {
         }
 
         return sb.toString();
+    }
+
+    @InverseMethod("buttonIdToProcurementType")
+    public static int procurementTypeToButtonId(ProcurementType procurementType ){
+        int selectedButtonId = -1;
+
+        if(procurementType == null){
+            return selectedButtonId;
+        }
+
+        switch (procurementType){
+            case BOUGHT: {
+                selectedButtonId = R.id.radioBtn_bought;
+                break;
+            }
+            case RECEIVED: {
+                selectedButtonId = R.id.radioBtn_received;
+                break;
+            }
+        }
+        return selectedButtonId;
+    }
+
+    public static ProcurementType buttonIdToProcurementType(int selectedButtonId){
+        ProcurementType procurementType = null;
+        switch (selectedButtonId){
+            case R.id.radioBtn_bought: {
+                procurementType = ProcurementType.BOUGHT;
+                break;
+            }
+            case R.id.radioBtn_received: {
+                procurementType = ProcurementType.RECEIVED;
+            }
+        }
+        return procurementType;
+    }
+
+    @InverseMethod("positionToGender")
+    public static int genderToPosition(Gender gender){
+        return gender == null ? 0 : gender.ordinal();
+    }
+
+    public static Gender positionToGender(int position){
+        return Gender.values()[position];
     }
 }

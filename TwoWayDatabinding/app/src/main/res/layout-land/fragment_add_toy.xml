@@ -8,6 +8,8 @@
         <variable
             name="viewModel"
             type="com.enpassio.twowaydatabinding.viewmodel.AddToyViewModel" />
+
+        <import type="com.enpassio.twowaydatabinding.utils.BindingUtils"/>
     </data>
 
     <ScrollView
@@ -233,7 +235,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:entries="@array/genders"
-                        android:selectedItemPosition="@={viewModel.toyBeingModified.gender}"
+                        android:selectedItemPosition="@={BindingUtils.genderToPosition(viewModel.toyBeingModified.gender)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guidelineSpin"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -281,7 +283,7 @@
                         android:id="@+id/radioGroup"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:checkedButton="@={viewModel.toyBeingModified.state}"
+                        android:checkedButton="@={BindingUtils.procurementTypeToButtonId(viewModel.toyBeingModified.procurementType)}"
                         android:orientation="horizontal"
                         android:layout_marginBottom="@dimen/margin_large"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -289,20 +291,20 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <RadioButton
-                            android:id="@+id/radioBtn_new"
+                            android:id="@+id/radioBtn_bought"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_small"
                             android:layout_marginEnd="@dimen/margin_small"
-                            android:text="@string/new_toy" />
+                            android:text="@string/bought" />
 
                         <RadioButton
-                            android:id="@+id/radioBtn_used"
+                            android:id="@+id/radioBtn_received"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_small"
                             android:layout_marginEnd="@dimen/margin_standard"
-                            android:text="@string/second_hand" />
+                            android:text="@string/received" />
 
                     </RadioGroup>
 

@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.enpassio.twowaydatabinding.R;
-import com.enpassio.twowaydatabinding.data.ToyEntry;
+import com.enpassio.twowaydatabinding.data.model.ToyEntry;
 import com.enpassio.twowaydatabinding.databinding.ItemToyBinding;
 
 import java.util.List;
@@ -62,6 +62,6 @@ public class ToyAdapter extends RecyclerView.Adapter<ToyAdapter.ToyViewHolder>{
     }
 
     public interface ToyClickListener {
-        void onToyClicked(int toyID);
+        void onToyClicked(ToyEntry chosenToy);
     }
 }

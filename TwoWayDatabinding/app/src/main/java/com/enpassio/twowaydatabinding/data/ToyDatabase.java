@@ -7,8 +7,13 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.util.Log;
 
+import com.enpassio.twowaydatabinding.data.converters.GenderTypeConverter;
+import com.enpassio.twowaydatabinding.data.converters.MapConverter;
+import com.enpassio.twowaydatabinding.data.converters.ProcurementTypeConverter;
+import com.enpassio.twowaydatabinding.data.model.ToyEntry;
+
 @Database(entities = {ToyEntry.class}, version =1, exportSchema = false)
-@TypeConverters(MapConverter.class)
+@TypeConverters({MapConverter.class, ProcurementTypeConverter.class, GenderTypeConverter.class})
 public abstract class ToyDatabase extends RoomDatabase {
 
     private static final String LOG_TAG = ToyDatabase.class.getSimpleName();
