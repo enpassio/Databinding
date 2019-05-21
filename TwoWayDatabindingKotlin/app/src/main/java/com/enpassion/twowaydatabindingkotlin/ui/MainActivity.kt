@@ -1,8 +1,8 @@
 package com.enpassion.twowaydatabindingkotlin.ui
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.enpassion.twowaydatabindingkotlin.R
 import com.enpassion.twowaydatabindingkotlin.databinding.ActivityMainBinding
 

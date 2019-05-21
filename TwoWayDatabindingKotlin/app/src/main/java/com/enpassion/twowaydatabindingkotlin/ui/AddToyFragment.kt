@@ -1,16 +1,15 @@
 package com.enpassion.twowaydatabindingkotlin.ui
 
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.enpassion.twowaydatabindingkotlin.R
 import com.enpassion.twowaydatabindingkotlin.data.ToyEntry
 import com.enpassion.twowaydatabindingkotlin.databinding.AddToyBinding
@@ -18,7 +17,7 @@ import com.enpassion.twowaydatabindingkotlin.utils.provideRepository
 import com.enpassion.twowaydatabindingkotlin.viewmodel.AddToyViewModel
 import com.enpassion.twowaydatabindingkotlin.viewmodel.AddToyViewModelFactory
 
-class AddToyFragment : Fragment() {
+class AddToyFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var binding: AddToyBinding
     private lateinit var mViewModel : AddToyViewModel

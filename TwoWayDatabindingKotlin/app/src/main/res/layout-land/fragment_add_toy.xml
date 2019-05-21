@@ -17,12 +17,12 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_standard">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -35,11 +35,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <android.support.constraint.Guideline
+                    <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guidelineET"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/guidelineET"
                         app:layout_constraintTop_toTopOf="@+id/toyNameLayout" />
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/toyNameLayout"
                         style="@style/Widget.Enpassio.TextInputLayout"
                         android:layout_width="0dp"
@@ -69,18 +69,18 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:layout_editor_absoluteY="418dp">
 
-                        <android.support.design.widget.TextInputEditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/toyNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textCapWords"
                             android:text="@={viewModel.toyBeingModified.toyName}" />
 
-                    </android.support.design.widget.TextInputLayout>
-                </android.support.constraint.ConstraintLayout>
-            </android.support.v7.widget.CardView>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardCheckboxes"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -93,11 +93,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardEditText">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <android.support.constraint.Guideline
+                    <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guidelineCB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
                         app:layout_constraintStart_toEndOf="@+id/barrier2"
                         app:layout_constraintTop_toBottomOf="@+id/checkBox_musical" />
 
-                    <android.support.constraint.Barrier
+                    <androidx.constraintlayout.widget.Barrier
                         android:id="@+id/barrier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
                         app:constraint_referenced_ids="checkBox_plastic,checkBox_wooden"
                         tools:layout_editor_absoluteX="411dp" />
 
-                    <android.support.constraint.Barrier
+                    <androidx.constraintlayout.widget.Barrier
                         android:id="@+id/barrier2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -195,10 +195,10 @@
                         app:constraint_referenced_ids="checkBox_electronic,checkBox_plush"
                         tools:layout_editor_absoluteX="411dp" />
 
-                </android.support.constraint.ConstraintLayout>
-            </android.support.v7.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardSpinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -211,11 +211,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardCheckboxes">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <android.support.constraint.Guideline
+                    <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guidelineSpin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -242,11 +242,11 @@
                         app:layout_constraintStart_toStartOf="@+id/guidelineSpin"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardRadioGroup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -259,11 +259,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardSpinner">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <android.support.constraint.Guideline
+                    <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guidelineRadio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -310,9 +310,9 @@
 
                     </RadioGroup>
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <Space
                 android:layout_width="match_parent"
@@ -324,7 +324,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardRadioGroup" />
 
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -336,7 +336,7 @@
                 app:srcCompat="@drawable/ic_save"
                 app:useCompatPadding="true" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 </layout>

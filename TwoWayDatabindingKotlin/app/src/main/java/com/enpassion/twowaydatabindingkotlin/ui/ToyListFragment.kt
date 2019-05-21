@@ -1,31 +1,28 @@
 package com.enpassion.twowaydatabindingkotlin.ui
 
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.enpassion.twowaydatabindingkotlin.R
 import com.enpassion.twowaydatabindingkotlin.data.ToyEntry
 import com.enpassion.twowaydatabindingkotlin.data.UIState
 import com.enpassion.twowaydatabindingkotlin.databinding.FragmentListBinding
 import com.enpassion.twowaydatabindingkotlin.viewmodel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 
 const val CHOSEN_TOY = "chosenToy"
 
-class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
+class ToyListFragment : androidx.fragment.app.Fragment(), ToyAdapter.ToyClickListener {
 
     private val mViewModel: MainViewModel by lazy {
         ViewModelProviders.of(requireActivity()).get(MainViewModel::class.java)
@@ -43,12 +40,12 @@ class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
 
         //Set adapter, divider and default animator to the recycler view
         mAdapter = ToyAdapter(this)
-        val dividerItemDecoration = DividerItemDecoration(
-            requireActivity(), LinearLayoutManager.VERTICAL
+        val dividerItemDecoration = androidx.recyclerview.widget.DividerItemDecoration(
+            requireActivity(), androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
         )
         with(binding.recycler) {
             addItemDecoration(dividerItemDecoration)
-            itemAnimator = DefaultItemAnimator()
+            itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
             adapter = mAdapter
         }
 
@@ -93,6 +90,7 @@ class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
                 val position = viewHolder.adapterPosition
 
                 //First take a backup of the toy to erase
+                //If user is swiping a item, we can assume that list is not null
                 val toyToErase = mToyList!![position]
 
                 //Then delete the toy

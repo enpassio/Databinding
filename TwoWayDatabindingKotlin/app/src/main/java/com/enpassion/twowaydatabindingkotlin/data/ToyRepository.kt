@@ -1,6 +1,6 @@
 package com.enpassion.twowaydatabindingkotlin.data
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.enpassion.twowaydatabindingkotlin.utils.AppExecutors
 
 
