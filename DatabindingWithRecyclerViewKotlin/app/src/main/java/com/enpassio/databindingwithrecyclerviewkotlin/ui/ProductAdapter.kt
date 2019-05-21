@@ -1,9 +1,8 @@
 package com.enpassio.databindingwithrecyclerviewkotlin.ui
 
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.enpassio.databindingwithrecyclerviewkotlin.R
 import com.enpassio.databindingwithrecyclerviewkotlin.databinding.ItemProductBinding
 import com.enpassio.databindingwithrecyclerviewkotlin.model.Product
@@ -15,7 +14,7 @@ import com.enpassio.databindingwithrecyclerviewkotlin.model.Product
 class ProductAdapter internal constructor(
     private val mProductList: List<Product>,
     private val mListener: ProductItemClickListener
-) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+) : androidx.recyclerview.widget.RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -40,7 +39,7 @@ class ProductAdapter internal constructor(
         return mProductList.size
     }
 
-    inner class ProductViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ProductViewHolder(val binding: ItemProductBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
 
     interface ProductItemClickListener {
         fun onProductItemClicked(product: Product)
