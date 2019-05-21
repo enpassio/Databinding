@@ -3,6 +3,7 @@ package com.enpassion.twowaydatabindingkotlin.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.transaction
 import com.enpassion.twowaydatabindingkotlin.R
 import com.enpassion.twowaydatabindingkotlin.databinding.ActivityMainBinding
 
@@ -15,9 +16,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.main_container, ToyListFragment())
-                .commit()
+            supportFragmentManager.transaction {
+                add(R.id.main_container, ToyListFragment())
+            }
         }
     }
 

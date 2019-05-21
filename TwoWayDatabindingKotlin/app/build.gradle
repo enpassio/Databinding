@@ -58,4 +58,9 @@ dependencies {
     //Gson converter
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    //Kotlin extensions
+    implementation 'androidx.fragment:fragment-ktx:1.0.0'
+    implementation "org.jetbrains.anko:anko-commons:$ankoVersion"
+    implementation "org.jetbrains.anko:anko-design:$ankoVersion"
+
 }

@@ -18,30 +18,33 @@ class ToyAdapter(private val mListener: ToyClickListener) :
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToyViewHolder {
-        val binding = DataBindingUtil
-            .inflate<ItemToyBinding>(
-                LayoutInflater.from(parent.context), R.layout.item_toy,
-                parent, false
-            )
-        //Pass an item click listener to each item layout.
-        binding.toyItemClick = mListener
-        return ToyViewHolder(binding)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToyViewHolder = ToyViewHolder.from(parent)
 
-    override fun onBindViewHolder(holder: ToyViewHolder, position: Int) {
-        //For each item, corresponding product object is passed to the binding
-        holder.binding.toy = toyList?.get(position)
-        //This is to force bindings to execute right away
-        holder.binding.executePendingBindings()
-    }
+    override fun onBindViewHolder(holder: ToyViewHolder, position: Int) = holder.bind(toyList?.get(position), mListener)
 
     override fun getItemCount(): Int {
         //If list is null, return 0, otherwise return the size of the list
         return toyList?.size ?: 0
     }
 
-    inner class ToyViewHolder(val binding: ItemToyBinding) : RecyclerView.ViewHolder(binding.root)
+    class ToyViewHolder(private val binding: ItemToyBinding) : RecyclerView.ViewHolder(binding.root){
+
+        fun bind(currentToy: ToyEntry?, clickListener : ToyClickListener){
+            binding.toy = currentToy
+            binding.toyItemClick = clickListener
+            binding.executePendingBindings()
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ToyViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = DataBindingUtil
+                    .inflate<ItemToyBinding>(layoutInflater, R.layout.item_toy,
+                        parent, false)
+                return ToyViewHolder(binding)
+            }
+        }
+    }
 
     interface ToyClickListener {
         fun onToyClicked(chosenToy: ToyEntry)

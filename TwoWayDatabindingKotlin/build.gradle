@@ -7,6 +7,7 @@ buildscript {
     ext.roomVersion = "2.0.0"
     ext.lifecycleVersion = "2.0.0"
     ext.materialVersion = "1.0.0"
+    ext.ankoVersion = "0.10.8"
 
     repositories {
         google()

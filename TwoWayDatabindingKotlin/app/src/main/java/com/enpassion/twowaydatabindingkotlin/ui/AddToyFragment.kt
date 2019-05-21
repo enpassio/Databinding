@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -16,6 +15,7 @@ import com.enpassion.twowaydatabindingkotlin.databinding.AddToyBinding
 import com.enpassion.twowaydatabindingkotlin.utils.provideRepository
 import com.enpassion.twowaydatabindingkotlin.viewmodel.AddToyViewModel
 import com.enpassion.twowaydatabindingkotlin.viewmodel.AddToyViewModelFactory
+import org.jetbrains.anko.toast
 
 class AddToyFragment : androidx.fragment.app.Fragment() {
 
@@ -56,7 +56,7 @@ class AddToyFragment : androidx.fragment.app.Fragment() {
     private fun saveToy() {
         // Check if toy name is not empty
         if(mViewModel.toyBeingModified.toyName.isNullOrBlank()){
-            Toast.makeText(requireContext(), R.string.toy_empty_warning, Toast.LENGTH_SHORT).show()
+            context?.toast(R.string.toy_empty_warning)
             return
         }
         mViewModel.saveToy()
@@ -80,10 +80,6 @@ class AddToyFragment : androidx.fragment.app.Fragment() {
         } else {
             fragmentManager?.popBackStack()
         }
-    }
-
-    companion object {
-        const val TAG = "AddToyFragment"
     }
 
     private fun openAlertDialog(){

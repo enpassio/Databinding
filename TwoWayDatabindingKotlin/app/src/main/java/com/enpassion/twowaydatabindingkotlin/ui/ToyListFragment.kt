@@ -8,17 +8,16 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.transaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.enpassion.twowaydatabindingkotlin.R
 import com.enpassion.twowaydatabindingkotlin.data.ToyEntry
 import com.enpassion.twowaydatabindingkotlin.data.UIState
 import com.enpassion.twowaydatabindingkotlin.databinding.FragmentListBinding
 import com.enpassion.twowaydatabindingkotlin.viewmodel.MainViewModel
-import com.google.android.material.snackbar.Snackbar
+import org.jetbrains.anko.design.longSnackbar
 
 const val CHOSEN_TOY = "chosenToy"
 
@@ -40,12 +39,12 @@ class ToyListFragment : androidx.fragment.app.Fragment(), ToyAdapter.ToyClickLis
 
         //Set adapter, divider and default animator to the recycler view
         mAdapter = ToyAdapter(this)
-        val dividerItemDecoration = androidx.recyclerview.widget.DividerItemDecoration(
-            requireActivity(), androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
+        val dividerItemDecoration = DividerItemDecoration(
+            requireActivity(), LinearLayoutManager.VERTICAL
         )
         with(binding.recycler) {
             addItemDecoration(dividerItemDecoration)
-            itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
+            itemAnimator = DefaultItemAnimator()
             adapter = mAdapter
         }
 
@@ -66,9 +65,9 @@ class ToyListFragment : androidx.fragment.app.Fragment(), ToyAdapter.ToyClickLis
         //Claim list of toys from view model
         mViewModel.toyList?.observe(this, Observer { toyEntries ->
             if (toyEntries.isNullOrEmpty()) {
-                mViewModel.uiState.set(UIState.EMPTY);
+                mViewModel.uiState.set(UIState.EMPTY)
             } else {
-                mViewModel.uiState.set(UIState.HAS_DATA);
+                mViewModel.uiState.set(UIState.HAS_DATA)
                 mAdapter.toyList = toyEntries
                 mToyList = toyEntries
                 binding.invalidateAll()
@@ -76,7 +75,7 @@ class ToyListFragment : androidx.fragment.app.Fragment(), ToyAdapter.ToyClickLis
         })
 
         //Attach an ItemTouchHelper for swipe-to-delete functionality
-        val coordinator: CoordinatorLayout = activity!!.findViewById(R.id.main_coordinator)
+        val coordinator: CoordinatorLayout? = activity?.findViewById(R.id.main_coordinator)
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -97,12 +96,9 @@ class ToyListFragment : androidx.fragment.app.Fragment(), ToyAdapter.ToyClickLis
                 mViewModel.deleteToy(toyToErase)
 
                 //Show a snack bar for undoing delete
-                val snackbar = Snackbar
-                    .make(coordinator, R.string.toy_is_deleted, Snackbar.LENGTH_LONG)
-                    //If user clicks undo, reinsert backed-up toy
-                    .setAction(R.string.undo) { mViewModel.insertToy(toyToErase) }
-                snackbar.show()
-
+                coordinator?.longSnackbar(R.string.toy_is_deleted, R.string.undo){
+                    mViewModel.insertToy(toyToErase)
+                }
             }
         }).attachToRecyclerView(binding.recycler)
     }
@@ -119,11 +115,9 @@ class ToyListFragment : androidx.fragment.app.Fragment(), ToyAdapter.ToyClickLis
     }
 
     private fun openAddToyFrag(frag: AddToyFragment) {
-        fragmentManager?.run {
-            beginTransaction()
-                .replace(R.id.main_container, frag)
-                .addToBackStack(null)
-                .commit()
+        fragmentManager?.transaction {
+            replace(R.id.main_container, frag)
+            addToBackStack(null)
         }
     }
 }
