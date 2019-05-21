@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.transaction
 import com.enpassio.databindingwithrecyclerviewkotlin.R
 import com.enpassio.databindingwithrecyclerviewkotlin.databinding.FragmentListBinding
 import com.enpassio.databindingwithrecyclerviewkotlin.model.Product
@@ -39,11 +40,9 @@ class ProductListFragment : androidx.fragment.app.Fragment(), ProductAdapter.Pro
         val args = Bundle()
         args.putParcelable(PRODUCT_KEY, product)
         frag.arguments = args
-        fragmentManager?.run {
-            beginTransaction()
-                .replace(R.id.fragment_holder, frag)
-                .addToBackStack(null)
-                .commit()
+        fragmentManager?.transaction {
+            replace(R.id.fragment_holder, frag)
+            addToBackStack(null)
         }
     }
 

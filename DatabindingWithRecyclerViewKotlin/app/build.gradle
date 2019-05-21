@@ -43,4 +43,6 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     kapt "androidx.databinding:databinding-common:$gradle_version"
+
+    implementation 'androidx.fragment:fragment-ktx:1.0.0'
 }

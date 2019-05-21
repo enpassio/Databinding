@@ -3,6 +3,7 @@ package com.enpassio.databindingwithrecyclerviewkotlin.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.enpassio.databindingwithrecyclerviewkotlin.R
 import com.enpassio.databindingwithrecyclerviewkotlin.databinding.ItemProductBinding
 import com.enpassio.databindingwithrecyclerviewkotlin.model.Product
@@ -14,32 +15,32 @@ import com.enpassio.databindingwithrecyclerviewkotlin.model.Product
 class ProductAdapter internal constructor(
     private val mProductList: List<Product>,
     private val mListener: ProductItemClickListener
-) : androidx.recyclerview.widget.RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder = ProductViewHolder.from(parent)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val binding: ItemProductBinding = DataBindingUtil
-            .inflate(
-                LayoutInflater.from(parent.context), R.layout.item_product,
-                parent, false
-            )
-        //Pass an item click listener to each item layout.
-        binding.productItemClick = mListener
-        return ProductViewHolder(binding)
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) = holder.bind(mProductList[position], mListener)
+
+    override fun getItemCount(): Int = mProductList.size
+
+    class ProductViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root){
+
+        fun bind(currentProduct: Product, listener : ProductItemClickListener){
+            binding.product = currentProduct
+            binding.productItemClick = listener
+            binding.executePendingBindings()
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ProductViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding: ItemProductBinding = DataBindingUtil
+                    .inflate(layoutInflater, R.layout.item_product,
+                        parent, false)
+                return ProductViewHolder(binding)
+            }
+        }
     }
-
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        //For each item, corresponding product object is passed to the binding
-        holder.binding.product = mProductList[position]
-        //This is to force bindings to execute right away
-        holder.binding.executePendingBindings()
-    }
-
-    override fun getItemCount(): Int {
-        return mProductList.size
-    }
-
-    inner class ProductViewHolder(val binding: ItemProductBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
 
     interface ProductItemClickListener {
         fun onProductItemClicked(product: Product)
