@@ -1,6 +1,6 @@
 package com.enpassio.twowaydatabinding.utils;
 
-import android.databinding.InverseMethod;
+import androidx.databinding.InverseMethod;
 
 import com.enpassio.twowaydatabinding.R;
 import com.enpassio.twowaydatabinding.data.model.Gender;

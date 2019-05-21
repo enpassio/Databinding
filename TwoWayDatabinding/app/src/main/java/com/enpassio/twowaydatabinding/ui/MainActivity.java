@@ -1,9 +1,10 @@
 package com.enpassio.twowaydatabinding.ui;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 
 import com.enpassio.twowaydatabinding.R;
 import com.enpassio.twowaydatabinding.databinding.ActivityMainBinding;

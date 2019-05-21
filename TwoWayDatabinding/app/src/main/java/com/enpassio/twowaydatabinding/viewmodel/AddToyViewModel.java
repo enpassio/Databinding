@@ -1,6 +1,6 @@
 package com.enpassio.twowaydatabinding.viewmodel;
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 
 import com.enpassio.twowaydatabinding.data.ToyRepository;
 import com.enpassio.twowaydatabinding.data.model.Gender;

@@ -1,8 +1,9 @@
 package com.enpassio.twowaydatabinding.utils;
 
-import android.databinding.BindingAdapter;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
 
 import com.enpassio.twowaydatabinding.R;
 import com.enpassio.twowaydatabinding.data.model.Gender;
