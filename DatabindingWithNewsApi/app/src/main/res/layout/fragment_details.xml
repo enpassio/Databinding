@@ -86,8 +86,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:text="@{viewModel.chosenArticle.title}"
+                    android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"
                     tools:text="A 37-year-old woman has been arrested on suspicion of murder following the deaths of two children." />
 
                 <!-- We call the author field of the article object
@@ -96,13 +96,12 @@
                     android:id="@+id/article_author"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_size_medium"
                     android:layout_marginTop="@dimen/margin_size_medium"
+                    android:layout_marginEnd="8dp"
                     android:text="@{BindingUtils.formatAuthor(viewModel.chosenArticle.author)}"
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="italic"
-                    android:textColor="@color/colorPrimaryDark"
-                    app:layout_constraintEnd_toStartOf="@+id/article_publishing_date"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_title"
                     tools:text="Author name" />
@@ -117,7 +116,6 @@
                     android:layout_marginEnd="@dimen/margin_size_small"
                     android:text="@{BindingUtils.splitDateAndTime(viewModel.chosenArticle.publishingDate)[0]}"
                     android:textSize="@dimen/text_size_small"
-                    android:textColor="@color/colorPrimaryDark"
                     app:layout_constraintEnd_toStartOf="@+id/article_publishing_time"
                     app:layout_constraintTop_toBottomOf="@+id/article_source"
                     tools:text="Dec 27, 2018" />
@@ -129,7 +127,6 @@
                     android:gravity="end"
                     android:text="@{BindingUtils.splitDateAndTime(viewModel.chosenArticle.publishingDate)[1]}"
                     android:textSize="@dimen/text_size_small"
-                    android:textColor="@color/colorPrimaryDark"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/article_publishing_date"
                     tools:text="08:30" />
@@ -143,7 +140,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_size_small"
                     android:text="@{viewModel.chosenArticle.source}"
-                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size_medium"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/article_author"
@@ -158,8 +154,8 @@
                     android:layout_marginTop="@dimen/margin_size_medium"
                     android:text="@{viewModel.chosenArticle.description}"
                     android:textSize="@dimen/text_size_medium"
-                    android:fontFamily="sans-serif-black"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/article_publishing_time"
@@ -172,7 +168,6 @@
                     android:layout_marginTop="@dimen/margin_size_medium"
                     android:text="@{BindingUtils.hideCharCount(viewModel.chosenArticle.content)}"
                     android:textSize="@dimen/text_size_medium"
-                    android:textColor="@color/colorPrimaryDark"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/article_description"

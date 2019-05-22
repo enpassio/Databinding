@@ -34,7 +34,7 @@ public class ArticleDetailsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_details, container, false);
+                inflater, R.layout. fragment_details, container, false);
 
         //These are for making up button work.
         ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
@@ -65,7 +65,7 @@ public class ArticleDetailsFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public void openWebSite() {
+    private void openWebSite() {
         String articleUrl = viewModel.getChosenArticle().getArticleUrl();
         Uri webUri = null;
         if (!TextUtils.isEmpty(articleUrl)) {
