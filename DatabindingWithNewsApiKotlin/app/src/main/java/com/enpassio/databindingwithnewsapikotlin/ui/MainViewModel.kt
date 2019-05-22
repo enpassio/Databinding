@@ -63,9 +63,4 @@ class MainViewModel(application: Application) :
             }
         }
     }
-
-    companion object {
-        private const val TAG = "MainViewModel"
-    }
-
 }
