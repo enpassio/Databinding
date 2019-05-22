@@ -3,6 +3,7 @@ package com.enpassio.databindingwithnewsapikotlin.utils
 
 import android.view.View
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import com.enpassio.databindingwithnewsapikotlin.R
 
 

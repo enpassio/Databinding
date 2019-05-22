@@ -1,20 +1,23 @@
 package com.enpassio.databindingwithnewsapikotlin.ui
 
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.enpassio.databindingwithnewsapikotlin.R
+import com.enpassio.databindingwithnewsapikotlin.databinding.NewsListBinding
 import com.enpassio.databindingwithnewsapikotlin.model.Article
 import com.enpassio.databindingwithnewsapikotlin.model.UIState
+import com.google.android.material.snackbar.Snackbar
 
 
-class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
+class ArticleListFragment : androidx.fragment.app.Fragment(), NewsAdapter.ArticleClickListener{
 
     private val mViewModel: MainViewModel by lazy {
         ViewModelProviders.of(requireActivity()).get(MainViewModel::class.java)
@@ -33,11 +36,14 @@ class ArticleListFragment : Fragment(), NewsAdapter.ArticleClickListener{
 
         //Set adapter, divider and default animator to the recycler view
         mAdapter = NewsAdapter(this)
-        val dividerItemDecoration = DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL)
+        val dividerItemDecoration = androidx.recyclerview.widget.DividerItemDecoration(
+            requireActivity(),
+            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
+        )
 
         with(binding.included.newsRecyclerView){
             addItemDecoration(dividerItemDecoration)
-            itemAnimator = DefaultItemAnimator()
+            itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
             adapter = mAdapter
         }
 

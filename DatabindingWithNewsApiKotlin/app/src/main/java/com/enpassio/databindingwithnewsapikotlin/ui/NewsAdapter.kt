@@ -2,12 +2,14 @@ package com.enpassio.databindingwithnewsapikotlin.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.enpassio.databindingwithnewsapikotlin.R
+import com.enpassio.databindingwithnewsapikotlin.databinding.ItemBinding
 import com.enpassio.databindingwithnewsapikotlin.model.Article
 
 
 class NewsAdapter (private val mListener: ArticleClickListener) :
-    RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     var articleList: List<Article>? = null
         set(value) {
@@ -36,7 +38,7 @@ class NewsAdapter (private val mListener: ArticleClickListener) :
         return articleList?.size ?: 0
     }
 
-    inner class NewsViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class NewsViewHolder(val binding: ItemBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
 
     interface ArticleClickListener {
         fun onArticleClicked(chosenArticle: Article)

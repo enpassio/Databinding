@@ -3,17 +3,19 @@ package com.enpassio.databindingwithnewsapikotlin.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.enpassio.databindingwithnewsapikotlin.R
+import com.enpassio.databindingwithnewsapikotlin.databinding.FragmentDetailsBinding
 
 
-class ArticleDetailsFragment : Fragment() {
+class ArticleDetailsFragment : androidx.fragment.app.Fragment() {
 
     private val viewModel: MainViewModel by lazy {
         ViewModelProviders.of(requireActivity()).get(MainViewModel::class.java)

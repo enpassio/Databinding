@@ -23,7 +23,7 @@
     <!-- We will be attaching the articleItemClick to the parent layout
      so that it will work wherever we click on the list item
      android:onClick="@{() ->  articleItemClick.onArticleItemClicked(article)}"-->
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() ->  articleItemClick.onArticleClicked(article)}">
@@ -128,5 +128,5 @@
                 app:layout_constraintTop_toBottomOf="@+id/article_author"
                 tools:text="Kentonline.co.uk" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
