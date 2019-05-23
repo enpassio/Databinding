@@ -1,4 +1,4 @@
-package com.enpassio.databindingwithnewsapi.ui;
+ package com.enpassio.databindingwithnewsapi.ui;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -34,17 +34,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         ItemBinding binding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()), R.layout.item_news_article,
                         parent, false);
-        //Pass an item click listener to each item layout.
-        binding.setArticleItemClick(mListener);
+
         return new NewsViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-        //For each item, corresponding product object is passed to the binding
-        holder.binding.setArticle(mArticleList.get(position));
-        //This is to force bindings to execute right away
-        holder.binding.executePendingBindings();
+        holder.bind(mArticleList.get(position), mListener);
     }
 
     @Override
@@ -60,6 +56,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         NewsViewHolder(ItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+        }
+
+        void bind(Article currentArticle, ArticleClickListener clickListener){
+            //For each item, corresponding product object is passed to the binding
+            binding.setArticle(currentArticle);
+            //Pass an item click listener to each item layout.
+            binding.setArticleItemClick(clickListener);
+            //This is to force bindings to execute right away
+            binding.executePendingBindings();
         }
     }
 
