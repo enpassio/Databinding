@@ -1,9 +1,9 @@
 package com.enpassio.databindingwithnewsapikotlin.ui
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.enpassio.databindingwithnewsapikotlin.data.NewsRepository
 import com.enpassio.databindingwithnewsapikotlin.model.Article
 import com.enpassio.databindingwithnewsapikotlin.model.UIState
@@ -15,7 +15,7 @@ class MainViewModel(application: Application) :
     /*UI state keeps track of the data loading state: LOADING, NETWORK_ERROR or SUCCESS
     This information is kept in a livedata inside view model, so that
     changes are automatically reflected in UI. */
-    private val _uiState : MutableLiveData<UIState>  = MutableLiveData()
+    private val _uiState : MutableLiveData<UIState> = MutableLiveData()
     val uiState : LiveData<UIState>
         get() = _uiState
 
@@ -63,9 +63,4 @@ class MainViewModel(application: Application) :
             }
         }
     }
-
-    companion object {
-        private const val TAG = "MainViewModel"
-    }
-
 }

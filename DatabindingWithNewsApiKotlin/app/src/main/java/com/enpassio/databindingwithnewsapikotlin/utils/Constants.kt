@@ -1,7 +1,6 @@
 package com.enpassio.databindingwithnewsapikotlin.utils
 
 import com.enpassio.databindingwithnewsapikotlin.BuildConfig
-import com.enpassio.databindingwithnewsapikotlin.BuildConfig.NEWS_API_DOT_ORG_KEY
 
 
 // Constants and keys related to News Api

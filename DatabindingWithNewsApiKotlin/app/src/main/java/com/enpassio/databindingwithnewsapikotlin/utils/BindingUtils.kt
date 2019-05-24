@@ -1,23 +1,23 @@
 @file:JvmName("BindingUtils")
 package com.enpassio.databindingwithnewsapikotlin.utils
 
-import android.databinding.BindingAdapter
 import android.view.View
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import com.enpassio.databindingwithnewsapikotlin.R
 
 
 @BindingAdapter("imageSrc")
-fun loadImage(view: ImageView, url: String) {
-    GlideApp.with(view.context)
+fun ImageView.loadImage(url: String) {
+    GlideApp.with(context)
         .load(url)
         .error(R.drawable.image_not_found)
-        .into(view)
+        .into(this)
 }
 
 @BindingAdapter("visible")
-fun setVisible(view: View, visible: Boolean){
-    view.visibility = if(visible) View.VISIBLE else View.GONE
+fun View.setVisible(visible: Boolean){
+    visibility = if(visible) View.VISIBLE else View.GONE
 }
 
 fun splitDateAndTime(dateAndTime: String?): List<String>? {
