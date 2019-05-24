@@ -1,13 +1,12 @@
 package com.enpassio.databindingwithrecyclerviewkotlin.ui
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.enpassio.databindingwithrecyclerviewkotlin.R
 import com.enpassio.databindingwithrecyclerviewkotlin.databinding.FragmentDetailsBinding
 import com.enpassio.databindingwithrecyclerviewkotlin.model.Product
@@ -18,7 +17,7 @@ import com.enpassio.databindingwithrecyclerviewkotlin.model.Product
  */
 
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentDetailsBinding>(
