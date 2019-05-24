@@ -1,27 +1,20 @@
 package com.enpassion.twowaydatabindingkotlin.viewmodel
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
-import com.enpassion.twowaydatabindingkotlin.ToyRepository
+import androidx.lifecycle.ViewModel
 import com.enpassion.twowaydatabindingkotlin.data.ToyEntry
+import com.enpassion.twowaydatabindingkotlin.data.ToyRepository
 
 
-class AddToyViewModel(private val mRepo: ToyRepository, toyId: Int) : ViewModel() {
-    var chosenToy: LiveData<ToyEntry>? = null
-        private set
-    var toyBeingModified: ToyEntry? = null
-        set(value) {
-            /*Instead of passing the chosen toy directly to toyBeingModified,
-            we pass a copy of it. This is needed because we compare
-            toyBeingModified with chosenToy to check for unsaved changes is edit case*/
-            field = value?.copy()
-        }
+class AddToyViewModel(private val mRepo: ToyRepository, private val chosenToy: ToyEntry?) : ViewModel() {
+
+    val toyBeingModified: ToyEntry
+
     private var mIsEdit: Boolean = false
 
     init {
-        if (toyId >= 0) {
+        if (chosenToy != null) {
             //This is edit case
-            chosenToy = mRepo.getChosenToy(toyId)
+            toyBeingModified = chosenToy.copy()
             mIsEdit = true
         } else {
             /*This is for adding a new toy. We initialize a ToyEntry with default or null values
@@ -42,9 +35,9 @@ class AddToyViewModel(private val mRepo: ToyRepository, toyId: Int) : ViewModel(
 
     fun saveToy() {
         if (!mIsEdit) {
-            toyBeingModified?.let { insertToy(it) }
+            insertToy(toyBeingModified)
         } else {
-            toyBeingModified?.let { updateToy(it) }
+            updateToy(toyBeingModified)
         }
     }
 
@@ -59,7 +52,7 @@ class AddToyViewModel(private val mRepo: ToyRepository, toyId: Int) : ViewModel(
 
 
    var isChanged : Boolean = false
-        get() = if(mIsEdit) toyBeingModified != chosenToy?.value
+        get() = if(mIsEdit) toyBeingModified != chosenToy
                     else toyBeingModified != emptyToy
         private set
 
