@@ -1,12 +1,11 @@
 package com.enpassio.databindingwithrecyclerviewkotlin.ui
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DefaultItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.transaction
 import com.enpassio.databindingwithrecyclerviewkotlin.R
 import com.enpassio.databindingwithrecyclerviewkotlin.databinding.FragmentListBinding
 import com.enpassio.databindingwithrecyclerviewkotlin.model.Product
@@ -18,7 +17,7 @@ import com.enpassio.databindingwithrecyclerviewkotlin.utils.ProductDataSource
 
 const val PRODUCT_KEY = "productKey"
 
-class ProductListFragment : Fragment(), ProductAdapter.ProductItemClickListener {
+class ProductListFragment : androidx.fragment.app.Fragment(), ProductAdapter.ProductItemClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentListBinding>(
@@ -28,7 +27,7 @@ class ProductListFragment : Fragment(), ProductAdapter.ProductItemClickListener 
         val mAdapter = ProductAdapter(ProductDataSource.productData, this)
 
         with(binding.productsRecyclerView){
-            itemAnimator = DefaultItemAnimator()
+            itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
             adapter = mAdapter
         }
 
@@ -41,11 +40,9 @@ class ProductListFragment : Fragment(), ProductAdapter.ProductItemClickListener 
         val args = Bundle()
         args.putParcelable(PRODUCT_KEY, product)
         frag.arguments = args
-        fragmentManager?.run {
-            beginTransaction()
-                .replace(R.id.fragment_holder, frag)
-                .addToBackStack(null)
-                .commit()
+        fragmentManager?.transaction {
+            replace(R.id.fragment_holder, frag)
+            addToBackStack(null)
         }
     }
 
