@@ -1,7 +1,8 @@
 package com.enpassio.databindingwithrecyclerviewkotlin.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.transaction
 import com.enpassio.databindingwithrecyclerviewkotlin.R
 
 /**
@@ -19,9 +20,9 @@ class MainActivity : AppCompatActivity() {
         contains only a frame layout and nothing else, so we can skip this one. */
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_holder, ProductListFragment())
-                    .commit()
+            supportFragmentManager.transaction {
+                add(R.id.fragment_holder, ProductListFragment())
+            }
         }
     }
 }

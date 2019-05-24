@@ -1,7 +1,8 @@
 package com.enpassio.databindingwithnewsapikotlin.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.transaction
 import com.enpassio.databindingwithnewsapikotlin.R
 
 
@@ -12,9 +13,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_holder, ArticleListFragment())
-                .commit()
+            supportFragmentManager.transaction {
+                add(R.id.fragment_holder, ArticleListFragment())
+            }
         }
     }
 }

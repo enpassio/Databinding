@@ -15,6 +15,5 @@ The sample also makes use of some Android Architecture Components, like Viewmode
 
 #### Credits:
 Crying baby icon taken from: http://www.softicons.com/web-icons/baby-boy-icons-by-dapino/crying-baby-icon
-Recycle icon made by monkik from www.flaticon.com
 Gift icon made by Pixel Buddha from www.flaticon.com
-Rainbow icon made by Freepik from www.flaticon.com
+Money icon made by Those Icons from www.flaticon.com

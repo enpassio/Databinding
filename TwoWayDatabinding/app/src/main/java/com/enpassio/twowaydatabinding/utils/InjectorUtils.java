@@ -2,8 +2,8 @@ package com.enpassio.twowaydatabinding.utils;
 
 import android.content.Context;
 
-import com.enpassio.twowaydatabinding.ToyRepository;
 import com.enpassio.twowaydatabinding.data.ToyDatabase;
+import com.enpassio.twowaydatabinding.data.ToyRepository;
 
 public class InjectorUtils {
 

@@ -4,8 +4,8 @@
     <string name="electronic">Electronic</string>
     <string name="plastic">Plastic</string>
     <string name="plush">Plush</string>
-    <string name="new_toy">New</string>
-    <string name="second_hand">Used</string>
+    <string name="bought">Bought</string>
+    <string name="received">Received</string>
     <string name="categories">Categories:</string>
     <string name="name">Name:</string>
     <string name="suitable_for">Suitable for:</string>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#3B91CF</color>
     <color name="colorPrimaryDark">#3A84C6</color>
     <color name="colorAccent">#BE2026</color>
     <color name="background_white">#ffffff</color>
 
     <color name="ic_launcher_background">#FFFFFF</color>
+
+    <color name="design_snackbar_background_color" tools:override="true">@color/colorPrimary</color>
 </resources>

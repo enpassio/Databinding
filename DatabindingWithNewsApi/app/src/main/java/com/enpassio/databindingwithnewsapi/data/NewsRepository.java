@@ -1,9 +1,10 @@
 package com.enpassio.databindingwithnewsapi.data;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.enpassio.databindingwithnewsapi.model.Article;
 import com.enpassio.databindingwithnewsapi.utils.NetworkUtils;
@@ -49,7 +50,7 @@ public class NewsRepository {
 
         @Override
         protected void onPostExecute(List<Article> list) {
-            if(!list.isEmpty()){
+            if(list != null && !list.isEmpty()){
                 articles.setValue(list);
             }
         }
