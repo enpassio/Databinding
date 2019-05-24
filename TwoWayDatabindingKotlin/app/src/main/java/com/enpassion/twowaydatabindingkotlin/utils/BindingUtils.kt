@@ -1,7 +1,7 @@
 @file:JvmName("BindingUtils")
 package com.enpassion.twowaydatabindingkotlin.utils
 
-import android.databinding.InverseMethod
+import androidx.databinding.InverseMethod
 import com.enpassion.twowaydatabindingkotlin.R
 import com.enpassion.twowaydatabindingkotlin.data.Gender
 import com.enpassion.twowaydatabindingkotlin.data.ProcurementType

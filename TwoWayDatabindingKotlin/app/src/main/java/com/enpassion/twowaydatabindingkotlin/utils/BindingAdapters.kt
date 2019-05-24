@@ -1,8 +1,8 @@
 package com.enpassion.twowaydatabindingkotlin.utils
 
-import android.databinding.BindingAdapter
 import android.view.View
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import com.enpassion.twowaydatabindingkotlin.R
 import com.enpassion.twowaydatabindingkotlin.data.Gender
 import com.enpassion.twowaydatabindingkotlin.data.ProcurementType

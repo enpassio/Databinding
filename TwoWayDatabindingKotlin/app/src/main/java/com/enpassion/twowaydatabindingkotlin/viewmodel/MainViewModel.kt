@@ -1,9 +1,9 @@
 package com.enpassion.twowaydatabindingkotlin.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import com.enpassion.twowaydatabindingkotlin.data.ToyEntry
 import com.enpassion.twowaydatabindingkotlin.data.ToyRepository
 import com.enpassion.twowaydatabindingkotlin.data.UIState

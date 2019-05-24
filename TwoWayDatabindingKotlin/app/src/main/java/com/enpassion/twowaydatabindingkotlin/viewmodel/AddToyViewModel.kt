@@ -1,6 +1,6 @@
 package com.enpassion.twowaydatabindingkotlin.viewmodel
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.enpassion.twowaydatabindingkotlin.data.ToyEntry
 import com.enpassion.twowaydatabindingkotlin.data.ToyRepository
 

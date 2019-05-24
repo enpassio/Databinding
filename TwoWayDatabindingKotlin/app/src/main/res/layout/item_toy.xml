@@ -15,7 +15,7 @@
         <import type="com.enpassion.twowaydatabindingkotlin.utils.BindingUtils"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_small"
@@ -77,6 +77,6 @@
                 app:layout_constraintTop_toTopOf="@+id/item_gender_drawable"
                 app:stateDrawable="@{toy.procurementType}"
                 tools:srcCompat="@drawable/ic_gift" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

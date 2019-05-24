@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.databinding.ObservableField"/>
+        <import type="androidx.databinding.ObservableField"/>
         <import type="com.enpassion.twowaydatabindingkotlin.data.UIState"/>
         <variable
                 name="uiState"
                 type="ObservableField&lt;UIState>"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -24,13 +24,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:visible="@{uiState == UIState.LOADING}" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_standard"
             app:visible="@{uiState == UIState.HAS_DATA}"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:visible="@{uiState == UIState.EMPTY}"  />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,5 +61,5 @@
             app:srcCompat="@drawable/ic_baseline_add"
             app:useCompatPadding="true"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
