@@ -1,10 +1,11 @@
 package com.enpassio.twowaydatabinding.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
-import android.databinding.ObservableField;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.enpassio.twowaydatabinding.data.ToyRepository;
 import com.enpassio.twowaydatabinding.data.model.ToyEntry;

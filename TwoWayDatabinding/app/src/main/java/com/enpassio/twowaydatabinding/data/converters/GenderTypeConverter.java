@@ -1,6 +1,6 @@
 package com.enpassio.twowaydatabinding.data.converters;
 
-import android.arch.persistence.room.TypeConverter;
+import androidx.room.TypeConverter;
 
 import com.enpassio.twowaydatabinding.data.model.Gender;
 

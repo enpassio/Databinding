@@ -1,6 +1,6 @@
 package com.enpassio.twowaydatabinding.data;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 
 import com.enpassio.twowaydatabinding.data.model.ToyEntry;
 import com.enpassio.twowaydatabinding.utils.AppExecutors;
