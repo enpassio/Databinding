@@ -4,7 +4,7 @@
 
     <data>
         <import type="com.enpassio.databindingwithnewsapi.model.UIState" />
-        <import type="android.arch.lifecycle.LiveData"/>
+        <import type="androidx.lifecycle.LiveData"/>
         <variable
             name="uiState"
             type="LiveData&lt;UIState>" />
@@ -14,13 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/news_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
             app:visible="@{uiState == UIState.SUCCESS}"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <ImageView
             android:layout_width="@dimen/no_network_image_size"

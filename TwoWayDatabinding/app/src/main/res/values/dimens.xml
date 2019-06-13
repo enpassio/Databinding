@@ -4,9 +4,12 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_large">50dp</dimen>
     <dimen name="padding_standard">16dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
     <dimen name="progress_bar_size">60dp</dimen>
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="fab_pressed_elevation">12dp</dimen>
     <dimen name="card_elevation">4dp</dimen>
     <dimen name="card_corner_radius">5dp</dimen>
+    <dimen name="gender_image_height">60dp</dimen>
+    <dimen name="gender_image_width">80dp</dimen>
 </resources>

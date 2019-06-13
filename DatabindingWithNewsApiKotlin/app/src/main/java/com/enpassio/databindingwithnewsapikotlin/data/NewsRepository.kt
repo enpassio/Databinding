@@ -1,12 +1,11 @@
 package com.enpassio.databindingwithnewsapikotlin.data
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import android.os.AsyncTask
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.enpassio.databindingwithnewsapikotlin.model.Article
 import com.enpassio.databindingwithnewsapikotlin.utils.fetchArticles
-
 
 object NewsRepository{
 

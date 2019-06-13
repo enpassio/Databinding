@@ -1,29 +1,31 @@
 package com.enpassio.twowaydatabinding.ui;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.enpassio.twowaydatabinding.R;
-import com.enpassio.twowaydatabinding.data.ToyEntry;
+import com.enpassio.twowaydatabinding.data.model.ToyEntry;
+import com.enpassio.twowaydatabinding.data.model.UIState;
 import com.enpassio.twowaydatabinding.databinding.FragmentListBinding;
 import com.enpassio.twowaydatabinding.viewmodel.MainViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
     private static final String TAG = "ToyListFragment";
     private FragmentListBinding binding;
     private List<ToyEntry> mToyList;
-    public static final String TOY_ID = "toyId";
+    public static final String CHOSEN_TOY = "chosenToy";
 
     public ToyListFragment() {
         setRetainInstance(true);
@@ -71,18 +73,16 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
 
         //Get the view model instance and pass it to the binding implementation
         mViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
-        binding.setViewModel(mViewModel);
+        binding.setUiState(mViewModel.uiState);
 
         //Claim list of toys from view model
         mViewModel.getToyList().observe(this, toyEntries -> {
-            mViewModel.isLoading.set(false);
             if (toyEntries == null || toyEntries.isEmpty()) {
-                mViewModel.isEmpty.set(true);
+                mViewModel.uiState.set(UIState.EMPTY);
             } else {
-                mViewModel.isEmpty.set(false);
+                mViewModel.uiState.set(UIState.HAS_DATA);
                 mAdapter.setToyList(toyEntries);
                 mToyList = toyEntries;
-                binding.invalidateAll();
             }
         });
 
@@ -116,10 +116,10 @@ public class ToyListFragment extends Fragment implements ToyAdapter.ToyClickList
     }
 
     @Override
-    public void onToyClicked(int toyId) {
+    public void onToyClicked(ToyEntry chosenToy) {
         //Pass chosen toy id to the AddToyFragment
         Bundle args = new Bundle();
-        args.putInt(TOY_ID, toyId);
+        args.putParcelable(CHOSEN_TOY, chosenToy);
         AddToyFragment frag = new AddToyFragment();
         frag.setArguments(args);
 

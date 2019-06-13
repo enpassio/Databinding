@@ -1,30 +1,27 @@
 package com.enpassion.twowaydatabindingkotlin.ui
 
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.transaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.*
 import com.enpassion.twowaydatabindingkotlin.R
 import com.enpassion.twowaydatabindingkotlin.data.ToyEntry
+import com.enpassion.twowaydatabindingkotlin.data.UIState
 import com.enpassion.twowaydatabindingkotlin.databinding.FragmentListBinding
 import com.enpassion.twowaydatabindingkotlin.viewmodel.MainViewModel
+import org.jetbrains.anko.design.longSnackbar
 
-const val TOY_ID = "toyId"
+const val CHOSEN_TOY = "chosenToy"
 
-class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
+class ToyListFragment : androidx.fragment.app.Fragment(), ToyAdapter.ToyClickListener {
 
     private val mViewModel: MainViewModel by lazy {
         ViewModelProviders.of(requireActivity()).get(MainViewModel::class.java)
@@ -63,15 +60,14 @@ class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
         (requireActivity() as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
         //Get the view model instance and pass it to the binding implementation
-        binding.viewModel = mViewModel
+        binding.uiState = mViewModel.uiState
 
         //Claim list of toys from view model
         mViewModel.toyList?.observe(this, Observer { toyEntries ->
-            mViewModel.isLoading.set(false)
             if (toyEntries.isNullOrEmpty()) {
-                mViewModel.isEmpty.set(true)
+                mViewModel.uiState.set(UIState.EMPTY)
             } else {
-                mViewModel.isEmpty.set(false)
+                mViewModel.uiState.set(UIState.HAS_DATA)
                 mAdapter.toyList = toyEntries
                 mToyList = toyEntries
                 binding.invalidateAll()
@@ -79,7 +75,7 @@ class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
         })
 
         //Attach an ItemTouchHelper for swipe-to-delete functionality
-        val coordinator: CoordinatorLayout = activity!!.findViewById(R.id.main_coordinator)
+        val coordinator: CoordinatorLayout? = activity?.findViewById(R.id.main_coordinator)
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -93,26 +89,24 @@ class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
                 val position = viewHolder.adapterPosition
 
                 //First take a backup of the toy to erase
+                //If user is swiping a item, we can assume that list is not null
                 val toyToErase = mToyList!![position]
 
                 //Then delete the toy
                 mViewModel.deleteToy(toyToErase)
 
                 //Show a snack bar for undoing delete
-                val snackbar = Snackbar
-                    .make(coordinator, R.string.toy_is_deleted, Snackbar.LENGTH_LONG)
-                    //If user clicks undo, reinsert backed-up toy
-                    .setAction(R.string.undo) { mViewModel.insertToy(toyToErase) }
-                snackbar.show()
-
+                coordinator?.longSnackbar(R.string.toy_is_deleted, R.string.undo){
+                    mViewModel.insertToy(toyToErase)
+                }
             }
         }).attachToRecyclerView(binding.recycler)
     }
 
-    override fun onToyClicked(toyId: Int) {
+    override fun onToyClicked(chosenToy: ToyEntry) {
         //Pass chosen toy id to the AddToyFragment
         val args = Bundle()
-        args.putInt(TOY_ID, toyId)
+        args.putParcelable(CHOSEN_TOY, chosenToy)
         val frag = AddToyFragment()
         frag.arguments = args
 
@@ -121,9 +115,9 @@ class ToyListFragment : Fragment(), ToyAdapter.ToyClickListener {
     }
 
     private fun openAddToyFrag(frag: AddToyFragment) {
-        fragmentManager?.beginTransaction()
-            ?.replace(R.id.main_container, frag)
-            ?.addToBackStack(null)
-            ?.commit()
+        fragmentManager?.transaction {
+            replace(R.id.main_container, frag)
+            addToBackStack(null)
+        }
     }
 }

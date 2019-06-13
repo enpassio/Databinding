@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="androidx.databinding.ObservableField"/>
+        <import type="com.enpassion.twowaydatabindingkotlin.data.UIState"/>
         <variable
-            name="viewModel"
-            type="com.enpassion.twowaydatabindingkotlin.viewmodel.MainViewModel"/>
-
-        <import type="android.view.View" />
+                name="uiState"
+                type="ObservableField&lt;UIState>"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,15 +22,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE, default=visible}" />
+            app:visible="@{uiState == UIState.LOADING}" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_standard"
-            android:visibility="@{viewModel.shouldShowList ? View.VISIBLE : View.GONE, default=gone}"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:visible="@{uiState == UIState.HAS_DATA}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,9 +47,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="@{viewModel.isEmpty ? View.VISIBLE : View.GONE, default=gone }" />
+            app:visible="@{uiState == UIState.EMPTY}"  />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,5 +61,5 @@
             app:srcCompat="@drawable/ic_baseline_add"
             app:useCompatPadding="true"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

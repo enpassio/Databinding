@@ -11,7 +11,10 @@ used that method in our views.
 
 ## Screenshots
 
-![Product list](screenshots/screenshot0.png) ![Details](screenshots/screenshot1.png)
+<p float="left">
+  <img src="screenshots/screenshot0.png" width="400" />
+  <img src="screenshots/screenshot1.png" width="400" /> 
+</p>
 
 #### Credits:
 Icons in the DatabindingWithRecyclerview sample are made by Freepik from www.flaticon.com
