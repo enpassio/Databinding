@@ -70,7 +70,6 @@ class ToyListFragment : androidx.fragment.app.Fragment(), ToyAdapter.ToyClickLis
                 mViewModel.uiState.set(UIState.HAS_DATA)
                 mAdapter.toyList = toyEntries
                 mToyList = toyEntries
-                binding.invalidateAll()
             }
         })
 
@@ -89,7 +88,7 @@ class ToyListFragment : androidx.fragment.app.Fragment(), ToyAdapter.ToyClickLis
                 val position = viewHolder.adapterPosition
 
                 //First take a backup of the toy to erase
-                //If user is swiping a item, we can assume that list is not null
+                //If user is swiping an item, we can assume that list is not null
                 val toyToErase = mToyList!![position]
 
                 //Then delete the toy
