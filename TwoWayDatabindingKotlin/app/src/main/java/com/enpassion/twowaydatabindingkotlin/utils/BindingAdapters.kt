@@ -9,27 +9,27 @@ import com.enpassion.twowaydatabindingkotlin.data.ProcurementType
 
 
 @BindingAdapter("genderDrawable")
-fun getGenderDrawable(imageView: ImageView, gender: Gender) {
+fun ImageView.getGenderDrawable(gender: Gender) {
     val resourceId = when (gender) {
         Gender.UNISEX -> R.drawable.ic_rainbow
         Gender.GIRL -> R.drawable.ic_girl
         Gender.BOY -> R.drawable.ic_boy
     }
-    imageView.setImageResource(resourceId)
+    setImageResource(resourceId)
 }
 
 @BindingAdapter("stateDrawable")
-fun getStateDrawable(imageView: ImageView, procurementType: ProcurementType?) {
+fun ImageView.getStateDrawable(procurementType: ProcurementType?) {
     procurementType?.run {
         val resourceId = when (this) {
             ProcurementType.BOUGHT -> R.drawable.ic_money
             ProcurementType.RECEIVED -> R.drawable.ic_gift
         }
-        imageView.setImageResource(resourceId)
+        setImageResource(resourceId)
     }
 }
 
 @BindingAdapter("visible")
-fun setVisible(view: View, visible: Boolean) {
-    view.visibility = if(visible) View.VISIBLE else View.GONE
+fun View.setVisible(visible: Boolean) {
+    visibility = if(visible) View.VISIBLE else View.GONE
 }
